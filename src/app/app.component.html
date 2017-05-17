@@ -1,3 +1,55 @@
-<h1>
-  {{title}}
-</h1>
+<div class="ui top fixed hidden menu">
+  <div class="ui container">
+    <div class="item">
+      <h2 class="hero">BUILT TO SPILL</h2>
+      <!--<img src="assets/logo.jpeg">-->
+    </div>
+    <a routerLink="" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" class="item menu-link">Home</a>
+    <a routerLink="shows" routerLinkActive="active" class="item menu-link">Shows</a>
+    <a routerLink="music" routerLinkActive="active" class="item menu-link">Music</a>
+    <a routerLink="videos" routerLinkActive="active" class="item menu-link">Videos</a>
+    <a href="http://store.warnermusic.com/warner-bros-records/artists/built-to-spill.html" target="_blank" class="item menu-link">Store</a>
+    <div class="right menu">
+      <div class="item">
+          <a href="https://www.facebook.com/builttospill" target="_blank" class="ui circular facebook icon button">
+            <i class="facebook icon"></i>
+          </a>
+      </div>
+      <div class="item">
+        <a href="https://twitter.com/Built_2_Spill" target="_blank" class="ui circular twitter icon button">
+          <i class="twitter icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pusher">
+  <router-outlet></router-outlet>
+</div>
+<div class="ui grey inverted vertical footer segment">
+  <div class="ui container">
+    <div class="ui stackable inverted divided equal height stackable grid">
+      <div class="six wide column">
+        <div class="ui inverted link list">
+          <a routerLink="" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" class="item">Home</a>
+          <a routerLink="shows" routerLinkActive="active" class="item">Shows</a>
+          <a routerLink="music" routerLinkActive="active" class="item">Music</a>
+          <a routerLink="videos" routerLinkActive="active" class="item">Videos</a>
+          <a href="http://store.warnermusic.com/warner-bros-records/artists/built-to-spill.html" target="_blank" class="item">Store</a>
+        </div>
+      </div>
+      <div class="eight wide column">
+        <a href="https://www.facebook.com/builttospill" target="_blank" class="ui grey massive icon button"><i class="facebook icon"></i></a>
+        <a href="https://twitter.com/Built_2_Spill" target="_blank" class="ui grey massive icon button"><i class="twitter icon"></i></a>
+        <a href="https://www.youtube.com/user/builttospill" target="_blank" class="ui grey massive icon button"><i class="youtube icon"></i></a>
+
+        <div class="ui inverted fluid action input">
+          <input type="text" placeholder="Join Newsletter">
+          <div class="ui red button">Join</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer-spacer"></div>
+<app-player></app-player>

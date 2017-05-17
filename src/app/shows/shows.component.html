@@ -1,0 +1,31 @@
+<div class="shows-container ui container">
+  <h1>SHOWS</h1>
+  <div *ngIf="showsLoading" class="ui segment">
+    <div class="ui active dimmer">
+      <div class="ui text loader">Loading</div>
+    </div>
+    <p></p>
+  </div>
+  <table *ngIf="!showsLoading" class="ui stackable table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Venue</th>
+        <th>Location</th>
+        <th class="right aligned"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let show of shows">
+        <td>{{ show.datetime | date }}</td>
+        <td>{{ show.venue.name }}</td>
+        <td>{{ show.venue.city }}, {{ show.venue.region }}</td>
+        <td class="right aligned">
+          <a [href]="show.offers[0].url" blank="_blank" class="ui primary labeled icon button">
+            <i class="ticket icon"></i> Tickets 
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

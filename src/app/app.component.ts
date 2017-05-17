@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  constructor(private router: Router) {
+    this.scrollToTop();
+  }
+
+  /**
+   * This method ensures the app scrolls to the top when routing to new views.
+   * */
+  private scrollToTop(): void {
+    this.router.events
+      .subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        document.body.scrollTop = 0;
+      });
+  }
+
+
 }

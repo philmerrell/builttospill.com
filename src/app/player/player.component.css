@@ -1,0 +1,33 @@
+#player-container {
+  position: fixed;
+  right: 2px;
+  /*background: #000;*/
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+#minimized-mask {
+  cursor: pointer;
+  position: absolute;
+  color: #fff;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  padding-top: 25px;
+  padding-left: 35px;
+}
+
+#minimized-mask:hover {
+  opacity: 1;
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Mobile */
+
+
+/* Tablet */

@@ -1,0 +1,21 @@
+.pusher {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+
+.footer-spacer {
+  height: 74px;
+}
+
+.pusher > .footer {
+  flex: 1;
+}
+
+.menu-link {
+  /*font-family: 'Dosis', sans-serif;*/
+  /*letter-spacing: 0.2em;*/
+  text-transform: lowercase !important;
+
+}

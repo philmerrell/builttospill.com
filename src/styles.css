@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Anton|Dosis:300');
+
+.hero {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 0.2em;
+
+}
+
+body {
+  background: #f8f8f8 !important;
+  /*min-height: 700px;*/
+  background: url('assets/posters/builttospill.jpg') !important;
+  background-size: cover;
+  background-size: 100% auto
+}
