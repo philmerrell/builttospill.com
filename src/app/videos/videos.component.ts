@@ -27,9 +27,9 @@ export class VideosComponent implements OnInit {
       .subscribe(videos => this.videos = videos);
   }
 
-  playVideo(event, video) {
+  playVideo(event, video, videos) {
     event.preventDefault();
-    this.playerService.playThis(video);
+    this.playerService.playThis(video, videos);
   }
 
 }

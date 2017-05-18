@@ -4,7 +4,7 @@
 
     <div class="ui four doubling cards">
       <div *ngFor="let video of videos | videoType:'Music Video'" class="ui card link">
-        <a (click)="playVideo($event, video)" href="#" class="image">
+        <a (click)="playVideo($event, video, videos)" href="#" class="image">
           <img class="video-image" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         </a>
         <div class="content">
@@ -23,7 +23,7 @@
           <img class="video-image" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         </a>
         <div class="content">
-          <a (click)="playVideo($event, video)" href="#" class="header">          
+          <a (click)="playVideo($event, video, videos)" href="#" class="header">          
             <i class="youtube play icon"></i>
             {{ video.song }}
           </a>
