@@ -9,79 +9,16 @@
   <div class="ui middle aligned stackable grid container">
     <div class="row">
       <div class="seven wide centered column">
-        <img src="https://d1wtzzt4oxg683.cloudfront.net/images/covers/95/153095.jpg" class="ui large bordered image">
+        <img [src]="album.artworkUrl" class="ui large bordered image">
       </div>
       <div class="six wide left floated column">
-        <h3>UNTETHERED MOON</h3>
+        <h3>{{ album.title }}</h3>
         <div class="ui relaxed divided list">
-          <div class="item">
+          <div *ngFor="let track of album.tracks" class="item">
             <i class="large youtube play middle aligned icon"></i>
             <div class="content">
-              <a href="https://www.youtube.com/watch?v=tnq1OrbwHt4" target="_blank" class="header">All Our Songs</a>
-              <div class="description">6:15</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a href="https://www.youtube.com/watch?v=0hgRgO5y0f4" target="_blank" class="header">Living Zoo</a>
-              <div class="description">4:22</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">On The Way</a>
-              <div class="description">4:25</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">Some Other Song</a>
-              <div class="description">4:26</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">Never Be The Same</a>
-              <div class="description">3:15</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">C.R.E.B.</a>
-              <div class="description">4:21</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">Another Day</a>
-              <div class="description">3:10</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">Horizon To Cliff</a>
-              <div class="description">2:44</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">So</a>
-              <div class="description">4:28</div>
-            </div>
-          </div>
-          <div class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a class="header">When I'm Blind</a>
-              <div class="description">8:23</div>
+              <a (click)="playVideo($event, track, album.tracks)" href="#" class="header">{{ track.song }}</a>
+              <div class="description">{{ track.time }}</div>
             </div>
           </div>
         </div>
@@ -104,7 +41,7 @@
           <img class="video-image" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         </a>
         <div class="content">
-          <a (click)="playVideo($event, video)" href="#" class="header">          
+          <a (click)="playVideo($event, video, videos)" href="#" class="header">          
             <i class="youtube play icon"></i>
             {{ video.song }}
           </a>

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { VideoService } from './video.service';
 import { PlayerService } from '../player/player.service';
+import { routerAnimation } from '../router-animation';
 
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
-  styleUrls: ['./videos.component.css']
+  styleUrls: ['./videos.component.css'],
+  animations: [ routerAnimation() ],
+  host: {'[@routerAnimation]': ''}
 })
 export class VideosComponent implements OnInit {
 

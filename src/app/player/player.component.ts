@@ -34,6 +34,7 @@ declare const ramjet;
 })
 export class PlayerComponent implements OnInit {
   currentVideo: Video;
+  playerVisible = 'hide';
   playerSize = 'expanded';
   playerHeight = '200';
   playerWidth = '300';
@@ -62,9 +63,10 @@ export class PlayerComponent implements OnInit {
     this.playerService.getVideo()
       .subscribe(video => {
         console.log(video);
-        this.currentVideo = video;
-        // this.player.loadVideoById(video.id);
-        // this.player.cueVideoById(this.currentVideo.id);
+        if (video.id) {
+          this.playerVisible = 'show';
+          this.currentVideo = video;
+        }
       });
   }
 

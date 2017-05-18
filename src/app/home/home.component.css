@@ -1,6 +1,6 @@
-/*.home-hero {
-  min-height: 700px;
+.home-hero {
+  min-height: 400px;
   background: url('../../assets/posters/builttospill.jpg') !important;
-  background-size: 100% auto;
-  background-position-x: center;
-}*/
+  background-size: cover;
+  background-position-y: center;
+}

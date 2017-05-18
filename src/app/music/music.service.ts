@@ -1,52 +1,25 @@
-import { Injectable, NgZone } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class PlayerService {
-  playlist: Video[] = this.getUntetheredMoon();
-  currentVideo: BehaviorSubject<any> = new BehaviorSubject(this.playlist[0]);
+export class MusicService {
+  albums;
 
-  private player;
-
-  constructor(private zone: NgZone) {}
-
-  addToPlaylist(video: Video) {
-    this.playlist.push(video);
+  constructor() {
+    this.setAlbums();
   }
 
-  setPlayer(player) {
-    this.player = player;
+  getAlbums() {
+    return Observable.of(this.albums);
   }
 
-  setVideo(video: Video) {
-    this.currentVideo.next(video);
-  }
-
-  getVideo() {
-    return this.currentVideo.asObservable();
-  }
-
-  initNextVideo(video: Video) {
-    const index = this.playlist.indexOf(video);
-    console.log(this.playlist[index + 1]);
-    // TODO: check to see if there are any more items ...
-    this.setVideo(this.playlist[index + 1]);
-    this.zone.runOutsideAngular(() => {
-      this.player.loadVideoById(this.currentVideo.getValue().id);
-    });
-  }
-
-  playThis(video, playlist) {
-    this.playlist = playlist;
-    this.setVideo(video);
-    this.zone.runOutsideAngular(() => {
-      this.player.loadVideoById(video.id);
-    });
-  }
-
-  getUntetheredMoon() {
-    return [
+  setAlbums() {
+    this.albums = [
+      {
+        title: 'Untethered Moon',
+        artworkUrl: 'assets/albums/untethered-moon.jpg',
+        releaseDate: '2015-04-18',
+        tracks: [
           {
             id: 'tnq1OrbwHt4',
             song: 'All Our Songs',
@@ -107,13 +80,9 @@ export class PlayerService {
             album: 'Untethered Moon',
             time: '8:23'
           }
-        ];
+        ]
+      }
+    ];
   }
 
-}
-
-export class Video {
-  id: string;
-  song: string;
-  album: string;
 }

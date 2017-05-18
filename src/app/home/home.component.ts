@@ -2,13 +2,18 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ShowsService } from '../shows/shows.service';
 import { VideoService } from '../videos/video.service';
 import { PlayerService } from '../player/player.service';
+import { MusicService } from '../music/music.service';
+import { routerAnimation } from '../router-animation';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  animations: [ routerAnimation() ],
+  host: {'[@routerAnimation]': ''}
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  album: any;
   shows: any = [];
   showsLoading = true;
   videos: any = [];
@@ -17,11 +22,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private playerService: PlayerService,
     private showsService: ShowsService,
+    private musicService: MusicService,
     private videoService: VideoService) { }
 
   ngOnInit() {
     this.getShows();
     this.getVideos();
+    this.getAlbum();
   }
 
   ngAfterViewInit() {
@@ -36,6 +43,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
+  getAlbum() {
+    this.album = this.musicService.albums[0];
+  }
+
   getVideos() {
     this.videoService.getHomeVideos()
       .subscribe(videos => {
@@ -44,9 +55,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
-  playVideo(event, video) {
+  playVideo(event, video, videos) {
     event.preventDefault();
-    this.playerService.playThis(video);
+    this.playerService.playThis(video, videos);
   }
 
   // loadTwitterScript() {

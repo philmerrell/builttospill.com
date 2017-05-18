@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ShowsComponent } from './shows/shows.component';
 import { MusicComponent } from './music/music.component';
+import { MusicService } from './music/music.service';
 import { VideosComponent } from './videos/videos.component';
 import { VideoService } from './videos/video.service';
 import { ShowsService } from './shows/shows.service';
@@ -54,6 +55,7 @@ import { VideoTypePipe } from './videos/video-type.pipe';
     ])
   ],
   providers: [
+    MusicService,
     ShowsService,
     PlayerService,
     VideoService,
