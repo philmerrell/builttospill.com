@@ -1,0 +1,34 @@
+<div class="ui inverted very padded vertical stripe segment">
+  <div class="ui inverted container music-container">
+    <div class="ui stackable grid container">
+      <div class="row">
+        <div class="five wide center aligned column">
+          <img id="album-detail-image" [src]="album.image.url" class="ui fluid bordered image">
+          <p>&nbsp;</p>
+          <div class="ui vertical fluid buttons">
+            <button class="ui primary button"><i class="icon credit card"></i> Vinyl</button>
+            <button class="ui primary button"><i class="icon apple"></i> Music</button>
+            <button class="ui primary button"><i class="icon spotify"></i> Spotify</button>
+            <button class="ui primary button"><i class="icon google play"></i> Google</button>
+          </div>
+        </div>
+        <div class="ten wide column">
+          <div class="row">
+            <h1 style="margin-top: 0;" class="ui inverted huge header handwriting">{{ album.title }}
+              <div class="sub header">{{ album.releaseDate | date }}</div>
+            </h1>
+          </div>
+          <div class="ui inverted relaxed divided selection list">
+            <a *ngFor="let track of album.tracks" (click)="playVideo($event, track, album.tracks)" href="#" class="item">
+              <i class="large youtube play middle aligned icon"></i>
+              <div class="content">
+                <div class="header handwriting">{{ track.song }}</div>
+                <div class="description">{{ track.time }}</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

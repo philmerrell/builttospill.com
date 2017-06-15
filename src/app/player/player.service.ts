@@ -11,10 +11,6 @@ export class PlayerService {
 
   constructor(private zone: NgZone) {}
 
-  addToPlaylist(video: Video) {
-    this.playlist.push(video);
-  }
-
   setPlayer(player) {
     this.player = player;
   }

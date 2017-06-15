@@ -97,6 +97,18 @@ export class VideoService {
         song: 'Stage On Sixth (Austin, TX)',
         album: 'Paste Magazine',
         type: 'Live'
+      },
+      {
+        id: 'NGQXhJu5VUU',
+        song: 'Jokerman',
+        album: 'A Tribute To Bob Dylan In The 80s: Volume One',
+        type: 'Other'
+      },
+      {
+        id: 'iHgw7U8eRho',
+        song: 'TV Commercial',
+        album: 'There is No Enemy',
+        type: 'Other'
       }
     ]);
   }

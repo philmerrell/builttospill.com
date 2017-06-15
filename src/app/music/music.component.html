@@ -1,45 +1,16 @@
-<div class="ui container music-container">
-  <div *ngIf="showAllAlbums" id="albums" class="">
-    <h1>ALBUMS</h1>
-    <div class="ui three stackable cards">
-      <div *ngFor="let album of albums" class="ui card link">
-        <a (click)="showAlbumDetail(album, $event)" class="image" href="#">
-          <img [src]="album.artworkUrl">
-        </a>
-        <div class="content">
-          <a (click)="showAlbumDetail(album, $event)" class="header">{{ album.title }}</a>
-          <div class="meta">
-            <span class="date">{{ album.releaseDate | date }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="!showAllAlbums" id="album-detail">
-    <div class="ui stackable grid container">
-      <div class="row">
-        <div class="five wide center aligned column">
-          <img id="album-detail-image" [src]="albumDetail.artworkUrl" class="ui fluid image">
-          <p>&nbsp;</p>
-          <div class="ui vertical fluid buttons">
-            <button class="ui primary button"><i class="icon credit card"></i> Buy Vinyl</button>
-            <button class="ui primary button"><i class="icon apple"></i> Music</button>
-            <button class="ui primary button"><i class="icon spotify"></i> Spotify</button>
-            <button class="ui primary button"><i class="icon google play"></i> Google</button>
-          </div>
-        </div>
-        <div class="ten wide column">
-          <button (click)="hideDetail()" class="ui primary button"><i class="icon close"></i></button>
-          <h1 class="ui huge header">{{ albumDetail.title }}
-            <div class="sub header">{{ albumDetail.releaseDate | date }}</div>
-          </h1>
-          <div class="ui relaxed divided list">
-            <div *ngFor="let track of albumDetail.tracks" class="item">
-              <i class="large youtube play middle aligned icon"></i>
-              <div class="content">
-                <a (click)="playVideo($event, track, album.tracks)" href="#" class="header">{{ track.song }}</a>
-                <div class="description">{{ track.time }}</div>
-              </div>
+<div class="ui segment" style="background: transparent;">
+  <div class="ui container music-container">
+    <div id="albums" class="">
+      <h1 class="ui inverted shadow header">ALBUMS</h1>
+      <div class="ui three stackable cards">
+        <div *ngFor="let album of albums" class="ui card link">
+          <a [routerLink]="['/music', album.id]" class="image" href="#">
+            <img [src]="album.image.url">
+          </a>
+          <div class="content">
+            <a [routerLink]="['/music', album.id]" class="header handwriting">{{ album.title }}</a>
+            <div class="meta">
+              <span class="date">{{ album.releaseDate | date }}</span>
             </div>
           </div>
         </div>

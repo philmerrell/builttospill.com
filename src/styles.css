@@ -1,16 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Anton|Dosis:300');
+@import url('https://fonts.googleapis.com/css?family=Anton|Dosis:300|Gloria+Hallelujah');
 
 .hero {
   font-family: 'Anton', sans-serif;
   letter-spacing: 0.2em;
+}
 
+.shadow {
+  text-shadow: 2px 2px #000;
 }
 
 body {
-  background: #f8f8f8 !important;
-  /*min-height: 700px;*/
-  background: url('assets/posters/builttospill.jpg') !important;
-  background-size: cover;
-  background-size: 100% auto
+
+  background: url('assets/art/7.jpg') !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-color: #1b1c1d !important;
+  
 }
+
+.handwriting {
+  font-family: 'Gloria Hallelujah', cursive !important;
+}
+
+
+.transperent-menu {
+  background: rgba(0,0,0,0.6) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 2px 1px 4px #333 !important;
+}
+
+@-webkit-keyframes fadeInMenu {
+  0%   { 
+  background: -webkit-linear-gradient(rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%) !important;
+  background: -moz-linear-gradient(rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%) !important;
+  background: linear-gradient(rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%) !important; /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */ /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  
+     }
+  
+  100% { 
+  background: #1b1c1d !important;  
+     }
+}
+
+

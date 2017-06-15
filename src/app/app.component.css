@@ -2,7 +2,13 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-color: #f8f8f8;
+  /*background-color: #1B1C1D;*/
+  /*background: url('../assets/art/7.jpg') !important;*/
+
+  /*background: url('../assets/posters/space_bg.jpg') !important;*/
+  /*background-size: cover !important;*/
+  /*background-size: auto 100% !important;*/
+
 }
 
 .footer-spacer {

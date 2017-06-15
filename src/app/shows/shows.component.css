@@ -1,3 +1,20 @@
-.shows-container {
-  margin-top: 70px;
+.shows-bg {
+  margin-top: 80px;
+  /*background: rgba(0,0,0,0.5) !important;*/
+}
+
+.show-art {
+  min-height: 400px;
+  background: url('../../assets/art/1.jpg') !important;
+  background-size: cover !important;
+  background-position-y: center !important;
+}
+
+h2 {
+  font-size: 3em !important;
+  margin-top: 200px !important;
+}
+
+h1 {
+  text-shadow: 2px 2px #000;
 }

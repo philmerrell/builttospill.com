@@ -10,10 +10,10 @@
       <i class="expand big icon"></i>
     </div>
   </div>
-  <div class="ui massive inverted bottom fixed borderless menu">
+  <div class="ui massive bottom fixed borderless menu player">
     <div class="ui container">
       <div class="item">
-        <button (click)="toggleVideo()" [disabled]="ytEvent === 3" [ngClass]="{'loading': ytEvent === 3}" class="ui circular primary massive icon button">
+        <button (click)="toggleVideo()" [disabled]="ytEvent === 3" [ngClass]="{'loading': ytEvent === 3}" class="ui circular red massive icon button">
           <i [ngClass]="{'play': ytEvent === 2 || !ytEvent, 'pause': ytEvent === 1}" class="icon"></i>
         </button>
       </div>

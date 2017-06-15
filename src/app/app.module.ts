@@ -18,6 +18,8 @@ import { PlayerService } from './player/player.service';
 import { WindowService } from './player/window.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VideoTypePipe } from './videos/video-type.pipe';
+import { MusicDetailComponent } from './music/music-detail/music-detail.component';
+import { ScrollDirective } from './scroll.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { VideoTypePipe } from './videos/video-type.pipe';
     MusicComponent,
     VideosComponent,
     PlayerComponent,
-    VideoTypePipe
+    VideoTypePipe,
+    MusicDetailComponent,
+    ScrollDirective
   ],
   imports: [
     BrowserAnimationsModule,
@@ -47,6 +51,10 @@ import { VideoTypePipe } from './videos/video-type.pipe';
       {
         path: 'music',
         component: MusicComponent
+      },
+      {
+        path: 'music/:id',
+        component: MusicDetailComponent
       },
       {
         path: 'videos',

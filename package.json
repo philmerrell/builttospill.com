@@ -24,8 +24,6 @@
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
     "ng-semantic": "^1.1.13",
-    "ng2-parallax": "^1.0.0",
-    "ramjet": "^0.5.0",
     "rxjs": "^5.1.0",
     "semantic-ui": "^2.2.10",
     "web-animations-js": "^2.2.5",

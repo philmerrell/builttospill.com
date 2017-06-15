@@ -34,10 +34,9 @@ declare const ramjet;
 })
 export class PlayerComponent implements OnInit {
   currentVideo: Video;
-  playerVisible = 'hide';
-  playerSize = 'expanded';
-  playerHeight = '200';
-  playerWidth = '300';
+  playerSize = 'minimized';
+  playerHeight = '74';
+  playerWidth = '100';
   private player;
   private ytEvent;
 
@@ -64,7 +63,6 @@ export class PlayerComponent implements OnInit {
       .subscribe(video => {
         console.log(video);
         if (video.id) {
-          this.playerVisible = 'show';
           this.currentVideo = video;
         }
       });
@@ -94,57 +92,20 @@ export class PlayerComponent implements OnInit {
   }
 
   minimizePlayer() {
-
-    // const a = this.windowService.nativeWindow.getElementById('player-container');
-    // const b = this.windowService.nativeWindow.getElementById('mini-player-container');
-    // // set the stage so ramjet copies the right styles...
-    // b.classList.remove('hidden');
-
-    // ramjet.transform( a, b, {
-    //   done: function () {
-    //     // this function is called as soon as the transition completes
-    //     b.classList.remove('hidden');
-    //   }
-    // });
-
-    // // ...then hide the original elements for the duration of the transition
-    // a.classList.add('hidden');
-    // b.classList.add('hidden');
-    // this.playerSize = 'mini';
+    this.playerSize = 'minimized';
+    this.player.setSize(100, 74);
   }
 
   maximizePlayer() {
-    // const a = this.windowService.nativeWindow.getElementById('player-container');
-    // const b = this.windowService.nativeWindow.getElementById('mini-player-container');
-    // // set the stage so ramjet copies the right styles...
-    // a.classList.remove('hidden');
-
-    // ramjet.transform( b, a, {
-    //   overrideClone: function (node, depth){
-    //     if (node.nodeType === 1 && node.tagName === 'youtube-player') {
-    //       return;
-    //     }
-    //     return node.cloneNode();
-    //   },
-    //   done: function () {
-    //     // this function is called as soon as the transition completes
-    //     a.classList.remove('hidden');
-    //   }
-    // });
-
-    // // ...then hide the original elements for the duration of the transition
-    // b.classList.add('hidden');
-    // a.classList.add('hidden');
-    // this.playerSize = 'max';
+    this.playerSize = 'expanded';
+    this.player.setSize(300, 200);
   }
 
   toggleSize() {
     if (this.playerSize === 'expanded') {
-      this.playerSize = 'minimized';
-      this.player.setSize(100, 74);
+      this.minimizePlayer();
     } else {
-      this.playerSize = 'expanded';
-      this.player.setSize(300, 200);
+      this.maximizePlayer();
     }
   }
 

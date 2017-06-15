@@ -1,123 +1,190 @@
-<div class="ui inverted vertical masthead center aligned segment home-hero">
-  <div class="ui text container">
-    <!--<h2>Do whatever you want when you want to.</h2>-->
-    <!--<div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>-->
+  <div class="ui vertical masthead center aligned segment home-hero">
+    <div class="ui text container">
+    </div>
   </div>
-</div>
 
-<div class="ui very padded vertical stripe segment">
-  <div class="ui middle aligned stackable grid container">
-    <div class="row">
-      <div class="seven wide centered column">
-        <img [src]="album.artworkUrl" class="ui large bordered image">
+  <div class="ui very padded">
+    <div class="shows-container ui container">
+    <h1 class="ui inverted shadow header"><i class="map middle aligned icon"></i> SHOWS</h1>
+    <div *ngIf="showsLoading" class="ui segment" style="height: 100px;">
+      <div class="ui active dimmer">
+        <div class="ui text loader">Loading</div>
       </div>
-      <div class="six wide left floated column">
-        <h3>{{ album.title }}</h3>
-        <div class="ui relaxed divided list">
-          <div *ngFor="let track of album.tracks" class="item">
-            <i class="large youtube play middle aligned icon"></i>
-            <div class="content">
-              <a (click)="playVideo($event, track, album.tracks)" href="#" class="header">{{ track.song }}</a>
-              <div class="description">{{ track.time }}</div>
+      <p></p>
+    </div>
+    <table *ngIf="!showsLoading" class="ui inverted stackable table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Venue</th>
+          <th>Location</th>
+          <th class="right aligned"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let show of shows">
+          <td>{{ show.datetime | date }}</td>
+          <td>{{ show.venue.name }}</td>
+          <td>{{ show.venue.city }}, {{ show.venue.region }}</td>
+          <td class="right aligned">
+            <a [href]="show.offers[0].url" blank="_blank" class="ui primary labeled icon button">
+              <i class="ticket icon"></i> Tickets 
+            </a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4" class="right aligned">
+            <a routerLink="shows" class="ui green right labeled icon button">All Upcoming Shows <i class="right arrow icon"></i></a>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+    <!--<div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="five wide centered column">
+        </div>
+        <div class="ten wide centered column">
+          <div class="ui text container">
+            <div *ngIf="shows.length">
+              <h2 class="ui inverted header"><i class="map middle aligned icon"></i> SHOWS</h2>
+              <div *ngIf="showsLoading" class="ui segment">
+                <div class="ui active dimmer">
+                  <div class="ui text loader">Loading</div>
+                </div>
+                <p></p>
+            </div>
+            <table *ngIf="!showsLoading" class="ui inverted stackable table">
+              <thead>
+                <tr>
+                  <th colspan="3">Upcoming Shows</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let show of shows">
+                  <td>{{ show.datetime | date }}</td>
+                  <td>{{ show.venue.name }}<br>{{ show.venue.city }}, {{ show.venue.region }}</td>
+                  <td class="right aligned">
+                    <a [href]="show.offers[0].url" blank="_blank" class="ui primary labeled icon button">
+                      <i class="ticket icon"></i> Tickets 
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                  <tr>
+                    <th colspan="3" class="right aligned">
+                      <a routerLink="shows" class="ui green right labeled icon button">All Upcoming Shows <i class="right arrow icon"></i></a>
+                    </th>
+                  </tr>
+                </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>-->
+  </div>
+
+
+  <!--<div class="ui very padded segment">-->
+    <div class="ui container">
+      <h2 class="ui inverted header"><i class="payment middle aligned icon"></i> MERCH</h2>
+      <div class="ui four doubling cards">
+        <div class="card">
+          <img width="100%" src="../assets/merch/keep-it.jpg">
+          <div class="content">
+            <div class="ui inverted header">Keep It Like A Secret Vinyl + Light Blue T-Shirt Bundle</div>
+          </div>
+          <div class="ui bottom attached green button">
+            <i class="cart icon"></i>
+            $34.99
+          </div>
+        </div>
+        <!--<div class="card">
+          <div class="content">
+            <div class="header">Veronika Ossi</div>
+            <div class="description">
+              Veronika Ossi is a set designer living in New York who enjoys kittens, music, and partying.
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="center aligned column">
-        <a routerLink="music" class="ui huge primary button">More Music <i class="right arrow icon"></i></a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="ui very padded vertical stripe segment">
-  <div class="ui container">
-    <h2><i class="youtube play middle aligned icon"></i> VIDEOS</h2>
-    <div class="ui four doubling cards">
-      <div *ngFor="let video of videos;" class="ui card link">
-        <a (click)="playVideo($event, video)" href="#" class="image">
-          <img class="video-image" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
-        </a>
-        <div class="content">
-          <a (click)="playVideo($event, video, videos)" href="#" class="header">          
-            <i class="youtube play icon"></i>
-            {{ video.song }}
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ui middle aligned stackable grid container">
-    <div class="row">
-      <div class="center aligned column">
-        <a routerLink="videos" class="ui huge primary button">More Videos <i class="right arrow icon"></i></a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--<div class="ui very padded vertical stripe segment">
-  <div class="ui text container">
-  </div>
-</div>-->
-
-
-
-
-<div class="ui very padded vertical stripe segment">
-  <div class="ui middle aligned stackable grid container">
-    <div class="row">
-      <div class="five wide centered column">
-        <h3 class="ui header">Twitter</h3>
-        <a class="twitter-timeline" data-chrome="nofooter noheader noborders" data-tweet-limit="1" href="https://twitter.com/Built_2_Spill">Tweets by Built_2_Spill</a>
-      </div>
-      <div class="ten wide centered column">
-        <div class="ui text container">
-          <div *ngIf="shows.length">
-            <h2 class="ui header">SHOWS</h2>
-            <div *ngIf="showsLoading" class="ui segment">
-              <div class="ui active dimmer">
-                <div class="ui text loader">Loading</div>
-              </div>
-              <p></p>
+          <div class="ui bottom attached green button">
+            <i class="add icon"></i>
+            Add Friend
           </div>
-          <table *ngIf="!showsLoading" class="ui stackable table">
-            <thead>
-              <tr>
-                <th colspan="3">Upcoming Shows</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let show of shows">
-                <td>{{ show.datetime | date }}</td>
-                <td>{{ show.venue.name }}<br>{{ show.venue.city }}, {{ show.venue.region }}</td>
-                <td class="right aligned">
-                  <a [href]="show.offers[0].url" blank="_blank" class="ui primary labeled icon button">
-                    <i class="ticket icon"></i> Tickets 
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                  <th colspan="3" class="right aligned">
-                    <a routerLink="shows" class="ui green right labeled icon button">All Upcoming Shows <i class="right arrow icon"></i></a>
-                  </th>
-                </tr>
-              </tfoot>
-          </table>
+        </div>
+        <div class="card">
+          <div class="content">
+            <div class="header">Jenny Hess</div>
+            <div class="description">
+              Jenny is a student studying Media Management at the New School
+            </div>
+          </div>
+          <div class="ui bottom attached green button">
+            <i class="add icon"></i>
+            Add Friend
+          </div>
+        </div>-->
+      </div>
+    </div>
+  <!--</div>-->
+
+
+  <div class="ui very padded vertical stripe segment">
+    <div class="ui container">
+      <h2 class="ui header inverted"><i class="youtube play middle aligned icon"></i> VIDEOS</h2>
+      <div class="ui four doubling cards">
+        <div *ngFor="let video of videos;" class="ui card link">
+          <a (click)="playVideo($event, video)" href="#" class="image">
+            <img class="video-image" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
+          </a>
+          <div class="content">
+            <a (click)="playVideo($event, video, videos)" href="#" class="handwriting header">          
+              <i class="youtube play icon"></i>
+              {{ video.song }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="center aligned column">
+          <a routerLink="videos" class="ui huge primary button">More Videos <i class="right arrow icon"></i></a>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
+  <div class="ui inverted very padded vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="seven wide centered column">
+          <img [src]="album.image.url" class="ui large bordered image">
+        </div>
+        <div class="six wide left floated column">
+          <h3 class="handwriting">{{ album.title }}</h3>
+          <div class="ui inverted relaxed divided selection list">
+            <a *ngFor="let track of album.tracks" (click)="playVideo($event, track, album.tracks)" href="#" class="item">
+              <i class="large youtube play middle aligned icon"></i>
+              <div class="content">
+                <div class="header handwriting">{{ track.song }}</div>
+                <div class="description">{{ track.time }}</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="center aligned column">
+          <a routerLink="music" class="ui huge primary button">More Music <i class="right arrow icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-
-<div class="ui very padded vertical stripe segment">
-  
-</div>
+  <div class="ui very padded vertical stripe segment">
+    
+  </div>

@@ -1,6 +1,14 @@
 .home-hero {
-  min-height: 400px;
-  background: url('../../assets/posters/builttospill.jpg') !important;
-  background-size: cover;
-  background-position-y: center;
+  /*height: 400px !important;*/
+  /*background: url('../../assets/art/1.jpg') !important;*/
+  /*background-size: cover !important;*/
+  /*background-position-y: center !important;*/
+}
+
+.masthead {
+  height: 80px;
+}
+
+h2 {
+  text-shadow: 2px 2px #000;
 }

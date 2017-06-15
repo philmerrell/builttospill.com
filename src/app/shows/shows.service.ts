@@ -8,17 +8,25 @@ import 'rxjs/add/operator/map';
 export class ShowsService {
   private showsUrl = 'https://rest.bandsintown.com/artists/built%20to%20spill/events?app_id=js_www.builttospill.com';
 
+  shows;
+
   constructor(private http: Http) { }
 
   getShows(): Observable<any> {
-    return this.http.get(this.showsUrl)
-      .map(this.extractData)
-      .catch(this.handleError);
+    if (!this.shows) {
+      return this.http.get(this.showsUrl)
+        .map(this.extractData)
+        .catch(this.handleError);
+    } else {
+      return Observable.of(this.shows);
+    }
   }
 
   private extractData(res: Response) {
-    let body = res.json();
-    return body || { };
+    const response = res.json();
+    console.log('response', response);
+    this.shows = response;
+    return response || { };
   }
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure

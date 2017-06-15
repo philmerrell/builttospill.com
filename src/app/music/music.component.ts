@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { routerAnimation } from '../router-animation';
 import { MusicService } from './music.service';
 
+declare const ramjet;
+
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
