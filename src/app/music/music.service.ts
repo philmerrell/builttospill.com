@@ -302,6 +302,70 @@ export class MusicService {
         ]
       },
       {
+        title: 'Live',
+        id: 'live',
+        image: {
+          url: 'assets/albums/live.jpg'
+        },
+        releaseDate: '2000-04-18',
+        tracks: [
+          {
+            id: 'Plk0lxXdQqc',
+            song: 'The Plan',
+            album: 'Live',
+            time: '4:55'
+          },
+          {
+            id: 'OsnbSHmJ3jw',
+            song: 'Randy Described Eternity',
+            album: 'Live',
+            time: '3:56'
+          },
+          {
+            id: 'QjaN5dRYWM8',
+            song: 'Stop The Show',
+            album: 'Live',
+            time: '4:15'
+          },
+          {
+            id: 'UR6r0Nwhz-E',
+            song: 'Virginia Reel Around The Fountain',
+            album: 'Live',
+            time: '7:00'
+          },
+          {
+            id: 'TLOWuLaQTVQ',
+            song: 'Cortez The Killer',
+            album: 'Live',
+            time: '20:30'
+          },
+          {
+            id: 'E-CRaKByW7w',
+            song: 'Car',
+            album: 'Live',
+            time: '3:07'
+          },
+          {
+            id: 's3wNkzgCZMo',
+            song: 'Singing Sores Make Perfect Swords',
+            album: 'Live',
+            time: '3:33'
+          },
+          {
+            id: 'uhjlzeFLZqI',
+            song: 'I Would Hurt a Fly',
+            album: 'Live',
+            time: '5:24'
+          },
+          {
+            id: 'HZrGGfDdxkI',
+            song: 'Broken Chairs',
+            album: 'Live',
+            time: '19:05'
+          }
+        ]
+      },
+      {
         title: 'Keep It Like a Secret',
         id: 'keep-it-like-a-secret',
         image: {
@@ -430,6 +494,76 @@ export class MusicService {
         ]
       },
       {
+        title: 'The Normal Years',
+        id: 'the-normal-years',
+        image: {
+          url: 'assets/albums/the-normal-years.jpg'
+        },
+        releaseDate: '1996-04-30',
+        tracks: [
+          {
+            id: 'ZwDpfiXergE',
+            song: 'So & So So & So From Wherever Wherever',
+            album: 'The Normal Years',
+            time: '4:39'
+          },
+          {
+            id: 'REohmiR24-w',
+            song: 'Shortcut',
+            album: 'The Normal Years',
+            time: '1:27'
+          },
+          {
+            id: 'X-lNIzeJfr0',
+            song: 'Car',
+            album: 'The Normal Years',
+            time: '3:08'
+          },
+          {
+            id: 'dCCZgfmEeB4',
+            song: 'Some Things Last a Long Time',
+            album: 'The Normal Years',
+            time: '5:10'
+          },
+          {
+            id: 'O-UM82jOgY8',
+            song: 'Girl',
+            album: 'The Normal Years',
+            time: '2:48'
+          },
+          {
+            id: 'LT6EQNYqeuU',
+            song: 'Joyride',
+            album: 'The Normal Years',
+            time: '3:37'
+          },
+          {
+            id: 'QPgcxth5acU',
+            song: 'Some',
+            album: 'The Normal Years',
+            time: '4:10'
+          },
+          {
+            id: 'pq5oMaYig1E',
+            song: 'Sick & Wrong',
+            album: 'The Normal Years',
+            time: '4:05'
+          },
+          {
+            id: 'kgfHSeLL9oQ',
+            song: 'Still Flat',
+            album: 'The Normal Years',
+            time: '4:21'
+          },
+          {
+            id: 'FkeJ28P1Jzw',
+            song: 'Terrible/Perfect',
+            album: 'The Normal Years',
+            time: '5:33'
+          }
+        ]
+      },
+      {
         title: 'There\'s Nothing Wrong With Love',
         id: 'theres-nothing-wrong-with-love',
         image: {
@@ -508,6 +642,76 @@ export class MusicService {
             song: 'Stab',
             album: 'There\'s Nothing Wrong With Love',
             time: '5:30'
+          }
+        ]
+      },
+      {
+        title: 'Ultimate Alternative Wavers',
+        id: 'ultimate-alternative-wavers',
+        image: {
+          url: 'assets/albums/ultimate-alternative-wavers.jpg'
+        },
+        releaseDate: '1993-04-01',
+        tracks: [
+          {
+            id: 'ox6uA-OOSs8',
+            song: 'The First Song',
+            album: 'Ultimate Alternative Wavers',
+            time: '4:02'
+          },
+          {
+            id: 'XlZrGH7RHIY',
+            song: 'Three Years Ago Today',
+            album: 'Ultimate Alternative Wavers',
+            time: '3:56'
+          },
+          {
+            id: 'mKbnCkOx1rM',
+            song: 'Revolution',
+            album: 'Ultimate Alternative Wavers',
+            time: '4:25'
+          },
+          {
+            id: '75HRDkKbHls',
+            song: 'Shameful Dread',
+            album: 'Ultimate Alternative Wavers',
+            time: '8:29'
+          },
+          {
+            id: 'NujBMqn0tHA',
+            song: 'Nowhere Nothin\' Fuckup',
+            album: 'Ultimate Alternative Wavers',
+            time: '6:34'
+          },
+          {
+            id: 'H78E971SKrM',
+            song: 'Get a Life',
+            album: 'Ultimate Alternative Wavers',
+            time: '5:53'
+          },
+          {
+            id: 'vgpoFe1C0cQ',
+            song: 'Built to Spill',
+            album: 'Ultimate Alternative Wavers',
+            time: '5:52'
+          },
+          {
+            id: 'V9yvcSS6PEI',
+            song: 'Lie for a Lie',
+            album: 'Ultimate Alternative Wavers',
+            time: '3:16'
+          },
+          {
+            id: '3DtFTpMETag',
+            song: 'Hazy',
+            album: 'Ultimate Alternative Wavers',
+            time: '6:41'
+          },
+          {
+            id: 'Ne1vNTsPOms',
+            song: 'Built Too Long, Parts 1, 2 & 3',
+            album: 'Ultimate Alternative Wavers',
+            time: '9:24'
           }
         ]
       }
