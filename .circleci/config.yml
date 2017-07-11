@@ -1,0 +1,6 @@
+deployment:
+  prod:
+    branch: master
+    commands:
+      - ng build -prod
+      - aws s3 sync dist s3://builttospill --delete
