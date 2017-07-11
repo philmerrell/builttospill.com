@@ -42,7 +42,7 @@ var YoutubePlayerService = (function () {
         var doc = YoutubePlayerService.win.document;
         var playerApiScript = doc.createElement("script");
         playerApiScript.type = "text/javascript";
-        playerApiScript.src = "http://www.youtube.com/iframe_api";
+        playerApiScript.src = "//www.youtube.com/iframe_api";
         doc.body.appendChild(playerApiScript);
     };
     YoutubePlayerService.prototype.setupPlayer = function (elementId, outputs, sizes, videoId) {

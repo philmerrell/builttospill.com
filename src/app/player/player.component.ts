@@ -37,8 +37,8 @@ export class PlayerComponent implements OnInit {
   playerSize = 'minimized';
   playerHeight = '74';
   playerWidth = '100';
-  private player;
-  private ytEvent;
+  player;
+  ytEvent;
 
   constructor(
     private playerService: PlayerService,
