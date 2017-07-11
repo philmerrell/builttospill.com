@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { YoutubePlayerModule } from './youtube-player/ng2-youtube-player';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -19,7 +19,6 @@ import { WindowService } from './player/window.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VideoTypePipe } from './videos/video-type.pipe';
 import { MusicDetailComponent } from './music/music-detail/music-detail.component';
-import { ScrollDirective } from './scroll.directive';
 
 @NgModule({
   declarations: [
@@ -30,8 +29,7 @@ import { ScrollDirective } from './scroll.directive';
     VideosComponent,
     PlayerComponent,
     VideoTypePipe,
-    MusicDetailComponent,
-    ScrollDirective
+    MusicDetailComponent
   ],
   imports: [
     BrowserAnimationsModule,

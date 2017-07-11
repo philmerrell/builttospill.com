@@ -21,6 +21,12 @@ export class MusicService {
         image: {
           url: 'assets/albums/untethered-moon.jpg'
         },
+        links: {
+          appleMusic: 'https://geo.itunes.apple.com/us/album/untethered-moon/id967409661?mt=1&app=music',
+          googleMusic: 'https://play.google.com/store/music/album/Built_To_Spill_Untethered_Moon?id=Bxffhyf2esinlm4a3bmalhiaj4a',
+          spotify: 'https://open.spotify.com/album/6RcWVrwvFmFu2KPALVX9ZZ',
+          vinyl: 'http://store.warnermusic.com/warner-bros-records/artists/built-to-spill/untethered-moon-lp.html'
+        },
         releaseDate: '2015-04-18',
         tracks: [
           {
@@ -90,6 +96,12 @@ export class MusicService {
         id: 'there-is-no-enemy',
         image: {
           url: 'assets/albums/no-enemy.jpeg'
+        },
+        links: {
+          appleMusic: 'https://geo.itunes.apple.com/us/album/there-is-no-enemy/id332672840?mt=1&app=music',
+          googleMusic: 'https://play.google.com/store/music/album/Built_To_Spill_There_Is_No_Enemy?id=B5hwfmhszgc4ffza32zr5utvczi',
+          spotify: 'https://open.spotify.com/album/0lJtf2QRr5CBfX7WIAA0DK',
+          vinyl: 'http://store.warnermusic.com/warner-bros-records/artists/built-to-spill/untethered-moon-lp.html'
         },
         releaseDate: '2009-10-06',
         tracks: [
@@ -167,6 +179,12 @@ export class MusicService {
         image: {
           url: 'assets/albums/you-in-reverse.jpg'
         },
+        links: {
+          appleMusic: 'https://geo.itunes.apple.com/us/album/you-in-reverse/id140208918?mt=1&app=music',
+          googleMusic: 'https://play.google.com/store/music/album/Built_To_Spill_You_In_Reverse_U_S_Version?id=Btg7owx3cusxsdppv4zchqslvti',
+          spotify: 'https://open.spotify.com/album/3jKdxSwYf8UkDhIOIXbwku',
+          vinyl: 'http://store.warnermusic.com/warner-bros-records/artists/built-to-spill/you-in-reverse-2xlp.html'
+        },
         releaseDate: '2006-04-11',
         tracks: [
           {
@@ -236,6 +254,12 @@ export class MusicService {
         id: 'ancient-melodies-of-the-future',
         image: {
           url: 'assets/albums/ancient-melodies.jpg'
+        },
+        links: {
+          appleMusic: 'https://geo.itunes.apple.com/us/album/ancient-melodies-of-the-future/id296194043?mt=1&app=music',
+          googleMusic: 'https://play.google.com/store/music/album/Built_To_Spill_Ancient_Melodies_Of_The_Future?id=Bxhrceim33jwodl46s2ueuy44gu',
+          spotify: 'https://open.spotify.com/album/3jKdxSwYf8UkDhIOIXbwku',
+          vinyl: 'http://store.warnermusic.com/warner-bros-records/artists/built-to-spill/you-in-reverse-2xlp.html'
         },
         releaseDate: '2001-07-10',
         tracks: [
@@ -307,6 +331,7 @@ export class MusicService {
         image: {
           url: 'assets/albums/live.jpg'
         },
+        links: {},
         releaseDate: '2000-04-18',
         tracks: [
           {
@@ -371,6 +396,7 @@ export class MusicService {
         image: {
           url: 'assets/albums/keep-it-like-a-secret.jpeg'
         },
+        links: {},
         releaseDate: '1999-02-02',
         tracks: [
           {
@@ -441,6 +467,7 @@ export class MusicService {
         image: {
           url: 'assets/albums/perfect-from-now-on.jpg'
         },
+        links: {},
         releaseDate: '1997-01-28',
         tracks: [
           {
@@ -499,6 +526,7 @@ export class MusicService {
         image: {
           url: 'assets/albums/the-normal-years.jpg'
         },
+        links: {},
         releaseDate: '1996-04-30',
         tracks: [
           {
@@ -569,6 +597,7 @@ export class MusicService {
         image: {
           url: 'assets/albums/theres-nothing-wrong-with-love.jpg'
         },
+        links: {},
         releaseDate: '1994-10-13',
         tracks: [
           {
@@ -651,6 +680,7 @@ export class MusicService {
         image: {
           url: 'assets/albums/ultimate-alternative-wavers.jpg'
         },
+        links: {},
         releaseDate: '1993-04-01',
         tracks: [
           {

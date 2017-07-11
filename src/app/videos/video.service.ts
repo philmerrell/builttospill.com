@@ -102,7 +102,25 @@ export class VideoService {
         id: 'NGQXhJu5VUU',
         song: 'Jokerman',
         album: 'A Tribute To Bob Dylan In The 80s: Volume One',
-        type: 'Other'
+        type: 'Covers'
+      },
+      {
+        id: 'lK0um80hMAk',
+        song: 'How Soon is Now?',
+        album: 'The Smiths',
+        type: 'Covers'
+      },
+      {
+        id: 'VyeugwJQgw4',
+        song: 'Age of Consent',
+        album: 'Joy Division',
+        type: 'Covers'
+      },
+      {
+        id: 'YxXcK1zRfNw',
+        song: 'Tarpit',
+        album: 'Dinosaur Jr.',
+        type: 'Covers'
       },
       {
         id: 'iHgw7U8eRho',

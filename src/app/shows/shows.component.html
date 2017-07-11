@@ -25,11 +25,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let show of shows">
-          <td>{{ show.datetime | date }}</td>
-          <td>{{ show.venue.name }}</td>
-          <td>{{ show.venue.city }}, {{ show.venue.region }}</td>
-          <td class="right aligned">
-            <a [href]="show.offers[0].url" blank="_blank" class="ui primary labeled icon button">
+          <td *ngIf="show.datetime">{{ show.datetime | date }}</td>
+          <td *ngIf="show.datetime">{{ show.venue.name }}</td>
+          <td *ngIf="show.datetime">{{ show.venue.city }}, {{ show.venue.region }}</td>
+          <td *ngIf="show.datetime" class="right aligned">
+            <a *ngIf="show.offers[0]" [href]="show.offers[0].url" blank="_blank" class="ui primary labeled icon button">
               <i class="ticket icon"></i> Tickets 
             </a>
           </td>

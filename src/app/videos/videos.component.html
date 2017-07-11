@@ -34,7 +34,7 @@
     <h2 class="ui inverted header">COVERS</h2>
 
     <div class="ui four doubling cards">
-      <div *ngFor="let video of videos | videoType:'Cover'" class="ui card link">
+      <div *ngFor="let video of videos | videoType:'Covers'" class="ui card link">
         <a (click)="playVideo($event, video)" href="#" class="image">
           <img class="video-image" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         </a>
