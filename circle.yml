@@ -15,7 +15,10 @@ dependencies:
   override:
     - nvm use 6.9
     - npm install -g @angular/cli
+    - npm install -g gulp
     - npm install
+    - cd semantic/
+    - gulp build
 
 # Deployment
 

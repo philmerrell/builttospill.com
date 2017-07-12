@@ -22,9 +22,7 @@
         "styles.css",
         "../semantic/dist/semantic.min.css"
       ],
-      "scripts": [
-        "../semantic/dist/semantic.min.js"
-      ],
+      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
