@@ -1,0 +1,35 @@
+#
+# CircleCI Configuration
+#
+
+# Machine Settings
+
+# machine:
+#   node:
+#     version: 6.2
+
+# Dependencies
+
+dependencies:
+  pre:
+  override:
+    - nvm use 6.2
+    - npm install -g @angular/cli
+    - npm install
+
+# Deployment
+
+deployment:
+  prod:
+    branch: master
+    commands:
+      - ng build -prod
+      - aws s3 sync dist s3://builttospill --delete
+
+# Test Commands
+
+#test:
+#  override:
+#    - nvm use 6.2
+#    - ng test --watch=false
+    #- npm run e2e
