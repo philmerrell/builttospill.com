@@ -24,7 +24,6 @@ deployment:
   prod:
     branch: master
     commands:
-      - 
       - cd node_modules/semantic-ui/
       - gulp build
       - cd ..
