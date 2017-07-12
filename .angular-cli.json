@@ -23,8 +23,6 @@
         "../semantic/dist/semantic.min.css"
       ],
       "scripts": [
-        "../node_modules/ramjet/dist/ramjet.umd.js",
-        "../node_modules/jquery/dist/jquery.min.js",
         "../semantic/dist/semantic.min.js"
       ],
       "environmentSource": "environments/environment.ts",
