@@ -24,8 +24,10 @@ deployment:
   prod:
     branch: master
     commands:
-      - cd semantic/
+      - 
+      - cd node_modules/semantic-ui/
       - gulp build
+      - cd ..
       - cd ..
       - ng build -prod
       - aws s3 sync dist s3://builttospill --delete
