@@ -17,6 +17,8 @@ dependencies:
     - npm install -g @angular/cli
     - npm install -g gulp
     - npm install
+    - pwd
+    - ls
     - cd node_modules/semantic-ui/
     - gulp build-css
     - gulp build-assets
