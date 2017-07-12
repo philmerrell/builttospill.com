@@ -4,16 +4,16 @@
 
 # Machine Settings
 
-# machine:
-#   node:
-#     version: 6.2
+machine:
+  node:
+    version: 6.9
 
 # Dependencies
 
 dependencies:
   pre:
   override:
-    # - nvm use 6.2
+    - nvm use 6.9
     - npm install -g @angular/cli
     - npm install
 
