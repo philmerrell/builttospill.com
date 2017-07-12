@@ -17,8 +17,6 @@ dependencies:
     - npm install -g @angular/cli
     - npm install -g gulp
     - npm install
-    - cd semantic/
-    - gulp build
 
 # Deployment
 
@@ -26,6 +24,9 @@ deployment:
   prod:
     branch: master
     commands:
+      - cd semantic/
+      - gulp build
+      - cd ..
       - ng build -prod
       - aws s3 sync dist s3://builttospill --delete
 
