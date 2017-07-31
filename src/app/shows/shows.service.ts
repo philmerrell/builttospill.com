@@ -8,12 +8,12 @@ import 'rxjs/add/operator/map';
 export class ShowsService {
   private showsUrl = 'https://rest.bandsintown.com/artists/built%20to%20spill/events?app_id=js_www.builttospill.com';
 
-  shows;
+  private shows = [];
 
   constructor(private http: Http) { }
 
   getShows(): Observable<any> {
-    if (!this.shows) {
+    if (!this.shows.length) {
       return this.http.get(this.showsUrl)
         .map(this.extractData)
         .catch(this.handleError);
@@ -22,11 +22,11 @@ export class ShowsService {
     }
   }
 
-  private extractData(res: Response) {
+  private extractData = (res: Response) => {
     const response = res.json();
-    console.log('response', response);
+    // console.log('response', response);
     this.shows = response;
-    return response || { };
+    return this.shows || [];
   }
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure

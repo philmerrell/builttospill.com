@@ -50,7 +50,7 @@ export class PlayerComponent implements OnInit {
 
   onStateChange(event) {
     this.ytEvent = event.data;
-    console.log(this.ytEvent);
+    // console.log(this.ytEvent);
     // Video has ended..
     if (this.ytEvent === 0) {
       this.playerService.initNextVideo(this.currentVideo);
@@ -61,7 +61,7 @@ export class PlayerComponent implements OnInit {
   getVideo() {
     this.playerService.getVideo()
       .subscribe(video => {
-        console.log(video);
+        // console.log(video);
         if (video.id) {
           this.currentVideo = video;
         }

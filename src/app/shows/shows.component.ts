@@ -24,7 +24,6 @@ export class ShowsComponent implements OnInit {
       .subscribe(shows => {
         this.shows = shows;
         this.showsLoading = false;
-        console.log(shows);
       });
   }
 
