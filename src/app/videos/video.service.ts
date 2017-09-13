@@ -10,14 +10,14 @@ export class VideoService {
   getHomeVideos() {
     return Observable.of([
       {
-        id: 'LZ1VqwPmKkw',
-        song: 'Never Be The Same',
+        id: '0hgRgO5y0f4',
+        song: 'Living Zoo',
         album: 'Untethered Moon',
         type: 'Music Video'
       },
       {
-        id: '0hgRgO5y0f4',
-        song: 'Living Zoo',
+        id: 'LZ1VqwPmKkw',
+        song: 'Never Be The Same',
         album: 'Untethered Moon',
         type: 'Music Video'
       },
@@ -39,14 +39,14 @@ export class VideoService {
   getMusicVideos() {
     return Observable.of([
       {
-        id: 'LZ1VqwPmKkw',
-        song: 'Never Be The Same',
+        id: '0hgRgO5y0f4',
+        song: 'Living Zoo',
         album: 'Untethered Moon',
         type: 'Music Video'
       },
       {
-        id: '0hgRgO5y0f4',
-        song: 'Living Zoo',
+        id: 'LZ1VqwPmKkw',
+        song: 'Never Be The Same',
         album: 'Untethered Moon',
         type: 'Music Video'
       },
