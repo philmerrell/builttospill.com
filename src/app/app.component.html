@@ -1,54 +1,20 @@
-<div class="ui top inverted fixed menu">
-  <div class="ui container">
-    <div class="item">
-      <h2 class="hero shadow">BUILT TO SPILL</h2>
-    </div>
-    <a routerLink="" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" class="item menu-link">Home</a>
-    <a routerLink="shows" routerLinkActive="active" class="item menu-link">Shows</a>
-    <a routerLink="music" routerLinkActive="active" class="item menu-link">Music</a>
-    <a routerLink="videos" routerLinkActive="active" class="item menu-link">Videos</a>
-    <a href="http://store.warnermusic.com/warner-bros-records/artists/built-to-spill.html" target="_blank" class="item menu-link">Store</a>
-    <div class="right menu">
-      <div class="item">
-          <a href="https://www.facebook.com/builttospill" target="_blank" class="ui circular facebook icon button">
-            <i class="facebook icon"></i>
-          </a>
-      </div>
-      <div class="item">
-        <a href="https://twitter.com/Built_2_Spill" target="_blank" class="ui circular twitter icon button">
-          <i class="twitter icon"></i>
-        </a>
-      </div>
-    </div>
-  </div>
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{title}}!
+  </h1>
+  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<div class="pusher">
-  <router-outlet></router-outlet>
-</div>
-<div class="ui grey inverted vertical footer segment">
-  <div class="ui container">
-    <div class="ui stackable inverted divided equal height stackable grid">
-      <div class="six wide column">
-        <div class="ui inverted link list">
-          <a routerLink="" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" class="item">Home</a>
-          <a routerLink="shows" routerLinkActive="active" class="item">Shows</a>
-          <a routerLink="music" routerLinkActive="active" class="item">Music</a>
-          <a routerLink="videos" routerLinkActive="active" class="item">Videos</a>
-          <a href="http://store.warnermusic.com/warner-bros-records/artists/built-to-spill.html" target="_blank" class="item">Store</a>
-        </div>
-      </div>
-      <div class="eight wide column">
-        <a href="https://www.facebook.com/builttospill" target="_blank" class="ui grey massive icon button"><i class="facebook icon"></i></a>
-        <a href="https://twitter.com/Built_2_Spill" target="_blank" class="ui grey massive icon button"><i class="twitter icon"></i></a>
-        <a href="https://www.youtube.com/user/builttospill" target="_blank" class="ui grey massive icon button"><i class="youtube icon"></i></a>
+<h2>Here are some links to help you start: </h2>
+<ul>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
+  </li>
+</ul>
 
-        <!-- <div class="ui inverted action input">
-          <input type="text" placeholder="Join Newsletter">
-          <div class="ui red button">Join</div>
-        </div> -->
-      </div>
-    </div>
-  </div>
-</div>
-<div class="footer-spacer"></div>
-<app-player></app-player>
