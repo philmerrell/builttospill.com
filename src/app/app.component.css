@@ -1,0 +1,42 @@
+
+  md-sidenav {
+    width: 200px;
+  }
+
+  md-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 99;
+  }
+
+  .main-content {
+    margin-top: 60px;
+  }
+  
+  .header-logo {
+      font-family: 'Anton', sans-serif;
+      letter-spacing: 0.2em;
+      text-shadow: 3px 2px #000;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-weight: 700;
+      font-size: 1.2em;
+  }
+
+  .facebook-color {
+    background-color: #3b5998;
+  }
+
+  .twitter-color {
+    background-color: #55acee;
+  }
+
+  /* Navbar Styles */
+  .mat-tab-nav-bar {
+    border-bottom: 0;
+  }
+
+  .mat-tab-link {
+    min-width: inherit;
+    height: 64px;
+  }
