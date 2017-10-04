@@ -3,11 +3,14 @@
     width: 200px;
   }
 
-  md-toolbar {
-    position: fixed;
-    top: 0;
-    z-index: 99;
+  @media (min-width: 600px) {
+    md-toolbar {
+      position: fixed;
+      top: 0;
+      z-index: 99;
+    }
   }
+
 
   .main-content {
     margin-top: 60px;
@@ -16,8 +19,8 @@
 
   @media (max-width: 599px) {
     .main-content {
-      margin-top: 56px; 
-      margin-bottom: 56px;
+      margin-top: 0; 
+      margin-bottom: 0;
       
     }
   }

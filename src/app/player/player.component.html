@@ -1,7 +1,8 @@
-<md-toolbar>
+<md-toolbar class="player">
     <div fxLayout="row" fxLayoutAlign="left center" style="width: 100%" class="handwriting shadow">
-        <button md-fab color="primary" (click)="toggleVideo()" [disabled]="ytEvent === 3" [ngClass]="{'loading': ytEvent === 3}" >
-          <md-icon [ngClass]="{'fa-play': ytEvent === 2 || !ytEvent, 'fa-pause': ytEvent === 1}" class="fa fa-2x"></md-icon>
+        <button id="control-button" md-fab color="primary" (click)="toggleVideo()" [disabled]="ytEvent === 3">
+          <md-spinner *ngIf="ytEvent === 3"></md-spinner>
+          <md-icon class="md-36">play_arrow</md-icon>
         </button>
         <div style="margin-left: 20px;">
           {{ currentVideo.song }} <br>
@@ -10,10 +11,10 @@
         <span class="flex-spacer"></span>
         <div id="mini-player-container" class="item right">
           <button md-icon-button (click)="toggleSize()">
-            <md-icon class="fa fa-2x fa-arrow-circle-down"></md-icon>
+            <md-icon [ngClass]="{'fa-arrow-circle-down': playerSize === 'expanded', 'fa-arrow-circle-up': playerSize === 'minimized'}" class="fa fa-2x"></md-icon>
           </button>
         </div>
-        <div id="player-container" [@playerState]="playerSize">
+        <div id="player-container" [@playerState]="playerSize" [ngClass]="{'hidden': playerSize === 'minimized' && media.isActive('xs')}">
           <youtube-player
             [height]="playerHeight"
             [width]="playerWidth"

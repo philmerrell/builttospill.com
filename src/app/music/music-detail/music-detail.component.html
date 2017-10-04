@@ -2,7 +2,7 @@
     <div fxLayout="row" fxLayoutAlign="center" [ngClass]="{'mobile-blur': media.isActive('xs')}" class="content-container handwriting shadow padding">
         
       <button md-fab color="primary">
-        <md-icon class="fa fa-2x fa-play"></md-icon>
+        <md-icon>play_arrow</md-icon>
       </button>
       <h1 style="margin-top: 0; margin-bottom: 0; margin-left: 20px;">{{ album.title }}</h1>
       <span class="flex-spacer"></span>
@@ -14,8 +14,8 @@
         <md-card class="md-elevation-z2">
           <img md-card-image [src]="album.image.url" width="100%" alt="Photo of a Shiba Inu">
           <md-card-content>
-            <p>
-              
+            <p class="handwriting">
+              {{ album.releaseDate | date }} 
             </p>
           </md-card-content>
           <md-card-actions>

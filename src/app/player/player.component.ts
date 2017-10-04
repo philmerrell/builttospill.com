@@ -8,6 +8,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { ObservableMedia } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-player',
@@ -40,7 +41,8 @@ export class PlayerComponent implements OnInit {
 
   constructor(
     private playerService: PlayerService,
-    private windowService: WindowService ) { }
+    private windowService: WindowService,
+    public media: ObservableMedia ) { }
 
   ngOnInit() {
     this.getVideo();

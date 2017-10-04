@@ -83,7 +83,10 @@ var YoutubePlayerService = (function () {
         };
         return new YoutubePlayerService.Player(elementId, Object.assign({}, playerSize, {
             videoId: videoId || '',
-            // playerVars: playerVars,
+            playerVars: {
+                playsinline: 1,
+                controls: 0
+            },
             events: {
                 onReady: function (ev) {
                     _this.zone.run(function () { return outputs.ready && outputs.ready.next(ev.target); });
