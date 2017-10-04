@@ -8,10 +8,9 @@
           {{ currentVideo.album }}
         </div>
         <span class="flex-spacer"></span>
-        
         <div id="mini-player-container" class="item right">
-          <button md-button (click)="toggleSize()">
-            <md-icon class="fa fa-2x fa-expand"></md-icon>
+          <button md-icon-button (click)="toggleSize()">
+            <md-icon class="fa fa-2x fa-arrow-circle-down"></md-icon>
           </button>
         </div>
         <div id="player-container" [@playerState]="playerSize">

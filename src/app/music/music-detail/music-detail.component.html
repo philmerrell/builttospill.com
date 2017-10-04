@@ -1,5 +1,5 @@
 <div class="content-container" [style.backgroundImage]="media.isActive('xs') ? mobileStyle : 'none'" [ngClass]="{'mobile-background': media.isActive('xs')}">    
-    <div fxLayout="row" fxLayoutAlign="center" [style.backgroundColor]="media.isActive('xs') ? 'rgba(0,0,0,0.7)' : 'transparent'" class="content-container handwriting shadow padding">
+    <div fxLayout="row" fxLayoutAlign="center" [ngClass]="{'mobile-blur': media.isActive('xs')}" class="content-container handwriting shadow padding">
         
       <button md-fab color="primary">
         <md-icon class="fa fa-2x fa-play"></md-icon>
