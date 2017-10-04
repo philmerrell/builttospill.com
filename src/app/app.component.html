@@ -29,22 +29,22 @@
   <md-sidenav #sidenav mode="cover">
     <md-list>
       <h3 md-subheader>Menu</h3>
-      <md-list-item>
+      <md-list-item (click)="this.navigate(''); sidenav.close()">
         <md-icon md-list-icon>folder</md-icon>
         <h3>home</h3>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item>
+      <md-list-item (click)="this.navigate('/shows'); sidenav.close()">
         <md-icon md-list-icon>folder</md-icon>
         <h3>shows</h3>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item>
+      <md-list-item (click)="this.navigate('/music'); sidenav.close()">
         <md-icon md-list-icon>folder</md-icon>
         <h3>music</h3>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item>
+      <md-list-item (click)="this.navigate('/videos'); sidenav.close()">
         <md-icon class="fa fa-youtube-play" md-list-icon></md-icon>
         <h3>videos</h3>
       </md-list-item>

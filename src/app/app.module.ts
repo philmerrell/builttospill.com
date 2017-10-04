@@ -16,6 +16,8 @@ import { PlayerService } from './player/player.service';
 import { VideoService } from './videos/video.service';
 import { WindowService } from './player/window.service';
 import { VideoTypePipe } from './video-type.pipe';
+import { MusicDetailComponent } from './music/music-detail/music-detail.component';
+import { MusicService } from './music/music.service';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { VideoTypePipe } from './video-type.pipe';
     MusicComponent,
     VideosComponent,
     PlayerComponent,
-    VideoTypePipe
+    VideoTypePipe,
+    MusicDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -53,12 +56,17 @@ import { VideoTypePipe } from './video-type.pipe';
         component: MusicComponent
       },
       {
+        path: 'music/:id',
+        component: MusicDetailComponent
+      },
+      {
         path: 'videos',
         component: VideosComponent
       }
     ])
   ],
   providers: [
+    MusicService,
     PlayerService,
     VideoService,
     WindowService
