@@ -1,0 +1,38 @@
+<div class="content-container" [style.backgroundImage]="media.isActive('xs') ? mobileStyle : 'none'" [ngClass]="{'mobile-background': media.isActive('xs')}">    
+    <div fxLayout="row" fxLayoutAlign="center" [style.backgroundColor]="media.isActive('xs') ? 'rgba(0,0,0,0.7)' : 'transparent'" class="content-container handwriting shadow padding">
+        
+      <button md-fab color="primary">
+        <md-icon class="fa fa-2x fa-play"></md-icon>
+      </button>
+      <h1 style="margin-top: 0; margin-bottom: 0; margin-left: 20px;">{{ album.title }}</h1>
+      <span class="flex-spacer"></span>
+    </div>  
+  </div>
+  <div class="content-container">
+    <div fxLayout="row" fxLayout.xs="column" class="black-background">
+      <div *ngIf="!media.isActive('xs')" fxFlex="33" class="padding" >
+        <md-card class="md-elevation-z2">
+          <img md-card-image [src]="album.image.url" width="100%" alt="Photo of a Shiba Inu">
+          <md-card-content>
+            <p>
+              
+            </p>
+          </md-card-content>
+          <md-card-actions>
+            <button color="accent" md-button>LIKE</button>
+            <button color="primary" md-button>SHARE</button>
+          </md-card-actions>
+        </md-card>
+      </div>
+      <!-- <div fxFlex> -->
+        <md-list fxFlex>
+          <md-list-item *ngFor="let track of album.tracks" (click)="playSong()">
+              <md-icon md-list-icon class="fa fa-youtube-play"></md-icon>
+              <h4 class="handwriting" md-line>{{ track.song }}</h4>
+              <p md-line class="muted-text">{{ track.time }}</p>
+          </md-list-item>
+          <md-divider></md-divider>
+          </md-list>        
+      <!-- </div> -->
+    </div>
+  </div>

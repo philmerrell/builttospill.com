@@ -1,0 +1,18 @@
+<!-- <div *ngFor="let album of albums" class="ui card link">
+  <a [routerLink]="['/music', album.id]" class="image" href="#">
+    <img [src]="album.image.url">
+  </a>
+  <div class="content">
+    <a [routerLink]="['/music', album.id]" class="header handwriting">{{ album.title }}</a>
+    <div class="meta">
+      <span class="date">{{ album.releaseDate | date }}</span>
+    </div>
+  </div>
+</div> -->
+
+<div fxLayoutWrap class="black-background padding">
+  <md-card [routerLink]="['/music', album.id]" *ngFor="let album of albums" fxLayoutGap="5px" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="25" fxFlex.lg="25" style="position: relative;">
+      <img md-card-image width="100%" [src]="album.image.url">
+      <div class="handwriting" style="padding: 5px; position: absolute; bottom: 0; background: rgba(0,0,0,0.7); width: 100%">{{ album.title }}</div>
+  </md-card>
+</div>

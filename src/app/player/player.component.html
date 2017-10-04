@@ -1,0 +1,30 @@
+<md-toolbar>
+    <div fxLayout="row" fxLayoutAlign="left center" style="width: 100%" class="handwriting shadow">
+        <button md-fab color="primary" (click)="toggleVideo()" [disabled]="ytEvent === 3" [ngClass]="{'loading': ytEvent === 3}" >
+          <md-icon [ngClass]="{'fa-play': ytEvent === 2 || !ytEvent, 'fa-pause': ytEvent === 1}" class="fa fa-2x"></md-icon>
+        </button>
+        <div style="margin-left: 20px;">
+          {{ currentVideo.song }} <br>
+          {{ currentVideo.album }}
+        </div>
+        <span class="flex-spacer"></span>
+        
+        <div id="mini-player-container" class="item right">
+          <button md-button (click)="toggleSize()">
+            <md-icon class="fa fa-2x fa-expand"></md-icon>
+          </button>
+        </div>
+        <div id="player-container" [@playerState]="playerSize">
+          <youtube-player
+            [height]="playerHeight"
+            [width]="playerWidth"
+            [videoId]="currentVideo.id" 
+            (ready)="setPlayer($event)"
+            (change)="onStateChange($event)">
+          </youtube-player>
+          <div *ngIf="playerSize === 'minimized'" (click)="toggleSize()" id="minimized-mask">
+              <md-icon class="fa fa-2x fa-expand"></md-icon>              
+          </div>
+        </div>
+    </div>  
+</md-toolbar>
