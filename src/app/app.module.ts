@@ -18,6 +18,7 @@ import { WindowService } from './player/window.service';
 import { VideoTypePipe } from './video-type.pipe';
 import { MusicDetailComponent } from './music/music-detail/music-detail.component';
 import { MusicService } from './music/music.service';
+import { AudioSpectrumComponent } from './audio-spectrum/audio-spectrum.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { MusicService } from './music/music.service';
     VideosComponent,
     PlayerComponent,
     VideoTypePipe,
-    MusicDetailComponent
+    MusicDetailComponent,
+    AudioSpectrumComponent
   ],
   imports: [
     BrowserModule,

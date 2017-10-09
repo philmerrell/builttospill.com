@@ -1,8 +1,10 @@
+<div style="background: rgba(0,0,0,0.5);">
 <div class="content-container" [style.backgroundImage]="media.isActive('xs') ? mobileStyle : 'none'" [ngClass]="{'mobile-background': media.isActive('xs')}">    
     <div fxLayout="row" fxLayoutAlign="center" [ngClass]="{'mobile-blur': media.isActive('xs')}" class="content-container handwriting shadow padding">
         
       <button md-fab color="primary">
-        <md-icon>play_arrow</md-icon>
+        <md-icon class="md-36">play_arrow</md-icon>
+        <!-- <app-audio-spectrum></app-audio-spectrum> -->
       </button>
       <h1 style="margin-top: 0; margin-bottom: 0; margin-left: 20px;">{{ album.title }}</h1>
       <span class="flex-spacer"></span>
@@ -36,3 +38,4 @@
       <!-- </div> -->
     </div>
   </div>
+</div>

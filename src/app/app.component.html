@@ -1,31 +1,31 @@
-<md-toolbar>
-  <button (click)="sidenav.toggle()" md-icon-button *ngIf="!media.isActive('gt-xs')">
-    <md-icon>menu</md-icon>
-  </button>
-  <span class="header-logo">BUILT TO SPILL</span>
-  <nav *ngIf="media.isActive('gt-xs')" md-tab-nav-bar>
-      <a md-tab-link [routerLinkActiveOptions]="{ exact: true }" routerLinkActive #homeLink="routerLinkActive" [active]="homeLink.isActive" routerLink="">
-        home
-      </a>
-      <a md-tab-link routerLinkActive #showLink="routerLinkActive" [active]="showLink.isActive" routerLink="/shows">
-        shows
-      </a>
-      <a md-tab-link routerLinkActive #musicLink="routerLinkActive" [active]="musicLink.isActive" routerLink="/music">
-        music
-      </a>
-      <a md-tab-link routerLinkActive #videoLink="routerLinkActive" [active]="videoLink.isActive" routerLink="/videos">
-        videos
-      </a>
-    </nav>
-  <span class="flex-spacer"></span>
-  <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="facebook-color">
-      <md-icon class="fa fa-facebook"></md-icon>
-    </a>
-  <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="twitter-color">
-    <md-icon class="fa fa-twitter"></md-icon>
-  </a>
-</md-toolbar>
 <md-sidenav-container>
+  <md-toolbar>
+    <button (click)="sidenav.toggle()" md-icon-button *ngIf="!media.isActive('gt-xs')">
+      <md-icon>menu</md-icon>
+    </button>
+    <span class="header-logo">BUILT TO SPILL</span>
+    <nav *ngIf="media.isActive('gt-xs')" md-tab-nav-bar>
+        <a md-tab-link [routerLinkActiveOptions]="{ exact: true }" routerLinkActive #homeLink="routerLinkActive" [active]="homeLink.isActive" routerLink="">
+          home
+        </a>
+        <a md-tab-link routerLinkActive #showLink="routerLinkActive" [active]="showLink.isActive" routerLink="/shows">
+          shows
+        </a>
+        <a md-tab-link routerLinkActive #musicLink="routerLinkActive" [active]="musicLink.isActive" routerLink="/music">
+          music
+        </a>
+        <a md-tab-link routerLinkActive #videoLink="routerLinkActive" [active]="videoLink.isActive" routerLink="/videos">
+          videos
+        </a>
+      </nav>
+    <span class="flex-spacer"></span>
+    <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="facebook-color">
+        <md-icon class="fa fa-facebook"></md-icon>
+      </a>
+    <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="twitter-color">
+      <md-icon class="fa fa-twitter"></md-icon>
+    </a>
+  </md-toolbar>
   <md-sidenav #sidenav mode="cover">
     <md-list>
       <h3 md-subheader>Menu</h3>
@@ -71,5 +71,38 @@
   <div class="main-content">
     <router-outlet></router-outlet>
   </div>
-</md-sidenav-container>
+</md-sidenav-container> 
 <app-player></app-player>
+
+<!-- <div class="main-content">
+  <md-toolbar>
+    <button (click)="sidenav.toggle()" md-icon-button *ngIf="!media.isActive('gt-xs')">
+      <md-icon>menu</md-icon>
+    </button>
+    <span class="header-logo">BUILT TO SPILL</span>
+    <nav *ngIf="media.isActive('gt-xs')" md-tab-nav-bar>
+        <a md-tab-link [routerLinkActiveOptions]="{ exact: true }" routerLinkActive #homeLink="routerLinkActive" [active]="homeLink.isActive" routerLink="">
+          home
+        </a>
+        <a md-tab-link routerLinkActive #showLink="routerLinkActive" [active]="showLink.isActive" routerLink="/shows">
+          shows
+        </a>
+        <a md-tab-link routerLinkActive #musicLink="routerLinkActive" [active]="musicLink.isActive" routerLink="/music">
+          music
+        </a>
+        <a md-tab-link routerLinkActive #videoLink="routerLinkActive" [active]="videoLink.isActive" routerLink="/videos">
+          videos
+        </a>
+      </nav>
+    <span class="flex-spacer"></span>
+    <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="facebook-color">
+      <md-icon class="fa fa-facebook"></md-icon>
+    </a>
+    <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="twitter-color">
+      <md-icon class="fa fa-twitter"></md-icon>
+    </a>
+  </md-toolbar>
+  <router-outlet></router-outlet>
+  <app-player></app-player>
+  
+</div> -->

@@ -3,27 +3,34 @@
     width: 200px;
   }
 
-  @media (min-width: 600px) {
+  md-toolbar {
+    background-color: #000;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+  }
+
+  /* @media (min-width: 600px) {
     md-toolbar {
       position: fixed;
       top: 0;
       z-index: 99;
     }
-  }
+  } */
 
 
-  .main-content {
+  /* .main-content {
     margin-top: 60px;
     margin-bottom: 60px;
-  }
+  } */
 
-  @media (max-width: 599px) {
+  /* @media (max-width: 600px) {
     .main-content {
       margin-top: 0; 
       margin-bottom: 0;
       
     }
-  }
+  } */
   
   .header-logo {
       font-family: 'Anton', sans-serif;
@@ -37,6 +44,7 @@
 
   .facebook-color {
     background-color: #3b5998;
+    margin-right: 10px;
   }
 
   .twitter-color {

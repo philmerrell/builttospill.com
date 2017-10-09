@@ -5,7 +5,7 @@
 </div>
 <div class="content-container black-background">
   <div fxLayoutWrap fxLayout.xs="column" class="padding">
-    <md-card *ngFor="let video of videos | videoType:'Music Video'" fxLayoutGap="5px" fxFlex.sm="33" fxFlex.md="25" fxFlex.lg="25">
+    <md-card *ngFor="let video of videos | videoType:'Music Video'" fxLayoutGap="5px" fxFlex.sm="33" fxFlex.md="25" fxFlex.lg="25" class="card-link">
         <md-card-content>
           <img md-card-image width="100%" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         </md-card-content>
