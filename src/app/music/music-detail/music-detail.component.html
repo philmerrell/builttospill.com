@@ -1,5 +1,5 @@
-<div style="background: rgba(0,0,0,0.5);">
-<div class="content-container" [style.backgroundImage]="media.isActive('xs') ? mobileStyle : 'none'" [ngClass]="{'mobile-background': media.isActive('xs')}">    
+<div style="background: rgba(0,0,0,0.5); padding-bottom: 70px;">
+  <div class="content-container" [style.backgroundImage]="media.isActive('xs') ? mobileStyle : 'none'" [ngClass]="{'mobile-background': media.isActive('xs')}">    
     <div fxLayout="row" fxLayoutAlign="center" [ngClass]="{'mobile-blur': media.isActive('xs')}" class="content-container handwriting shadow padding">
         
       <button md-fab color="primary">
@@ -17,7 +17,7 @@
           <img md-card-image [src]="album.image.url" width="100%" alt="Photo of a Shiba Inu">
           <md-card-content>
             <p class="handwriting">
-              {{ album.releaseDate | date }} 
+              Released: {{ album.releaseDate | date }} 
             </p>
           </md-card-content>
           <md-card-actions>
@@ -26,16 +26,13 @@
           </md-card-actions>
         </md-card>
       </div>
-      <!-- <div fxFlex> -->
         <md-list fxFlex>
           <md-list-item *ngFor="let track of album.tracks" (click)="playSong()">
               <md-icon md-list-icon class="fa fa-youtube-play"></md-icon>
               <h4 class="handwriting" md-line>{{ track.song }}</h4>
               <p md-line class="muted-text">{{ track.time }}</p>
           </md-list-item>
-          <md-divider></md-divider>
-          </md-list>        
-      <!-- </div> -->
+        </md-list>        
     </div>
   </div>
 </div>
