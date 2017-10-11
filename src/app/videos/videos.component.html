@@ -24,7 +24,7 @@
   <div fxLayoutWrap fxLayout.xs="column" class="padding">
     <md-card *ngFor="let video of videos | videoType:'Live'" fxFlex.sm="33" fxFlex.md="25" fxFlex.lg="25">
         <md-card-content>
-          <img md-card-image width="100%" src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
+          <img md-card-image width="100%" src="//img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         </md-card-content>
         <md-card-footer>
             <md-card-title class="handwriting"><md-icon class="fa fa-youtube-play"></md-icon>{{ video.song }}</md-card-title>

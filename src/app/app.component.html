@@ -1,10 +1,10 @@
 <md-sidenav-container>
   <md-toolbar>
-    <button (click)="sidenav.toggle()" md-icon-button *ngIf="!media.isActive('gt-xs')">
+    <button (click)="sidenav.toggle()" md-icon-button *ngIf="!media.isActive('gt-sm')">
       <md-icon>menu</md-icon>
     </button>
     <span class="header-logo">BUILT TO SPILL</span>
-    <nav *ngIf="media.isActive('gt-xs')" md-tab-nav-bar>
+    <nav *ngIf="media.isActive('gt-sm')" md-tab-nav-bar>
         <a md-tab-link [routerLinkActiveOptions]="{ exact: true }" routerLinkActive #homeLink="routerLinkActive" [active]="homeLink.isActive" routerLink="">
           home
         </a>
@@ -19,10 +19,10 @@
         </a>
       </nav>
     <span class="flex-spacer"></span>
-    <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="facebook-color">
+    <a md-mini-fab href="https://www.facebook.com/builttospill" target="_blank" color="primary" *ngIf="media.isActive('gt-xs')" class="facebook-color">
         <md-icon class="fa fa-facebook"></md-icon>
       </a>
-    <a md-mini-fab color="primary" *ngIf="media.isActive('gt-xs')" class="twitter-color">
+    <a md-mini-fab href="https://twitter.com/Built_2_Spill" target="_blank" color="primary" *ngIf="media.isActive('gt-xs')" class="twitter-color">
       <md-icon class="fa fa-twitter"></md-icon>
     </a>
   </md-toolbar>

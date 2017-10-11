@@ -9,6 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "gh:build": "ng build --prod --base-href '/builttospill.com/'",
     "publish": "angular-cli-ghpages" 
   },
   "private": true,

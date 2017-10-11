@@ -1,3 +1,31 @@
-<p>
-  shows works!
-</p>
+<div class="content-container">
+  <md-table #table [dataSource]="dataSource">
+    
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container mdColumnDef="tickets">
+      <md-header-cell *mdHeaderCellDef> Tickets </md-header-cell>
+      <md-cell *mdCellDef="let show"> <button md-button>Buy Tickets</button> </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="date">
+      <md-header-cell *mdHeaderCellDef> Date </md-header-cell>
+      <md-cell *mdCellDef="let show"> {{ show.datetime | date }} </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="venue">
+      <md-header-cell *mdHeaderCellDef> Venue </md-header-cell>
+      <md-cell *mdCellDef="let show"> {{ show.venue.name }} </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="location">
+      <md-header-cell *mdHeaderCellDef> Location </md-header-cell>
+      <md-cell *mdCellDef="let show"> {{ show.venue.city }}, {{ show.venue.region }} </md-cell>
+    </ng-container>
+
+    <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+  </md-table>
+</div>

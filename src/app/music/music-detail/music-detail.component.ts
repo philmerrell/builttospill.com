@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MusicDetailComponent implements OnInit, OnDestroy {
     album;
     albums = [];
+    currentTrack: any;
     mobileStyle;
     private sub: any;
 
@@ -28,13 +29,23 @@ export class MusicDetailComponent implements OnInit, OnDestroy {
       private route: ActivatedRoute) { }
 
     ngOnInit() {
+      this.getCurrentTrack();
       this.sub = this.route.params.subscribe(params => {
          const id = params['id'];
          this.albums = this.musicService.albums;
          this.album = this.albums.filter(album => album.id === id)[0];
          this.mobileStyle = this.sanitizer.bypassSecurityTrustStyle('url(' + this.album.image.url + ')');
-
       });
+    }
+
+    playVideo(event, video, videos) {
+      event.preventDefault();
+      this.playerService.playThis(video, videos);
+    }
+
+    getCurrentTrack() {
+      return this.playerService.getVideo()
+        .subscribe(video => this.currentTrack = video);
     }
 
     ngOnDestroy() {

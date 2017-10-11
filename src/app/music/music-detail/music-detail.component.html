@@ -2,8 +2,8 @@
   <div class="content-container" [style.backgroundImage]="media.isActive('xs') ? mobileStyle : 'none'" [ngClass]="{'mobile-background': media.isActive('xs')}">    
     <div fxLayout="row" fxLayoutAlign="center" [ngClass]="{'mobile-blur': media.isActive('xs')}" class="content-container handwriting shadow padding">
         
-      <button md-fab color="primary">
-        <md-icon class="md-36">play_arrow</md-icon>
+      <button [disabled]="album.tracks.indexOf(currentTrack) > -1" (click)="playVideo($event, album.tracks[0], album.tracks)" md-fab color="primary">
+        <md-icon [ngClass]="{'fa-volume-up': album.tracks.indexOf(currentTrack) > -1, 'fa-play': album.tracks.indexOf(currentTrack) < 0}" class="fa fa-2x"></md-icon>
         <!-- <app-audio-spectrum></app-audio-spectrum> -->
       </button>
       <h1 style="margin-top: 0; margin-bottom: 0; margin-left: 20px;">{{ album.title }}</h1>
@@ -27,8 +27,8 @@
         </md-card>
       </div>
         <md-list fxFlex>
-          <md-list-item *ngFor="let track of album.tracks" (click)="playSong()">
-              <md-icon md-list-icon class="fa fa-youtube-play"></md-icon>
+          <md-list-item *ngFor="let track of album.tracks" (click)="playVideo($event, track, album.tracks)">
+              <md-icon md-list-icon [ngClass]="{'fa-youtube-play': currentTrack !== track, 'fa-volume-up': currentTrack === track}" class="fa"></md-icon>
               <h4 class="handwriting" md-line>{{ track.song }}</h4>
               <p md-line class="muted-text">{{ track.time }}</p>
           </md-list-item>
