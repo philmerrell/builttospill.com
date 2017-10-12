@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule,
   MatButtonModule, MatToolbarModule,
-  MatIconModule, MatTabsModule, MatListModule, MatTableModule } from '@angular/material';
+  MatIconModule, MatTabsModule, MatListModule, MatTableModule, MatTooltipModule } from '@angular/material';
 import { ObservableMedia } from '@angular/flex-layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { YoutubePlayerModule } from './player/youtube-player/ng2-youtube-player';
@@ -49,6 +49,7 @@ import { HttpModule } from '@angular/http';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatTooltipModule,
     YoutubePlayerModule,
     RouterModule.forRoot([
       {

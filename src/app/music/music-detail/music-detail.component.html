@@ -12,17 +12,19 @@
   </div>
   <div class="content-container">
     <div fxLayout="row" fxLayout.xs="column" class="black-background">
-      <div *ngIf="!media.isActive('xs')" fxFlex="33" class="padding" >
+      <div fxFlex="33" class="padding" >
         <md-card class="md-elevation-z2">
-          <img md-card-image [src]="album.image.url" width="100%" alt="Photo of a Shiba Inu">
-          <md-card-content>
+          <img *ngIf="!media.isActive('xs')" md-card-image [src]="album.image.url" width="100%" alt="Photo of a Shiba Inu">
+          <md-card-content *ngIf="!media.isActive('xs')">
             <p class="handwriting">
               Released: {{ album.releaseDate | date }} 
             </p>
           </md-card-content>
-          <md-card-actions>
-            <button color="accent" md-button>LIKE</button>
-            <button color="primary" md-button>SHARE</button>
+          <md-card-actions fxLayout="row" fxLayoutAlign="space-around center">
+            <a *ngIf="album.links.vinyl" mdTooltip="Buy Vinyl" md-icon-button color="warn" [href]="album.links.vinyl" target="_blank"><md-icon class="fa fa-credit-card fa-2x"></md-icon></a>
+            <a *ngIf="album.links.appleMusic" mdTooltip="Listen on Apple Music" md-icon-button color="" [href]="album.links.appleMusic" target="_blank"><md-icon class="fa fa-apple fa-2x"></md-icon></a>
+            <a *ngIf="album.links.spotify" mdTooltip="Listen on Spotify" md-icon-button color="accent" [href]="album.links.spotify" target="_blank"><md-icon class="fa fa-spotify fa-2x"></md-icon></a>
+            <a *ngIf="album.links.googleMusic" mdTooltip="Listen on Google Music" md-icon-button color="primary" [href]="album.links.googleMusic" target="_blank"><md-icon class="fa fa-google fa-2x"></md-icon></a>
           </md-card-actions>
         </md-card>
       </div>

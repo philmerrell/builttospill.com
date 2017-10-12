@@ -3,12 +3,17 @@ md-list-item:hover {
   cursor: pointer;
 }
 
+md-card-actions a {
+  margin-bottom: 10px;
+}
+
 .mobile-background {
   background-size: cover;
   background-position: center;
   width: 100%;
   
 }
+
 
 .mobile-blur {
   background: rgba(0,0,0,0.7);
