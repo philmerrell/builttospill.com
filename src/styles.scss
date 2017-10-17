@@ -10,7 +10,7 @@ html, body, material-app, md-sidenav-container, .main-content {
 }
 
 md-sidenav-container {
-  background: url('assets/art/1-lg.jpg') !important;
+  background: url('assets/art/3-lg.jpg') !important;
   background-size: cover !important;
   background-attachment: fixed !important;
   background-color: #1b1c1d !important;
@@ -55,4 +55,8 @@ md-sidenav-container {
 
 .card-link:hover {
   cursor: pointer;
+}
+
+.player-control-icon {
+
 }

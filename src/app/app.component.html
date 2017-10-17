@@ -1,6 +1,6 @@
 <md-sidenav-container>
   <md-toolbar>
-    <button (click)="sidenav.toggle()" md-icon-button *ngIf="!media.isActive('gt-sm')">
+    <button (click)="leftnav.toggle()" md-icon-button *ngIf="!media.isActive('gt-sm')">
       <md-icon>menu</md-icon>
     </button>
     <span class="header-logo">BUILT TO SPILL</span>
@@ -25,26 +25,29 @@
     <a md-mini-fab href="https://twitter.com/Built_2_Spill" target="_blank" color="primary" *ngIf="media.isActive('gt-xs')" class="twitter-color">
       <md-icon class="fa fa-twitter"></md-icon>
     </a>
+    <button (click)="rightnav.toggle()" md-icon-button *ngIf="!media.isActive('gt-sm')">
+      <md-icon class="fa fa-2x fa-volume-up"></md-icon>
+    </button>
   </md-toolbar>
-  <md-sidenav #sidenav mode="cover">
+  <md-sidenav #rightnav mode="cover">
     <md-list>
       <h3 md-subheader>Menu</h3>
-      <md-list-item (click)="this.navigate(''); sidenav.close()">
+      <md-list-item (click)="this.navigate(''); leftnav.close()">
         <md-icon md-list-icon>folder</md-icon>
         <h3>home</h3>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item (click)="this.navigate('/shows'); sidenav.close()">
+      <md-list-item (click)="this.navigate('/shows'); leftnav.close()">
         <md-icon md-list-icon>folder</md-icon>
         <h3>shows</h3>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item (click)="this.navigate('/music'); sidenav.close()">
+      <md-list-item (click)="this.navigate('/music'); leftnav.close()">
         <md-icon md-list-icon>folder</md-icon>
         <h3>music</h3>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item (click)="this.navigate('/videos'); sidenav.close()">
+      <md-list-item (click)="this.navigate('/videos'); leftnav.close()">
         <md-icon class="fa fa-youtube-play" md-list-icon></md-icon>
         <h3>videos</h3>
       </md-list-item>
@@ -71,8 +74,11 @@
   <div class="main-content">
     <router-outlet></router-outlet>
   </div>
+  <md-sidenav #rightnav style="width: 300px;" position="end" [mode]="media.isActive('gt-sm') ? 'side': 'cover'" [opened]="media.isActive('gt-sm')">
+    <app-player [nav]="rightnav"></app-player>
+  </md-sidenav>
 </md-sidenav-container> 
-<app-player></app-player>
+<!-- <app-player></app-player> -->
 
 <!-- <div class="main-content">
   <md-toolbar>

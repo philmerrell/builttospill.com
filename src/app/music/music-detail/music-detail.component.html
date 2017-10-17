@@ -1,10 +1,9 @@
-<div style="background: rgba(0,0,0,0.5); padding-bottom: 70px;">
+<div style="">
   <div class="content-container" [style.backgroundImage]="media.isActive('xs') ? mobileStyle : 'none'" [ngClass]="{'mobile-background': media.isActive('xs')}">    
-    <div fxLayout="row" fxLayoutAlign="center" [ngClass]="{'mobile-blur': media.isActive('xs')}" class="content-container handwriting shadow padding">
-        
+    <div fxLayout="row" fxLayoutAlign="center center" [ngClass]="{'mobile-blur': media.isActive('xs')}" class="content-container handwriting shadow padding">
+      <!-- <a routerLink="/music" mdTooltip="Back to albums" md-icon-button><md-icon class="fa-2x">arrow_back</md-icon></a> -->
       <button [disabled]="album.tracks.indexOf(currentTrack) > -1" (click)="playVideo($event, album.tracks[0], album.tracks)" md-fab color="primary">
         <md-icon [ngClass]="{'fa-volume-up': album.tracks.indexOf(currentTrack) > -1, 'fa-play': album.tracks.indexOf(currentTrack) < 0}" class="fa fa-2x"></md-icon>
-        <!-- <app-audio-spectrum></app-audio-spectrum> -->
       </button>
       <h1 style="margin-top: 0; margin-bottom: 0; margin-left: 20px;">{{ album.title }}</h1>
       <span class="flex-spacer"></span>

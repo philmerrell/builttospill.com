@@ -21,7 +21,6 @@ import { WindowService } from './player/window.service';
 import { VideoTypePipe } from './video-type.pipe';
 import { MusicDetailComponent } from './music/music-detail/music-detail.component';
 import { MusicService } from './music/music.service';
-import { AudioSpectrumComponent } from './audio-spectrum/audio-spectrum.component';
 import { HttpModule } from '@angular/http';
 
 
@@ -34,8 +33,7 @@ import { HttpModule } from '@angular/http';
     VideosComponent,
     PlayerComponent,
     VideoTypePipe,
-    MusicDetailComponent,
-    AudioSpectrumComponent
+    MusicDetailComponent
   ],
   imports: [
     BrowserModule,

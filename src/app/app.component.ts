@@ -19,4 +19,5 @@ export class AppComponent implements OnInit {
   navigate(route) {
     this.router.navigate([route]);
   }
+
 }

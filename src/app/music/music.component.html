@@ -1,5 +1,5 @@
 
-<div fxLayoutWrap class="black-background padding">
+<div fxLayoutWrap class="black-background padding" style="padding-bottom: 100px">
   <md-card class="card-link" [routerLink]="['/music', album.id]" *ngFor="let album of albums" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="25" fxFlex.lg="25">
       <img md-card-image width="100%" [src]="album.image.url">
       <!-- <div class="handwriting" style="padding: 5px; position: absolute; bottom: 0; background: rgba(0,0,0,0.7); width: 100%">{{ album.title }}</div> -->

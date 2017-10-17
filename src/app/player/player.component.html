@@ -1,10 +1,8 @@
 <md-toolbar class="player">
     <div fxLayout="row" fxLayoutAlign="left center" style="width: 100%" class="handwriting shadow">
         <button *ngIf="ytEvent !== 3" id="control-button" md-fab color="primary" (click)="toggleVideo()" [disabled]="ytEvent === 3">
-          <md-icon [ngClass]="{'fa-play': ytEvent === 2 || !ytEvent, 'fa-pause': ytEvent === 1}" class="fa fa-2x"></md-icon>
-        </button>
-        <md-spinner color="primary"></md-spinner>        
-        
+          <md-icon [ngClass]="{'fa-play': ytEvent === 2 || !ytEvent, 'fa-pause': ytEvent === 1}" class="fa fa-2x player-control-icon"></md-icon>
+        </button>        
         <div style="margin-left: 20px;">
           {{ currentVideo.song }} <br>
           {{ currentVideo.album }}

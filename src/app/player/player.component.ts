@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PlayerService, Video } from './player.service';
 import { WindowService } from './window.service';
 import {
@@ -12,12 +12,12 @@ import { ObservableMedia } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-player',
-  templateUrl: './player.component.html',
+  templateUrl: './player-alt.component.html',
   styleUrls: ['./player.component.css'],
   animations: [
     trigger('playerState', [
       state('expanded', style({
-        bottom: '66px',
+        top: '0',
         height: '200px',
         width: '300px'
       })),
@@ -32,10 +32,11 @@ import { ObservableMedia } from '@angular/flex-layout';
   ]
 })
 export class PlayerComponent implements OnInit {
+  @Input() nav;
   currentVideo: Video;
-  playerSize = 'minimized';
-  playerHeight = '64';
-  playerWidth = '100';
+  playerSize = 'expanded';
+  playerHeight = '200';
+  playerWidth = '300';
   player;
   ytEvent;
 

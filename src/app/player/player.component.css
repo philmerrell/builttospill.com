@@ -1,7 +1,12 @@
 md-toolbar {
-  position: fixed;
-  bottom: 0;
+  /* position: fixed;
+  top: 200px; */
   background-color: #000;
+}
+
+.example-header-image {
+  background-image: url('../../assets/merch/keep-it.jpg');
+  background-size: cover;
 }
 
 @media (max-width: 600px) {
@@ -16,10 +21,10 @@ md-toolbar {
 }
 
 #player-container {
-  position: fixed;
-  right: 2px;
+  /* position: fixed; */
+  /* right: 2px; */
   /*background: #000;*/
-  z-index: 999;
+  /* z-index: 999; */
 }
 
 .player {
