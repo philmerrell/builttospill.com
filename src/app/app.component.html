@@ -1,24 +1,24 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu type="overlay">
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Menu</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
+  <ion-header>
+    <ion-toolbar color="light">
+      <ion-title class="header-logo">
+        BUILT TO SPILL
+      </ion-title>
+      <ion-buttons class="ion-hide-sm-down" slot="primary">
+        <ion-button routerLink="/">
+          Home
+        </ion-button>
+        <ion-button routerLink="/shows">
+          Shows
+        </ion-button>
+        <ion-button routerLink="/music">
+          Music
+        </ion-button>
+        <ion-button routerLink="/videos">
+          Videos
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-router-outlet main></ion-router-outlet>
 </ion-app>

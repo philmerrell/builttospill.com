@@ -1,0 +1,13 @@
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let video of videos" size="12" size-sm="6" size-md="6" size-lg="3">
+      <ion-card>
+        <ion-img src="https://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg"></ion-img>
+        <ion-card-content>
+          <ion-icon slot="start" name="logo-youtube"></ion-icon>
+          <h2 class="handwriting video-title">{{ video.song }}</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

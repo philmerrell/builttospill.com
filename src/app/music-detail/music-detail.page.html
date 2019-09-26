@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>music-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div style="background: var(--ion-color-light)">
+        <div class="ion-hide-sm-up" [style.backgroundImage]="mobileStyle">    
+          <div class="mobile-blur handwriting ion-padding">
+              
+            <!-- <button [disabled]="album.tracks.indexOf(currentTrack) > -1" (click)="playVideo($event, album.tracks[0], album.tracks)" md-fab color="primary">
+              <md-icon [ngClass]="{'fa-volume-up': album.tracks.indexOf(currentTrack) > -1, 'fa-play': album.tracks.indexOf(currentTrack) < 0}" class="fa fa-2x"></md-icon>
+            </button> -->
+
+            <h1>{{ album.title }}</h1>
+            <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
+
+          </div>  
+        </div>
+        <div class="container">
+            <div *ngIf="album as untetheredMoon" style="background: var(--ion-color-light)">
+              <!-- <pre> {{ untetheredMoon | json }}</pre>   -->
+              <ion-grid>
+                  <ion-row>
+                    <ion-col size-sm="4" size="12">
+                      <ion-img class="ion-hide-sm-down" [src]="untetheredMoon.image.url"></ion-img>
+                      <ion-list>
+                        <!-- <ion-list-header>Buy</ion-list-header> -->
+                        <ion-item *ngIf="album.links.vinyl" color="primary" [routerLink]="album.links.vinyl"><ion-icon slot="start" name="card"></ion-icon> Buy Vinyl</ion-item>
+                        <!-- <ion-item *ngIf="album.links.appleMusic" color="primary" [routerLink]="album.links.appleMusic"><ion-icon slot="start" name="logo-apple"></ion-icon> Music</ion-item>
+                        <ion-item *ngIf="album.links.spotify" color="primary" [routerLink]="album.links.spotify"><fa-icon slot="start" [icon]="faSpotify"></fa-icon> Spotify</ion-item> -->
+                        <!-- <ion-item *ngIf="album.links.googleMusic" color="primary" [routerLink]="album.links.googleMusic"><ion-icon slot="start" name="logo-googleplay"></ion-icon> Google</ion-item> -->
+                      </ion-list>
+                    </ion-col>
+                    <ion-col size-sm="8" size="12">
+                      <div class="ion-hide-sm-down">
+                        <h1 class="handwriting">{{ untetheredMoon.title }}</h1>
+                        <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
+                      </div>
+                      <ion-list>
+                        <ion-item *ngFor="let track of untetheredMoon.tracks">
+                          <ion-icon slot="start" name="logo-youtube"></ion-icon>
+                          <ion-label>
+                            <div class="handwriting">{{ track.song }}</div>
+                            <ion-note>{{ track.time }}</ion-note>
+                          </ion-label>
+                        </ion-item>
+                      </ion-list>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+        </div>
+      </div>
+</ion-content>

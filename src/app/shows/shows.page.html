@@ -1,0 +1,14 @@
+<ion-content>
+  <div class="container">
+
+    <h1 class="ion-padding" style="font-weight: 900; text-shadow: 2px 2px #000;">
+    <fa-icon [icon]="faMap"></fa-icon>&nbsp;SHOWS</h1>
+    <div *ngIf="shows | async as dates; else loading">
+      <app-shows [shows]="dates"></app-shows>
+    </div>
+    <ng-template #loading>
+      Loading...
+    </ng-template>
+  </div>
+
+</ion-content>
