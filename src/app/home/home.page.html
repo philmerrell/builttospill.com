@@ -1,20 +1,83 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
+    <ion-title class="header-logo">
+      BUILT TO SPILL
     </ion-title>
+    <ion-buttons class="ion-hide-sm-down" slot="end">
+      <ion-button routerLink="/">
+        Home
+      </ion-button>
+      <ion-button routerLink="/shows">
+        Shows
+      </ion-button>
+      <ion-button routerLink="/music">
+        Music
+      </ion-button>
+      <ion-button routerLink="/videos">
+        Videos
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large" class="header-logo">
+        BUILT TO SPILL
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div>
+    <ion-card>
+      <!-- <h1 class="ion-padding" style="font-weight: 900; text-shadow: 2px 2px #000;">
+        <fa-icon [icon]="faMap"></fa-icon>&nbsp;SHOWS</h1> -->
+      <app-shows [shows]="shows | async" limit="3"></app-shows>
+      <div style="text-align: center" class="ion-padding">
+        <ion-button routerLink="/shows" size="large">All Upcoming Shows <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      </div>
+    </ion-card>
+
+    <app-videos [videos]="videos | async"></app-videos>
+
+    <div style="background: var(--ion-color-light)">
+      <div class="container">
+          <div *ngIf="album as untetheredMoon" class="ion-padding" style="background: var(--ion-color-light)">
+            <!-- <pre> {{ untetheredMoon | json }}</pre>   -->
+            <ion-grid>
+                <ion-row>
+                  <ion-col size-sm="6" size="12" class="ion-align-self-center">
+                    <ion-img [src]="untetheredMoon.image.url"></ion-img>
+                    <ion-list>
+                      <!-- <ion-list-header>Buy</ion-list-header> -->
+                      <ion-item *ngIf="album.links.vinyl" color="primary" [routerLink]="album.links.vinyl"><ion-icon slot="start" name="card"></ion-icon> Vinyl</ion-item>
+                      <ion-item *ngIf="album.links.appleMusic" color="primary" [routerLink]="album.links.appleMusic"><ion-icon slot="start" name="logo-apple"></ion-icon> Music</ion-item>
+                      <ion-item *ngIf="album.links.spotify" color="primary" [routerLink]="album.links.spotify"> Spotify</ion-item>
+                      <!-- <ion-item *ngIf="album.links.googleMusic" color="primary" [routerLink]="album.links.googleMusic"><ion-icon slot="start" name="logo-googleplay"></ion-icon> Google</ion-item> -->
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size-sm="6" size="12">
+        
+                    <ion-list>
+                      <ion-list-header>
+                        <h3 class="handwriting">{{ untetheredMoon.title }}</h3>
+                      </ion-list-header>
+                      <ion-item *ngFor="let track of untetheredMoon.tracks" (click)="playVideo($event, track, album.tracks)" button>
+                        <ion-icon slot="start" name="logo-youtube" color="danger"></ion-icon>
+                        <ion-label>
+                          <div class="handwriting">{{ track.song }}</div>
+                          <p>{{ track.time }}</p>
+                        </ion-label>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+      </div>
+    </div>
+    <!-- <strong>Ready to create an app?</strong>
+    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
   </div>
 </ion-content>

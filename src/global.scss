@@ -24,3 +24,36 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@import url('https://fonts.googleapis.com/css?family=Anton|Dosis:300|Gloria+Hallelujah');
+
+.handwriting {
+    font-family: 'Gloria Hallelujah', cursive !important;
+    color: var(--ion-color-dark);
+}
+
+.header-logo {
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 0.2em;
+    text-shadow: 2px 2px var(--ion-color-medium);
+    // margin-left: 10px;
+    // margin-right: 10px;
+    font-weight: 700;
+    // font-size: 1.2em;
+  }
+
+.title-large {
+    font-size: 31px;
+}
+
+      ion-content {
+
+        --background: url('/assets/art/1-lg.jpg') !important;
+        background-size: cover !important;
+        background-attachment: fixed !important;
+        // background-color: #1b1c1d !important;
+        
+      }
+  
+  
+  
