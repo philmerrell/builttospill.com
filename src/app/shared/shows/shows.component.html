@@ -7,16 +7,7 @@
                 Date
               </ion-label>
             </ion-col>
-            <!-- <ion-col>
-              <ion-label>
-                Venue
-              </ion-label>
-            </ion-col> -->
-            <!-- <ion-col>
-              <ion-label>
-                Location
-              </ion-label>
-            </ion-col> -->
+            
             <ion-col>
               
             </ion-col>
@@ -24,37 +15,16 @@
         </ion-grid>
 
   </ion-list-header>
-  <!-- | slice:0:3 -->
   <ion-item *ngFor="let show of shows | slice:0:limit || shows.length">
-    <ion-text slot="start">
-      {{ show.datetime | date }}
+    <ion-text slot="start" class="ion-hide-sm-down">
+      {{ show.datetime | date: 'MM/dd/yyyy' }}
     </ion-text>
     <ion-label>
+      <p class="ion-hide-sm-up">{{ show.datetime | date: 'MM/dd/yyyy' }}</p>
       <h1>{{ show.venue.name }}</h1>
       <p>{{ show.venue.city }}, {{ show.venue.region }}</p>
-        <!-- <ion-grid>
-            <ion-row>
-              <ion-col size="12" size-sm>
-                <p>{{ show.datetime | date }}</p>
-              </ion-col>
-              <ion-col size="12" size-sm>
-                <h2>{{ show.venue.name }}</h2>
-              </ion-col>
-              <ion-col size="12" size-sm>
-                <h3>{{ show.venue.city }}</h3>
-                <p>{{ show.venue.region }}</p>
-              </ion-col>
-              <ion-col class="ion-hide-sm-down" size="12" size-sm>
-                <div class="ion-text-end">
-                  <ion-button *ngIf="show.offers[0]" slot="end" [href]="show.offers[0].url" blank="_blank" color="primary">
-                    <fa-icon [icon]="faTicket"></fa-icon>&nbsp;Tickets
-                  </ion-button>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid> -->
     </ion-label>
-    <ion-button *ngIf="show.offers[0]" [href]="show.offers[0].url" blank="_blank" color="primary">
+    <ion-button *ngIf="show.offers[0]" [href]="show.offers[0].url" target="_blank" color="warning">
       <ion-icon slot="start" name="ticket"></ion-icon>
       Tickets
     </ion-button>

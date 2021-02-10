@@ -34,7 +34,7 @@ export class PlayerService {
     });
   }
 
-  playThis(video, playlist) {
+  playThis(video, playlist, expanded) {
     this.playlist = playlist;
     this.setVideo(video);
     this.zone.runOutsideAngular(() => {

@@ -13,9 +13,9 @@ export class VideosComponent implements OnInit {
 
   ngOnInit() {}
 
-  playVideo(event, video, videos) {
+  playVideo(event, video, videos, expanded) {
     event.preventDefault();
-    this.playerService.playThis(video, videos);
+    this.playerService.playThis(video, videos, expanded);
   }
 
 }

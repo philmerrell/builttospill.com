@@ -7,12 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ShowsPageRoutingModule } from './shows-routing.module';
 
 import { ShowsPage } from './shows.page';
+import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     ShowsPageRoutingModule
   ],
   declarations: [ShowsPage]

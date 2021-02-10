@@ -7,10 +7,12 @@ import { IonicModule } from '@ionic/angular';
 import { MusicDetailPageRoutingModule } from './music-detail-routing.module';
 
 import { MusicDetailPage } from './music-detail.page';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
     FormsModule,
     IonicModule,
     MusicDetailPageRoutingModule

@@ -10,8 +10,8 @@
       <ion-icon size="large" name="expand"></ion-icon>
     </div>
   </div>
-  <div style="position: absolute; bottom: 0; left: 0; right: 0; width: 100%; z-index: 99; background: var(--ion-color-light);">
-    <ion-item color="light">
+  <div class="player">
+    <ion-item>
       <ion-fab>
         <ion-fab-button (click)="toggleVideo()" color="danger">
           <ion-icon *ngIf="ytEvent === 2 || !ytEvent" name="play"></ion-icon>
@@ -20,31 +20,11 @@
         </ion-fab-button>
       </ion-fab>
       <ion-label style="margin-left: 80px;">
-        <h1> {{ currentVideo.song }}</h1>
+        <h1>{{ currentVideo.song }}</h1>
         <h3>{{ currentVideo.album }}</h3>
       </ion-label>
       <ion-button *ngIf="expanded" (click)="toggleSize()" size="large" fill="outline" slot="end" color="dark">
         <ion-icon name="arrow-down" size="large"></ion-icon>
       </ion-button>
     </ion-item>
-      
-    <!-- <ion-button (click)="toggleVideo()" [disabled]="ytEvent === 3" [ngClass]="{'loading': ytEvent === 3}" class="ui circular red massive icon button">
-      <i [ngClass]="{'play': ytEvent === 2 || !ytEvent, 'pause': ytEvent === 1}" class="icon"></i>
-    </ion-button> -->
-
-    <!-- <ion-button (click)="toggleVideo()" [disabled]="ytEvent === 3" [ngClass]="{'loading': ytEvent === 3}" class="ui circular red massive icon button">
-          <i [ngClass]="{'play': ytEvent === 2 || !ytEvent, 'pause': ytEvent === 1}" class="icon"></i>
-        </ion-button> -->
   </div>
-  
-  <!-- <div class="ui inverted massive bottom fixed borderless menu player">
-    <div class="ui container">
-      <div class="item">
-        
-      </div>
-      <div class="text item">
-       
-      </div>
-    </div>
-    
-  </div> -->

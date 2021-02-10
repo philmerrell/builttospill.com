@@ -1,22 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="header-logo">
-      BUILT TO SPILL
-    </ion-title>
-    <ion-buttons class="ion-hide-sm-down" slot="end">
-      <ion-button routerLink="/">
-        Home
-      </ion-button>
-      <ion-button routerLink="/shows">
-        Shows
-      </ion-button>
-      <ion-button routerLink="/music">
-        Music
-      </ion-button>
-      <ion-button routerLink="/videos">
-        Videos
-      </ion-button>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
     </ion-buttons>
+    <ion-title>
+      Music
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -24,8 +13,8 @@
 
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" class="header-logo">
-        BUILT TO SPILL
+      <ion-title size="large">
+        Music
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -33,9 +22,9 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let album of albums" size="12" size-sm="6" size-md="6" size-lg="3">
+      <ion-col *ngFor="let album of albums" size="12" size-sm="6" size-md="6" size-lg="4">
         <ion-card [routerLink]="['/music', album.id]">
-          <ion-img [src]="album.image.url"></ion-img>
+          <img [src]="album.image.url">
           <ion-card-content>
             <h2 class="handwriting video-title">{{ album.title }}</h2>
             <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
@@ -46,3 +35,6 @@
   </ion-grid>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar></ion-toolbar>
+</ion-footer>

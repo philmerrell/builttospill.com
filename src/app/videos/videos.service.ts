@@ -11,28 +11,22 @@ export class VideosService {
   getHomeVideos() {
     return of([
       {
-        id: '0hgRgO5y0f4',
-        song: 'Living Zoo',
-        album: 'Untethered Moon',
+        id: 'QE2m5rJ1JCk',
+        song: 'Car',
+        album: 'Woods Stage @Pickathon',
         type: 'Music Video'
       },
       {
-        id: 'LZ1VqwPmKkw',
-        song: 'Never Be The Same',
-        album: 'Untethered Moon',
+        id: 'ycfp_AKY4jU',
+        song: 'Bloody Rainbow',
+        album: 'Daniel Johnston Cover',
         type: 'Music Video'
       },
       {
-        id: 'dMKtB6sMg7Y',
-        song: 'Live on KEXP',
-        album: 'KEXP',
+        id: 'cSbGo5VhPjc',
+        song: 'Ashes to Ashes',
+        album: 'Boise Cover Band feat. Built to Spill',
         type: 'Live'
-      },
-      {
-        id: 'IYf3tAtktD8',
-        song: 'Hindsight',
-        album: 'There Is No Enemy',
-        type: 'Music Video'
       }
     ]);
   }
@@ -98,6 +92,12 @@ export class VideosService {
         song: 'Stage On Sixth (Austin, TX)',
         album: 'Paste Magazine',
         type: 'Live'
+      },
+      {
+        id: 'zu8ey2UoRUQ',
+        song: 'Cowgirl in the Sand',
+        album: 'Daytrotter Session',
+        type: 'Covers'
       },
       {
         id: 'NGQXhJu5VUU',

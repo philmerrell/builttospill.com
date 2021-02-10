@@ -1,13 +1,14 @@
 <ion-grid>
   <ion-row>
-    <ion-col *ngFor="let video of videos" size="12" size-sm="6" size-md="6" size-lg="3">
+    <ion-col *ngFor="let video of videos" size="12" size-sm="6" size-md="6" size-lg="4">
       <ion-card (click)="playVideo($event, video, videos)" button>
-        <ion-img src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg"></ion-img>
+        <img src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         <!-- <ion-card-content> -->
           <ion-item lines="none">
-            <ion-icon slot="start" name="logo-youtube" color="danger"></ion-icon>
+            <ion-icon slot="start" name="logo-youtube" color="danger" size="large"></ion-icon>
             <ion-label>
               <h2 class="handwriting">{{ video.song }}</h2>
+              <p class="handwriting">{{ video.album }}</p>
             </ion-label>
           </ion-item>
         <!-- </ion-card-content> -->

@@ -12,7 +12,7 @@ import { VideosService } from '../videos/videos.service';
 })
 export class HomePage implements OnInit {
   videos: Observable<any[]>;
-  shows: Observable<any[]>;
+  shows$: Observable<any[]>;
   album: Observable<any[]>;
 
   constructor(
@@ -32,16 +32,16 @@ export class HomePage implements OnInit {
   }
 
   getShows() {
-    this.shows = this.showsService.getShows();
+    this.shows$ = this.showsService.getShows();
   }
 
   getAlbum() {
     this.album = this.musicService.albums[0];
   }
 
-  playVideo(event, video, videos) {
+  playVideo(event, video, videos, expanded) {
     event.preventDefault();
-    this.playerService.playThis(video, videos);
+    this.playerService.playThis(video, videos, expanded);
   }
 
 }

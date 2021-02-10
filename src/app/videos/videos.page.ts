@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PlayerService } from '../player/player.service';
 import { VideoService } from './video.service';
 
 @Component({
-  selector: 'app-videos',
+  selector: 'app-videos-page',
   templateUrl: './videos.page.html',
   styleUrls: ['./videos.page.scss'],
 })
 export class VideosPage implements OnInit {
 
-  videos;
+  videos$: Observable<any[]>;
 
   constructor(
     private videoService: VideoService,
@@ -20,12 +21,11 @@ export class VideosPage implements OnInit {
   }
 
   getMusicVideos() {
-    this.videoService.getMusicVideos()
-      .subscribe(videos => this.videos = videos);
+    this.videos$ = this.videoService.getMusicVideos();
   }
 
-  playVideo(event, video, videos) {
+  playVideo(event, video, videos, expanded) {
     event.preventDefault();
-    this.playerService.playThis(video, videos);
+    this.playerService.playThis(video, videos, expanded);
   }
 }

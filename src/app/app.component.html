@@ -1,4 +1,72 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- <ion-router-outlet></ion-router-outlet> -->
+  <ion-split-pane (ionSplitPaneVisible)="handleSplitPaneVisible($event)" when="md" contentId="content">
+    <ion-menu [swipeGesture]="false" contentId="content" type="overlay">
+      <!-- <div class="ion-padding" style="background: var(--ion-color-light); text-align: center;">
+        <div style="display: inline-block; position: relative;">
+          <h1 class="header-logo" style="font-size: 2em;">BUILT TO SPILL</h1>
+        </div>
+      </div> -->
+      <ion-content>
+        <!-- <h1 class="header-logo" style="font-size: 2em;">BUILT TO SPILL</h1> -->
+        <div style="padding: 5px; background: var(--ion-color-light)">
+          <img src="/assets/built_to_spill_banner.jpg" width="100%" alt="Built to Spill">
+        </div>
+        <!-- <div *ngIf="user">
+          <storyboard-side-nav [user]="user"></storyboard-side-nav>
+        </div> -->
+        <ion-menu-toggle autoHide="false">
+          <ion-item routerLink="/home" button detail>
+            <ion-icon name="home" slot="start" color="secondary"></ion-icon>
+            <ion-label>
+              <h1 class="handwriting">Home</h1>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle autoHide="false">
+          <ion-item routerLink="/shows" button detail>
+            <ion-icon name="calendar" color="warning" slot="start"></ion-icon>
+            <ion-label>
+              <h1 class="handwriting">Shows</h1>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle autoHide="false">
+          <ion-item routerLink="/music"  button detail>
+            <ion-icon name="headset" color="primary" slot="start"></ion-icon>
+            <ion-label>
+              <h1 class="handwriting">Music</h1>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle autoHide="false">
+          <ion-item routerLink="/videos" button detail>
+            <ion-icon name="logo-youtube" color="danger" slot="start"></ion-icon>
+            <ion-label>
+              <h1 class="handwriting">Videos</h1>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+          <ion-item>
+            <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
+            <ion-label>
+              <h1 class="handwriting">Merch</h1>
+            </ion-label>
+            <ion-icon name="open-outline" slot="end"></ion-icon>
+          </ion-item>
+        <ion-list>
+          <ion-item-divider class="handwriting">Social</ion-item-divider>
+          <ion-item>
+            <ion-icon slot="start" name="logo-instagram"></ion-icon>
+            <ion-label>
+              <h1 class="handwriting">Instagram</h1>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet role="contentinfo" id="content"></ion-router-outlet>
+    
+  </ion-split-pane>
   <app-player></app-player>
 </ion-app>

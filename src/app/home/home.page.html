@@ -1,53 +1,63 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="header-logo">
-      BUILT TO SPILL
-    </ion-title>
-    <ion-buttons class="ion-hide-sm-down" slot="end">
-      <ion-button routerLink="/">
-        Home
-      </ion-button>
-      <ion-button routerLink="/shows">
-        Shows
-      </ion-button>
-      <ion-button routerLink="/music">
-        Music
-      </ion-button>
-      <ion-button routerLink="/videos">
-        Videos
-      </ion-button>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
     </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" class="header-logo">
-        BUILT TO SPILL
+      <ion-title size="large">
+        Home
       </ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div>
-    <ion-card>
+    <ion-card *ngIf="shows$ | async as shows">
+      <ion-card-header color="warning">
+        <ion-card-title class="handwriting">
+          SHOWS
+        </ion-card-title>
+      </ion-card-header>
       <!-- <h1 class="ion-padding" style="font-weight: 900; text-shadow: 2px 2px #000;">
         <fa-icon [icon]="faMap"></fa-icon>&nbsp;SHOWS</h1> -->
-      <app-shows [shows]="shows | async" limit="3"></app-shows>
-      <div style="text-align: center" class="ion-padding">
-        <ion-button routerLink="/shows" size="large">All Upcoming Shows <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      <app-shows [shows]="shows" limit="3"></app-shows>
+      <!-- <div style="text-align: center" class="ion-padding">
+        <ion-button  size="large">All Upcoming Shows <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      </div> -->
+      <div class="ion-padding ion-text-center" style="background-color: var(--ion-color-light)">
+        <ion-button routerLink="/shows">
+          View All {{ shows.length }} Shows <ion-icon name="arrow-forward"></ion-icon>
+        </ion-button>
       </div>
     </ion-card>
 
-    <app-videos [videos]="videos | async"></app-videos>
+    <ion-card>
+      <ion-card-header color="danger">
+        <ion-card-title class="handwriting">
+          VIDEOS
+        </ion-card-title>
+      </ion-card-header>
+      <app-videos [videos]="videos | async"></app-videos>
+    </ion-card>
 
-    <div style="background: var(--ion-color-light)">
-      <div class="container">
+
+      <ion-card>
+        <ion-card-header color="primary">
+          <ion-card-title class="handwriting">Music</ion-card-title>
+        </ion-card-header>
           <div *ngIf="album as untetheredMoon" class="ion-padding" style="background: var(--ion-color-light)">
             <!-- <pre> {{ untetheredMoon | json }}</pre>   -->
             <ion-grid>
-                <ion-row>
-                  <ion-col size-sm="6" size="12" class="ion-align-self-center">
+                <ion-row class="ion-align-items-start">
+                  <ion-col size-sm="6" size="12" class="ion-align-self-start">
+                    <!-- <h1 class="handwriting" style="font-size: 28px; font-weight: 700;">LATEST</h1> -->
                     <ion-img [src]="untetheredMoon.image.url"></ion-img>
                     <ion-list>
                       <!-- <ion-list-header>Buy</ion-list-header> -->
@@ -75,9 +85,11 @@
                 </ion-row>
               </ion-grid>
             </div>
-      </div>
-    </div>
+      </ion-card>
     <!-- <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
   </div>
 </ion-content>
+<ion-footer style="height: 70px;">
+  <ion-toolbar></ion-toolbar>
+</ion-footer>

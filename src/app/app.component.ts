@@ -16,6 +16,11 @@ export class AppComponent {
       document.body.appendChild(tag);
       this.apiLoaded = true;
     }
+    
+  }
+
+  handleSplitPaneVisible() {
+    
   }
 
   
