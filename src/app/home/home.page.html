@@ -19,27 +19,50 @@
   </ion-header>
 
   <div>
-    <ion-card *ngIf="shows$ | async as shows">
-      <ion-card-header color="warning">
-        <ion-card-title class="handwriting">
-          SHOWS
-        </ion-card-title>
-      </ion-card-header>
-      <!-- <h1 class="ion-padding" style="font-weight: 900; text-shadow: 2px 2px #000;">
-        <fa-icon [icon]="faMap"></fa-icon>&nbsp;SHOWS</h1> -->
-      <app-shows [shows]="shows" limit="3"></app-shows>
-      <!-- <div style="text-align: center" class="ion-padding">
-        <ion-button  size="large">All Upcoming Shows <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
-      </div> -->
-      <div class="ion-padding ion-text-center" style="background-color: var(--ion-color-light)">
-        <ion-button routerLink="/shows">
-          View All {{ shows.length }} Shows <ion-icon name="arrow-forward"></ion-icon>
-        </ion-button>
-      </div>
-    </ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-sm="12" size-md="12" size-lg="8">
+
+          <ion-card *ngIf="shows$ | async as shows">
+            <ion-card-header color="medium">
+              <ion-card-title class="handwriting">
+                SHOWS
+              </ion-card-title>
+            </ion-card-header>
+            
+              <app-shows [shows]="shows" limit="3"></app-shows>
+            
+            <div class="ion-padding ion-text-center" style="background-color: var(--ion-color-light)">
+              <ion-button routerLink="/shows">
+                View All {{ shows.length }} Shows <ion-icon name="arrow-forward"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-sm="12" size-md="12" size-lg="4">
+          <ion-card *ngIf="randomProduct1" [href]="'https://builttospill.bigcartel.com/'+ randomProduct1.url" target="_blank" button>
+            <ion-item color="light">
+              <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
+              <ion-label>
+                <h2 class="handwriting">Merch</h2>
+              </ion-label>
+            </ion-item>
+            <ion-img [src]="randomProduct1.images[0].url"></ion-img>
+            <ion-item lines="none" detail>
+              <!-- <ion-icon slot="start" name="pricetag" color="success" size="large"></ion-icon> -->
+              <ion-label class="ion-text-wrap">
+                <h2>{{ randomProduct1.name }}</h2>
+                <p>{{ randomProduct1.price | currency }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
 
     <ion-card>
-      <ion-card-header color="danger">
+      <ion-card-header color="medium">
         <ion-card-title class="handwriting">
           VIDEOS
         </ion-card-title>
@@ -49,16 +72,16 @@
 
 
       <ion-card>
-        <ion-card-header color="primary">
+        <ion-card-header color="medium">
           <ion-card-title class="handwriting">Music</ion-card-title>
         </ion-card-header>
-          <div *ngIf="album as untetheredMoon" class="ion-padding" style="background: var(--ion-color-light)">
-            <!-- <pre> {{ untetheredMoon | json }}</pre>   -->
+          <div *ngIf="album as recentAlbum" class="ion-padding" style="background: var(--ion-color-light)">
+            <!-- <pre> {{ recentAlbum | json }}</pre>   -->
             <ion-grid>
                 <ion-row class="ion-align-items-start">
                   <ion-col size-sm="6" size="12" class="ion-align-self-start">
                     <!-- <h1 class="handwriting" style="font-size: 28px; font-weight: 700;">LATEST</h1> -->
-                    <ion-img [src]="untetheredMoon.image.url"></ion-img>
+                    <ion-img [src]="recentAlbum.image.url"></ion-img>
                     <ion-list>
                       <!-- <ion-list-header>Buy</ion-list-header> -->
                       <ion-item *ngIf="album.links.vinyl" color="primary" [routerLink]="album.links.vinyl"><ion-icon slot="start" name="card"></ion-icon> Vinyl</ion-item>
@@ -66,14 +89,15 @@
                       <ion-item *ngIf="album.links.spotify" color="primary" [routerLink]="album.links.spotify"> Spotify</ion-item>
                       <!-- <ion-item *ngIf="album.links.googleMusic" color="primary" [routerLink]="album.links.googleMusic"><ion-icon slot="start" name="logo-googleplay"></ion-icon> Google</ion-item> -->
                     </ion-list>
+                    
                   </ion-col>
                   <ion-col size-sm="6" size="12">
         
                     <ion-list>
                       <ion-list-header>
-                        <h3 class="handwriting">{{ untetheredMoon.title }}</h3>
+                        <h3 class="handwriting">{{ recentAlbum.title }}</h3>
                       </ion-list-header>
-                      <ion-item *ngFor="let track of untetheredMoon.tracks" (click)="playVideo($event, track, album.tracks)" button>
+                      <ion-item *ngFor="let track of recentAlbum.tracks" (click)="playVideo($event, track, album.tracks)" button>
                         <ion-icon slot="start" name="logo-youtube" color="danger"></ion-icon>
                         <ion-label>
                           <div class="handwriting">{{ track.song }}</div>
@@ -86,9 +110,31 @@
               </ion-grid>
             </div>
       </ion-card>
-    <!-- <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
-  </div>
+
+      <ion-card>
+        <ion-card-header color="medium">
+          <ion-card-title class="handwriting">Merch</ion-card-title>
+        </ion-card-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let product of products" size="12" size-sm="6" size-md="6" size-lg="4">
+              <ion-card button [href]="'https://builttospill.bigcartel.com/'+ product.url" target="_blank">
+                <img [src]="product.images[0].url">
+                <!-- <ion-card-content> -->
+                  <ion-item lines="none">
+                    <ion-icon slot="start" name="pricetag" color="success" size="large"></ion-icon>
+                    <ion-label class="ion-text-wrap">
+                      <h2>{{ product.name }}</h2>
+                      <p>{{ product.price | currency }}</p>
+                    </ion-label>
+                  </ion-item>
+                <!-- </ion-card-content> -->
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+     </div>
 </ion-content>
 <ion-footer style="height: 70px;">
   <ion-toolbar></ion-toolbar>

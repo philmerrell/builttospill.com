@@ -25,16 +25,18 @@
       <ion-col *ngFor="let album of albums" size="12" size-sm="6" size-md="6" size-lg="4">
         <ion-card [routerLink]="['/music', album.id]">
           <img [src]="album.image.url">
-          <ion-card-content>
-            <h2 class="handwriting video-title">{{ album.title }}</h2>
-            <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
-          </ion-card-content>
+          <ion-item lines="none">
+            <ion-icon color="primary" name="headset" slot="start"></ion-icon>
+            <ion-label>
+              <h2 class="handwriting">{{ album.title }}</h2>
+              <p class="handwriting">{{ album.releaseDate | date }}</p>
+            </ion-label>
+          </ion-item>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
-<ion-footer>
+<ion-footer style="height: 70px;">
   <ion-toolbar></ion-toolbar>
 </ion-footer>

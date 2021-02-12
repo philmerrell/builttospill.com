@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MusicService } from '../music/music.service';
 import { PlayerService } from '../player/player.service';
+import { ProductsService } from '../shared/products.service';
 import { ShowsService } from '../shows/shows.service';
 import { VideosService } from '../videos/videos.service';
 
@@ -14,17 +15,24 @@ export class HomePage implements OnInit {
   videos: Observable<any[]>;
   shows$: Observable<any[]>;
   album: Observable<any[]>;
+  products = [];
+  randomProduct1;
+  randomProduct2;
+  randomProduct3;
+  randomProduct4;
 
   constructor(
     private videosService: VideosService,
     private showsService: ShowsService,
     private musicService: MusicService,
-    private playerService: PlayerService) {}
+    private playerService: PlayerService,
+    private productsService: ProductsService) {}
 
   ngOnInit() {
     this.getAlbum();
     this.getShows();
     this.getVideos();
+    this.getProducts();
   }
 
   getVideos() {
@@ -37,6 +45,14 @@ export class HomePage implements OnInit {
 
   getAlbum() {
     this.album = this.musicService.albums[0];
+  }
+
+  async getProducts() {
+    this.products = await this.productsService.getProducts();
+    this.randomProduct1 = await this.productsService.getRandomProduct();
+    this.randomProduct2 = await this.productsService.getRandomProduct();
+    this.randomProduct3 = await this.productsService.getRandomProduct();
+    this.randomProduct4 = await this.productsService.getRandomProduct();
   }
 
   playVideo(event, video, videos, expanded) {

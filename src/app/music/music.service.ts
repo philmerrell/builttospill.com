@@ -19,6 +19,83 @@ export class MusicService {
   setAlbums() {
     this.albums = [
       {
+        title: 'Built to Spill Plays the Songs of Daniel Johnston',
+        id: 'built-to-spill-plays-the-songs-of-daniel-johnston',
+        image: {
+          url: 'assets/albums/built-to-spill-plays-the-songs-of-daniel-johnston.jpg'
+        },
+        links: {},
+        releaseDate: '2020-06-12',
+        tracks: [
+          {
+            id: 'L6K-dXzGL_M',
+            song: 'Bloody Rainbow',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '2:24'
+          },
+          {
+            id: 'lkn3MWmxukw',
+            song: 'Tell Me Now',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '3:01'
+          },
+          {
+            id: 'XMcm6KEgEHw',
+            song: 'Honey I Sure Miss You',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '3:30'
+          },
+          {
+            id: 'cM6E5gwRQMk',
+            song: 'Good Morning You',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '1:33'
+          },
+          {
+            id: '3kN1JGbiNXk',
+            song: 'Heart, Mind and Soul',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '4:28'
+          },
+          {
+            id: 'dupVFFIAwy0',
+            song: 'Life in Vain',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '3:26'
+          },
+          {
+            id: '3WYw2grPi-g',
+            song: 'Mountain Top',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '2:06'
+          },
+          {
+            id: 'ycHbawf1cmA',
+            song: 'Queenie the Dog',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '3:36'
+          },
+          {
+            id: 'nd84RIryF7w',
+            song: 'Impossible Love',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '2:45'
+          },
+          {
+            id: '4XXXPs7JoBA',
+            song: 'Fake Records of Rock & Roll',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '4:09'
+          },
+          {
+            id: '54WJD_qHPRQ',
+            song: 'Fish',
+            album: 'Built to Spill Plays the Songs of Daniel Johnston',
+            time: '3:20'
+          }
+        ]
+      },
+      {
         title: 'Untethered Moon',
         id: 'untethered-moon',
         image: {

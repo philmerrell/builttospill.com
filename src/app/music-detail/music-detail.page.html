@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Music"></ion-back-button>
+      <ion-back-button defaultHref="/music" text="Music"></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="album">
       {{ album.title }}
@@ -10,48 +10,68 @@
 </ion-header>
 
 <ion-content>
-  <ion-header collapse="condense">
+  <ion-header class="ion-hide-sm-down" collapse="condense">
     <ion-toolbar>
       <ion-title *ngIf="album" size="large">
         {{ album.title }}
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  <div>
-    <div class="ion-hide-sm-up" [style.backgroundImage]="mobileStyle">    
+  <div *ngIf="album">
+    <ion-grid class="ion-hide-sm-up">
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <ion-img  [src]="album.image.url"></ion-img>
+          <h2 class="handwriting" >{{ album.title }}</h2>
+          <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- <div [style.backgroundImage]="mobileStyle">    
       <div class="mobile-blur handwriting ion-padding">
-          
-        <!-- <button [disabled]="album.tracks.indexOf(currentTrack) > -1" (click)="playVideo($event, album.tracks[0], album.tracks)" md-fab color="primary">
-          <md-icon [ngClass]="{'fa-volume-up': album.tracks.indexOf(currentTrack) > -1, 'fa-play': album.tracks.indexOf(currentTrack) < 0}" class="fa fa-2x"></md-icon>
-        </button> -->
-
-        <h1>{{ album.title }}</h1>
-        <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        
 
       </div>  
-    </div>
+    </div> -->
     <div class="container">
-        <div *ngIf="album as untetheredMoon">
-          <!-- <pre> {{ untetheredMoon | json }}</pre>   -->
-          <ion-grid>
+        <div>
+          <!-- <pre> {{ album | json }}</pre>   -->
+          <ion-grid >
               <ion-row>
                 <ion-col size-sm="4" size="12">
-                  <ion-img class="ion-hide-sm-down" [src]="untetheredMoon.image.url"></ion-img>
-                  <ion-list>
+                  <ion-img class="ion-hide-sm-down" [src]="album.image.url"></ion-img>
+                  <!-- <ion-list> -->
                     <!-- <ion-list-header>Buy</ion-list-header> -->
-                    <ion-item *ngIf="album.links.vinyl" color="primary" [routerLink]="album.links.vinyl"><ion-icon slot="start" name="card"></ion-icon> Buy Vinyl</ion-item>
+                    <!-- <ion-item *ngIf="album.links.vinyl" color="primary" [href]="album.links.vinyl"><ion-icon slot="start" name="card"></ion-icon> Buy Vinyl</ion-item> -->
                     <!-- <ion-item *ngIf="album.links.appleMusic" color="primary" [routerLink]="album.links.appleMusic"><ion-icon slot="start" name="logo-apple"></ion-icon> Music</ion-item>
                     <ion-item *ngIf="album.links.spotify" color="primary" [routerLink]="album.links.spotify"><fa-icon slot="start" [icon]="faSpotify"></fa-icon> Spotify</ion-item> -->
                     <!-- <ion-item *ngIf="album.links.googleMusic" color="primary" [routerLink]="album.links.googleMusic"><ion-icon slot="start" name="logo-googleplay"></ion-icon> Google</ion-item> -->
-                  </ion-list>
+                  <!-- </ion-list> -->
+                  <ion-card *ngIf="randomProduct1" [href]="'https://builttospill.bigcartel.com/'+ randomProduct1.url" class="ion-hide-sm-down" target="_blank" style="margin: 40px 0 0 0" button>
+                    <ion-item color="light">
+                      <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
+                      <ion-label>
+                        <h2 class="handwriting">Merch</h2>
+                      </ion-label>
+                    </ion-item>
+                    <ion-img [src]="randomProduct1.images[0].url"></ion-img>
+                    <ion-item lines="none">
+                      <ion-label class="ion-text-wrap">
+                        <h2>{{ randomProduct1.name }}</h2>
+                        <p>{{ randomProduct1.price | currency }}</p>
+                      </ion-label>
+                    </ion-item>
+                  </ion-card>
                 </ion-col>
                 <ion-col size-sm="8" size="12">
                   <!-- <div class="ion-hide-sm-down">
-                    <h1 class="handwriting">{{ untetheredMoon.title }}</h1>
+                    <h1 class="handwriting">{{ album.title }}</h1>
                     <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
                   </div> -->
                   <ion-list>
-                    <ion-item *ngFor="let track of untetheredMoon.tracks" (click)="playVideo($event, track, album.tracks)" button>
+                    <ion-item *ngFor="let track of album.tracks" (click)="playVideo($event, track, album.tracks)" button>
                       <ion-icon slot="start" name="logo-youtube" color="danger"></ion-icon>
                       <ion-label>
                         <div class="handwriting">{{ track.song }}</div>
@@ -59,6 +79,24 @@
                       </ion-label>
                     </ion-item>
                   </ion-list>
+
+                  <ion-card *ngIf="randomProduct2" class="ion-hide-sm-up" [href]="'https://builttospill.bigcartel.com/'+ randomProduct2.url" target="_blank" button>
+                    <ion-item color="light">
+                      <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
+                      <ion-label>
+                        <h2 class="handwriting">Merch</h2>
+                      </ion-label>
+                    </ion-item>
+                    <ion-img [src]="randomProduct2.images[0].url"></ion-img>
+                    <ion-item lines="none">
+                      <!-- <ion-icon slot="start" name="pricetag" color="success" size="large"></ion-icon> -->
+                      <ion-label class="ion-text-wrap">
+                        <h2>{{ randomProduct2.name }}</h2>
+                        <p>{{ randomProduct2.price | currency }}</p>
+                      </ion-label>
+                    </ion-item>
+                  </ion-card>
+
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -66,6 +104,6 @@
     </div>
   </div>
 </ion-content>
-<ion-footer>
+<ion-footer style="height: 70px;">
   <ion-toolbar></ion-toolbar>
 </ion-footer>
