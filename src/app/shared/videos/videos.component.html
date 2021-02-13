@@ -5,7 +5,7 @@
         <img src="http://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg">
         <!-- <ion-card-content> -->
           <ion-item lines="none">
-            <ion-icon slot="start" name="logo-youtube" color="danger" size="large"></ion-icon>
+            <ion-icon slot="start" [name]="video === currentVideo ? 'volume-high' : 'logo-youtube'" color="danger" size="large"></ion-icon>
             <ion-label>
               <h2 class="handwriting">{{ video.song }}</h2>
               <p class="handwriting">{{ video.album }}</p>

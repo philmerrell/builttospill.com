@@ -75,7 +75,7 @@
         <ion-card-header color="medium">
           <ion-card-title class="handwriting">Music</ion-card-title>
         </ion-card-header>
-          <div *ngIf="album as recentAlbum" class="ion-padding" style="background: var(--ion-color-light)">
+          <div *ngIf="album as recentAlbum" style="background: var(--ion-color-light)">
             <!-- <pre> {{ recentAlbum | json }}</pre>   -->
             <ion-grid>
                 <ion-row class="ion-align-items-start">
@@ -97,8 +97,8 @@
                       <ion-list-header>
                         <h3 class="handwriting">{{ recentAlbum.title }}</h3>
                       </ion-list-header>
-                      <ion-item *ngFor="let track of recentAlbum.tracks" (click)="playVideo($event, track, album.tracks)" button>
-                        <ion-icon slot="start" name="logo-youtube" color="danger"></ion-icon>
+                      <ion-item *ngFor="let track of recentAlbum.tracks" (click)="playVideo($event, track, album.tracks)" [class.active-item]="track === currentVideo" button>
+                        <ion-icon slot="start" [name]="track === currentVideo ? 'volume-high' : 'logo-youtube'" color="danger"></ion-icon>
                         <ion-label>
                           <div class="handwriting">{{ track.song }}</div>
                           <p>{{ track.time }}</p>

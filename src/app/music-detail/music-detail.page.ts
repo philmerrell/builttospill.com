@@ -12,13 +12,16 @@ import { ProductsService } from '../shared/products.service';
   styleUrls: ['./music-detail.page.scss'],
 })
 export class MusicDetailPage implements OnInit, OnDestroy {
+
+  private sub: Subscription;
   album;
   albums = [];
-  private sub: Subscription;
+  currentVideo;
   mobileStyle;
   randomProduct1;
   randomProduct2;
   randomProduct3;
+  
 
   constructor(
     private musicService: MusicService,
@@ -28,17 +31,23 @@ export class MusicDetailPage implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
        const id = params.id;
        this.albums = this.musicService.albums;
        this.album = this.albums.filter(album => album.id === id)[0];
        this.mobileStyle = this.sanitizer.bypassSecurityTrustStyle('url(' + this.album.image.url + ')');
     });
     this.getRandomProducts();
+    this.getCurrentTrack();
   }
 
   ngOnDestroy(...args: []) {
     this.sub.unsubscribe();
+  }
+
+  getCurrentTrack() {
+    this.sub = this.playerService.getCurrentVideoObservable()
+      .subscribe((video) => this.currentVideo = video);
   }
 
   async getRandomProducts() {

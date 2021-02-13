@@ -26,12 +26,13 @@ export class PlayerService {
   initNextVideo(video: Video) {
     const index = this.playlist.indexOf(video);
     console.log(this.playlist[index + 1]);
-    // TODO: check to see if there are any more items ...
-    this.setVideo(this.playlist[index + 1]);
-    this.zone.runOutsideAngular(() => {
-      this.player.loadVideoById(this.currentVideo.getValue().id);
-      // this.player.playVideo();
-    });
+    if (index && this.playlist.length > (index + 1)) {
+      this.setVideo(this.playlist[index + 1]);
+      this.zone.runOutsideAngular(() => {
+        this.player.loadVideoById(this.currentVideo.getValue().id);
+        // this.player.playVideo();
+      });
+    }
   }
 
   playThis(video, playlist, expanded) {
@@ -40,6 +41,10 @@ export class PlayerService {
     this.zone.runOutsideAngular(() => {
       this.player.loadVideoById(video.id);
     });
+  }
+
+  getCurrentVideoObservable() {
+    return this.currentVideo.asObservable();
   }
 
   getUntetheredMoon() {

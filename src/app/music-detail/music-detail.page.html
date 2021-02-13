@@ -21,7 +21,7 @@
     <ion-grid class="ion-hide-sm-up">
       <ion-row>
         <ion-col size="10" offset="1">
-          <ion-img  [src]="album.image.url"></ion-img>
+          <ion-img [src]="album.image.url"></ion-img>
           <h2 class="handwriting" >{{ album.title }}</h2>
           <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
         </ion-col>
@@ -71,8 +71,8 @@
                     <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
                   </div> -->
                   <ion-list>
-                    <ion-item *ngFor="let track of album.tracks" (click)="playVideo($event, track, album.tracks)" button>
-                      <ion-icon slot="start" name="logo-youtube" color="danger"></ion-icon>
+                    <ion-item *ngFor="let track of album.tracks" (click)="playVideo($event, track, album.tracks)" [class.active-item]="track === currentVideo" button>
+                      <ion-icon slot="start" [name]="track === currentVideo ? 'volume-high' : 'logo-youtube'" color="danger"></ion-icon>
                       <ion-label>
                         <div class="handwriting">{{ track.song }}</div>
                         <p>{{ track.time }}</p>

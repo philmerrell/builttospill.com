@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { MusicService } from '../music/music.service';
 import { PlayerService } from '../player/player.service';
 import { ProductsService } from '../shared/products.service';
@@ -11,7 +11,8 @@ import { VideosService } from '../videos/videos.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
+  sub: Subscription;
   videos: Observable<any[]>;
   shows$: Observable<any[]>;
   album: Observable<any[]>;
@@ -20,6 +21,7 @@ export class HomePage implements OnInit {
   randomProduct2;
   randomProduct3;
   randomProduct4;
+  currentVideo;
 
   constructor(
     private videosService: VideosService,
@@ -33,6 +35,16 @@ export class HomePage implements OnInit {
     this.getShows();
     this.getVideos();
     this.getProducts();
+    this.getCurrentTrack();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  getCurrentTrack() {
+    this.sub = this.playerService.getCurrentVideoObservable()
+      .subscribe((video) => this.currentVideo = video);
   }
 
   getVideos() {

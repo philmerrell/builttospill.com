@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { PlayerService } from '../../player/player.service';
 
 @Component({
@@ -6,16 +7,32 @@ import { PlayerService } from '../../player/player.service';
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss'],
 })
-export class VideosComponent implements OnInit {
+export class VideosComponent implements OnInit, OnDestroy {
   @Input() videos;
+  sub: Subscription;
+  currentVideo;
+
 
   constructor(private playerService: PlayerService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCurrentTrack();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  getCurrentTrack() {
+    this.sub = this.playerService.getCurrentVideoObservable()
+      .subscribe((video) => this.currentVideo = video);
+  }
 
   playVideo(event, video, videos, expanded) {
     event.preventDefault();
     this.playerService.playThis(video, videos, expanded);
   }
+
+
 
 }
