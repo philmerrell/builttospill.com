@@ -3,18 +3,25 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
+export interface Show {
+  datetime: string;
+  venue: any;
+  offers: any;
+  
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ShowsService {
   private showsUrl = 'https://rest.bandsintown.com/artists/built%20to%20spill/events?app_id=js_www.builttospill.com';
-  private shows = [];
+  private shows: Show[] = [];
 
   constructor(private http: HttpClient) { }
 
-  getShows(): Observable<any> {
+  getShows(): Observable<Show[]> {
     if (!this.shows.length) {
-      return this.http.get(this.showsUrl)
+      return this.http.get<Show[]>(this.showsUrl)
         .pipe(
           map(this.extractData)
         );
@@ -23,8 +30,8 @@ export class ShowsService {
     }
   }
 
-  private extractData = (res: Response[]) => {
-    // console.log('response', response);
+  private extractData = (res: Show[]) => {
+    // console.log('response', res);
     this.shows = res;
     return this.shows || [];
   }

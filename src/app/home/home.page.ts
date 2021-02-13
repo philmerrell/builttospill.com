@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MusicService } from '../music/music.service';
-import { PlayerService } from '../player/player.service';
+import { PlayerService, Video } from '../player/player.service';
 import { ProductsService } from '../shared/products.service';
 import { ShowsService } from '../shows/shows.service';
 import { VideosService } from '../videos/videos.service';
@@ -13,9 +13,9 @@ import { VideosService } from '../videos/videos.service';
 })
 export class HomePage implements OnInit, OnDestroy {
   sub: Subscription;
-  videos: Observable<any[]>;
+  videos: Observable<Video[]>;
   shows$: Observable<any[]>;
-  album: Observable<any[]>;
+  album: any;
   products = [];
   randomProduct1;
   randomProduct2;
@@ -31,7 +31,7 @@ export class HomePage implements OnInit, OnDestroy {
     private productsService: ProductsService) {}
 
   ngOnInit() {
-    this.getAlbum();
+    this.getRecentAlbum();
     this.getShows();
     this.getVideos();
     this.getProducts();
@@ -55,7 +55,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.shows$ = this.showsService.getShows();
   }
 
-  getAlbum() {
+  getRecentAlbum() {
     this.album = this.musicService.albums[0];
   }
 

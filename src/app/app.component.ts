@@ -19,8 +19,8 @@ export class AppComponent {
     
   }
 
-  handleSplitPaneVisible() {
-    
+  handleSplitPaneVisible(event) {
+
   }
 
   

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Show } from '../../shows/shows.service';
 // import { faTicketAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./shows.component.scss'],
 })
 export class ShowsComponent implements OnInit {
-  @Input() shows;
+  @Input() shows: Show[];
   @Input() limit;
   // faTicket = faTicketAlt;
   constructor() { }

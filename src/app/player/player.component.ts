@@ -62,7 +62,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   setPlayer(player) {
-    console.log(player.target);
     this.playerService.setPlayer(player.target);
     // console.log(player);
     this.player = player.target;

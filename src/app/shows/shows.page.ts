@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ShowsService } from './shows.service';
+import { Show, ShowsService } from './shows.service';
 
 @Component({
   selector: 'app-shows-page',
@@ -8,7 +8,7 @@ import { ShowsService } from './shows.service';
   styleUrls: ['./shows.page.scss'],
 })
 export class ShowsPage implements OnInit {
-  shows$: Observable<any[]>;
+  shows$: Observable<Show[]>;
 
   constructor(private showsService: ShowsService) { }
 

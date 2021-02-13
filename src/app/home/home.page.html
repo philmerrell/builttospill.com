@@ -97,7 +97,7 @@
                       <ion-list-header>
                         <h3 class="handwriting">{{ recentAlbum.title }}</h3>
                       </ion-list-header>
-                      <ion-item *ngFor="let track of recentAlbum.tracks" (click)="playVideo($event, track, album.tracks)" [class.active-item]="track === currentVideo" button>
+                      <ion-item *ngFor="let track of recentAlbum.tracks" (click)="playVideo($event, track, album.tracks, false)" [class.active-item]="track === currentVideo" button>
                         <ion-icon slot="start" [name]="track === currentVideo ? 'volume-high' : 'logo-youtube'" color="danger"></ion-icon>
                         <ion-label>
                           <div class="handwriting">{{ track.song }}</div>
