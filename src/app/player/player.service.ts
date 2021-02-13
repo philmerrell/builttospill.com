@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 export class PlayerService {
   playlist: Video[] = this.getUntetheredMoon();
   currentVideo: BehaviorSubject<any> = new BehaviorSubject(this.playlist[0]);
+  expanded: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   private player;
 
@@ -25,7 +26,6 @@ export class PlayerService {
 
   initNextVideo(video: Video) {
     const index = this.playlist.indexOf(video);
-    console.log(this.playlist[index + 1]);
     if (index && this.playlist.length > (index + 1)) {
       this.setVideo(this.playlist[index + 1]);
       this.zone.runOutsideAngular(() => {
@@ -38,10 +38,15 @@ export class PlayerService {
   playThis(video, playlist, expanded) {
     this.playlist = playlist;
     this.setVideo(video);
+    this.expanded.next(expanded);
     this.zone.runOutsideAngular(() => {
       this.player.loadVideoById(video.id);
     });
   }
+
+getVideoExpandedObservable() {
+  return this.expanded.asObservable();
+}
 
   getCurrentVideoObservable() {
     return this.currentVideo.asObservable();

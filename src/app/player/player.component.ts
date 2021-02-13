@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PlayerService, Video } from './player.service';
 
 @Component({
@@ -6,8 +7,9 @@ import { PlayerService, Video } from './player.service';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss']
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent implements OnInit, OnDestroy {
   currentVideo: Video;
+  videoExpanded$: Observable<boolean>;
   expanded = false;
   playerHeight = 74;
   playerWidth = 100;
@@ -19,6 +21,22 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
     this.getVideo();
+    this.getVideoExpandedObservable();
+  }
+
+  ngOnDestroy() {
+
+  }
+
+  getVideoExpandedObservable() {
+    this.playerService.getVideoExpandedObservable()
+      .subscribe(videoExpanded => {
+        if (videoExpanded) {
+          this.maximizePlayer();
+        } else {
+          this.minimizePlayer();
+        }
+      });
   }
 
   onStateChange(event) {
