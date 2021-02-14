@@ -1,6 +1,7 @@
   <div id="player-container" [class.expanded]="expanded" [class.minimized]="!expanded">
     <youtube-player
       [videoId]="currentVideo.id"
+      [playerVars]="playerVars"
       [height]="playerHeight"
       [width]="playerWidth"
       (ready)="setPlayer($event)"

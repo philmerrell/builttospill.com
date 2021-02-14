@@ -79,19 +79,19 @@
             <!-- <pre> {{ recentAlbum | json }}</pre>   -->
             <ion-grid>
                 <ion-row class="ion-align-items-start">
-                  <ion-col size-sm="6" size="12" class="ion-align-self-start">
+                  <ion-col size-sm="4" size="12" size-md="10" offset-md="1" size-lg="4" offset-lg="0" class="ion-align-self-start">
                     <!-- <h1 class="handwriting" style="font-size: 28px; font-weight: 700;">LATEST</h1> -->
                     <ion-img [src]="recentAlbum.image.url"></ion-img>
                     <ion-list>
                       <!-- <ion-list-header>Buy</ion-list-header> -->
-                      <ion-item *ngIf="album.links.vinyl" color="primary" [routerLink]="album.links.vinyl"><ion-icon slot="start" name="card"></ion-icon> Vinyl</ion-item>
-                      <ion-item *ngIf="album.links.appleMusic" color="primary" [routerLink]="album.links.appleMusic"><ion-icon slot="start" name="logo-apple"></ion-icon> Music</ion-item>
-                      <ion-item *ngIf="album.links.spotify" color="primary" [routerLink]="album.links.spotify"> Spotify</ion-item>
+                      <!-- <ion-item *ngIf="album.links.vinyl" color="primary" [routerLink]="album.links.vinyl"><ion-icon slot="start" name="card"></ion-icon> Vinyl</ion-item> -->
+                      <!-- <ion-item *ngIf="album.links.appleMusic" color="primary" [routerLink]="album.links.appleMusic"><ion-icon slot="start" name="logo-apple"></ion-icon> Music</ion-item> -->
+                      <!-- <ion-item *ngIf="album.links.spotify" color="primary" [routerLink]="album.links.spotify"> Spotify</ion-item> -->
                       <!-- <ion-item *ngIf="album.links.googleMusic" color="primary" [routerLink]="album.links.googleMusic"><ion-icon slot="start" name="logo-googleplay"></ion-icon> Google</ion-item> -->
                     </ion-list>
                     
                   </ion-col>
-                  <ion-col size-sm="6" size="12">
+                  <ion-col size-sm="8" size-md="12" size-lg="8" size="12">
         
                     <ion-list>
                       <ion-list-header>

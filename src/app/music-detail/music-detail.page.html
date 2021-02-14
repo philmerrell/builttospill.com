@@ -40,7 +40,7 @@
           <!-- <pre> {{ album | json }}</pre>   -->
           <ion-grid >
               <ion-row>
-                <ion-col size-sm="4" size="12">
+                <ion-col size-sm="4" size="12" size-md="10" offset-md="1" size-lg="4" offset-lg="0">
                   <ion-img class="ion-hide-sm-down" [src]="album.image.url"></ion-img>
                   <!-- <ion-list> -->
                     <!-- <ion-list-header>Buy</ion-list-header> -->
@@ -49,7 +49,7 @@
                     <ion-item *ngIf="album.links.spotify" color="primary" [routerLink]="album.links.spotify"><fa-icon slot="start" [icon]="faSpotify"></fa-icon> Spotify</ion-item> -->
                     <!-- <ion-item *ngIf="album.links.googleMusic" color="primary" [routerLink]="album.links.googleMusic"><ion-icon slot="start" name="logo-googleplay"></ion-icon> Google</ion-item> -->
                   <!-- </ion-list> -->
-                  <ion-card *ngIf="randomProduct1" [href]="'https://builttospill.bigcartel.com/'+ randomProduct1.url" class="ion-hide-sm-down" target="_blank" style="margin: 40px 0 0 0" button>
+                  <ion-card *ngIf="randomProduct1" [href]="'https://builttospill.bigcartel.com/'+ randomProduct1.url" class="ion-hide-lg-down" target="_blank" style="margin: 40px 0 0 0" button>
                     <ion-item color="light">
                       <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
                       <ion-label>
@@ -65,7 +65,7 @@
                     </ion-item>
                   </ion-card>
                 </ion-col>
-                <ion-col size-sm="8" size="12">
+                <ion-col size-sm="8" size-md="12" size-lg="8" size="12">
                   <!-- <div class="ion-hide-sm-down">
                     <h1 class="handwriting">{{ album.title }}</h1>
                     <ion-note class="handwriting">{{ album.releaseDate | date }}</ion-note>
@@ -80,7 +80,7 @@
                     </ion-item>
                   </ion-list>
 
-                  <ion-card *ngIf="randomProduct2" class="ion-hide-sm-up" [href]="'https://builttospill.bigcartel.com/'+ randomProduct2.url" target="_blank" button>
+                  <ion-card *ngIf="randomProduct2" class="ion-hide-lg-up" [href]="'https://builttospill.bigcartel.com/'+ randomProduct2.url" target="_blank" button>
                     <ion-item color="light">
                       <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
                       <ion-label>

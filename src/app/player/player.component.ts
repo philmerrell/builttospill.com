@@ -15,6 +15,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
   playerWidth = 100;
   player;
   ytEvent;
+  playerVars: YT.PlayerVars = {
+    playsinline: 1
+  }
 
   constructor(
     private playerService: PlayerService) { }
