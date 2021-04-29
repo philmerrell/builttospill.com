@@ -19,6 +19,59 @@ export class MusicService {
   setAlbums() {
     this.albums = [
       {
+        title: 'Unoriginal Artists',
+        id: 'unoriginal-artists',
+        image: {
+          url: 'assets/albums/unoriginal-artists.jpeg'
+        },
+        links: {},
+        releaseDate: '2021-3-19',
+        tracks: [
+          {
+            id: 'gBhhyplMQDE',
+            song: 'Loving Pauper',
+            album: 'Unoriginal Artists',
+            time: '3:23'
+          },
+          {
+            id: 'S95qYcH6w6s',
+            song: 'Ashes To Ashes',
+            album: 'Unoriginal Artists',
+            time: '5:29'
+          },
+          {
+            id: 'ZfPthI630Vs',
+            song: 'I Love You More',
+            album: 'Unoriginal Artists',
+            time: '2:43'
+          },
+          {
+            id: 'Ybc7Ji3QiOU',
+            song: 'Strange',
+            album: 'Unoriginal Artists',
+            time: '4:28'
+          },
+          {
+            id: 'CDhw5wo1TtY',
+            song: 'Back On the Chain Gang',
+            album: 'Unoriginal Artists',
+            time: '3:27'
+          },
+          {
+            id: 'TWF_svLrqhk',
+            song: 'I\'m Glad',
+            album: 'Unoriginal Artists',
+            time: '3:19'
+          },
+          {
+            id: 'kQn95Td7Y_k',
+            song: 'Ta Magia Sto Pegadi',
+            album: 'Unoriginal Artists',
+            time: '4:53'
+          }
+        ]
+      },
+      {
         title: 'Built to Spill Plays the Songs of Daniel Johnston',
         id: 'built-to-spill-plays-the-songs-of-daniel-johnston',
         image: {

@@ -29,4 +29,10 @@
       Tickets
     </ion-button>
   </ion-item>
+  <ion-item *ngIf="!shows.length">
+    <ion-icon slot="start" name="calendar" color="warning"></ion-icon>
+    <ion-label class="ion-text-wrap">
+      <h1>No shows are currently scheduled. Check back soon.</h1>
+    </ion-label>
+  </ion-item>
 </ion-list>
