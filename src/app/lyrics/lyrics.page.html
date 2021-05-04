@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Lyrics
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">
+        Lyrics
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngFor="let album of albums | async">
+    <ion-list *ngIf="album.lyrics">
+      <ion-item color="light">
+        <ion-thumbnail slot="start">
+          <ion-img [src]="album.image.url"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h1>{{ album.title }}</h1>
+        </ion-label>
+      </ion-item>
+      <div *ngFor="let track of album.tracks">
+        <ion-item *ngIf="track.lyrics" (click)="viewLyrics(track)" button detail>
+          <ion-label>
+            <h1 class="handwriting">{{ track.song }}</h1>
+          </ion-label>
+          <!-- <ion-icon slot="end" name="eye-outline"></ion-icon> -->
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+
+</ion-content>

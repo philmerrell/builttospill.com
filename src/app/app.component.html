@@ -47,12 +47,27 @@
             </ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-item href="https://smarturl.it/builttospillshop" target="_blank">
+        <ion-menu-toggle autoHide="false">
+          <ion-item routerLink="/lyrics" button detail>
+            <ion-icon name="create" color="dark" slot="start"></ion-icon>
+            <ion-label>
+              <h1 class="handwriting">Lyrics</h1>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-item href="https://builttospill.bigcartel.com" target="_blank">
           <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
           <ion-label>
             <h1 class="handwriting">Merch</h1>
           </ion-label>
-          <ion-icon name="open-outline" slot="end"></ion-icon>
+          <!-- <ion-icon name="open-outline" slot="end"></ion-icon> -->
+        </ion-item>
+        <ion-item href="https://shop.bingomerch.com/collections/built-to-spill" target="_blank">
+          <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
+          <ion-label>
+            <h1 class="handwriting">Euro Merch</h1>
+          </ion-label>
+          <!-- <ion-icon name="open-outline" slot="end"></ion-icon> -->
         </ion-item>
         <ion-list>
           <ion-item-divider class="handwriting">Social</ion-item-divider>
