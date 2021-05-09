@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { LyricsPageRoutingModule } from './lyrics-routing.module';
 
 import { LyricsPage } from './lyrics.page';
+import { LyricsModalComponent } from './lyrics-modal/lyrics-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { LyricsPage } from './lyrics.page';
     IonicModule,
     LyricsPageRoutingModule
   ],
-  declarations: [LyricsPage]
+  declarations: [LyricsPage, LyricsModalComponent]
 })
 export class LyricsPageModule {}
