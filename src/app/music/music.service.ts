@@ -811,7 +811,7 @@ export class MusicService {
           url: 'assets/albums/built-to-spill-caustic-resin.jpg'
         },
         links: {},
-        releaseDate: '1-28-1995',
+        releaseDate: '1995-1-28',
         lyrics: true,
         tracks: [
           {
