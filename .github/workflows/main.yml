@@ -59,4 +59,4 @@ jobs:
       - name: cdk deploy
         run: |
           cd infrastructure
-          cdk deploy InfrastructureStack
+          cdk deploy InfrastructureStack  --require-approval never
