@@ -1,0 +1,38 @@
+<ion-list lines="none">
+  <ion-list-header class="ion-hide-sm-down" color="light">
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label>
+                Date
+              </ion-label>
+            </ion-col>
+            
+            <ion-col>
+              
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+  </ion-list-header>
+  <ion-item *ngFor="let show of shows | slice:0:limit || shows.length">
+    <ion-text slot="start" class="ion-hide-sm-down">
+      {{ show.datetime | date: 'MM/dd/yyyy' }}
+    </ion-text>
+    <ion-label>
+      <p class="ion-hide-sm-up">{{ show.datetime | date: 'MM/dd/yyyy' }}</p>
+      <h1>{{ show.venue.name }}</h1>
+      <p>{{ show.venue.city }}, {{ show.venue.region }}</p>
+    </ion-label>
+    <ion-button *ngIf="show.offers[0]" [href]="show.offers[0].url" target="_blank" color="warning">
+      <ion-icon slot="start" name="ticket"></ion-icon>
+      Tickets
+    </ion-button>
+  </ion-item>
+  <ion-item *ngIf="!shows.length">
+    <ion-icon slot="start" name="calendar" color="warning"></ion-icon>
+    <ion-label class="ion-text-wrap">
+      <h1>No shows are currently scheduled. Check back soon.</h1>
+    </ion-label>
+  </ion-item>
+</ion-list>

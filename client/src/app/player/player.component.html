@@ -1,0 +1,31 @@
+  <div id="player-container" [class.expanded]="expanded" [class.minimized]="!expanded">
+    <youtube-player
+      [videoId]="currentVideo.id"
+      [playerVars]="playerVars"
+      [height]="playerHeight"
+      [width]="playerWidth"
+      (ready)="setPlayer($event)"
+      (stateChange)="onStateChange($event)">
+    </youtube-player>
+    <div *ngIf="!expanded" (click)="toggleSize()" id="minimized-mask">
+      <ion-icon size="large" name="expand"></ion-icon>
+    </div>
+  </div>
+  <div class="player">
+    <ion-item>
+      <ion-fab>
+        <ion-fab-button (click)="toggleVideo()" color="danger">
+          <ion-icon *ngIf="ytEvent === 2 || !ytEvent" name="play"></ion-icon>
+          <ion-icon *ngIf="ytEvent === 1" name="pause"></ion-icon>
+          <ion-spinner *ngIf="ytEvent === 3" name="crescent"></ion-spinner>
+        </ion-fab-button>
+      </ion-fab>
+      <ion-label style="margin-left: 80px;">
+        <h1>{{ currentVideo.song }}</h1>
+        <h3>{{ currentVideo.album }}</h3>
+      </ion-label>
+      <ion-button *ngIf="expanded" (click)="toggleSize()" size="large" fill="outline" slot="end" color="dark">
+        <ion-icon name="arrow-down" size="large"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
