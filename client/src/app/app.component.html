@@ -1,9 +1,9 @@
 <ion-app>
   <ion-split-pane (ionSplitPaneVisible)="handleSplitPaneVisible($event)" when="md" contentId="content">
     <ion-menu [swipeGesture]="false" contentId="content" type="overlay">
-      <ion-content>
+      <ion-content color="light">
         <div>
-          <img src="/assets/BTS_logo_color.png" width="100%" alt="Built to Spill">
+          <img src="/assets/BTS_logo_color_yellow.png" width="100%" alt="Built to Spill">
         </div>
         <ion-menu-toggle autoHide="false">
           <ion-item routerLink="/home" button detail>
@@ -60,7 +60,7 @@
           <!-- <ion-icon name="open-outline" slot="end"></ion-icon> -->
         </ion-item>
         <ion-list>
-          <ion-item-divider class="handwriting">Social</ion-item-divider>
+          <ion-item-divider color="medium" class="handwriting">Social</ion-item-divider>
           <ion-item href="https://www.instagram.com/builttospill/?hl=en" target="_blank">
             <ion-icon slot="start" name="logo-instagram"></ion-icon>
             <ion-label>
@@ -79,6 +79,8 @@
               <h1 class="handwriting">Facebook</h1>
             </ion-label>
           </ion-item>
+          <ion-item></ion-item>
+          <ion-item></ion-item>
         </ion-list>
         
       </ion-content>

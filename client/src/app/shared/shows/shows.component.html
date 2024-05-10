@@ -1,5 +1,5 @@
 <ion-list lines="none">
-  <ion-list-header class="ion-hide-sm-down" color="light">
+  <ion-list-header class="ion-hide-sm-down">
       <ion-grid>
           <ion-row>
             <ion-col>
@@ -19,7 +19,7 @@
     <ion-text slot="start" class="ion-hide-sm-down">
       {{ show.datetime | date: 'MM/dd/yyyy' }}
     </ion-text>
-    <ion-label>
+    <ion-label class="ion-text-wrap">
       <p class="ion-hide-sm-up">{{ show.datetime | date: 'MM/dd/yyyy' }}</p>
       <h1>{{ show.venue.name }}</h1>
       <p>{{ show.venue.city }}, {{ show.venue.region }}</p>

@@ -1,8 +1,16 @@
 ion-split-pane {
   --side-max-width: 200px;
+  
 }
 
+ion-list {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 
-// ion-item {
-//   --background: transparent;
-// }
+ion-menu {
+  --background-color: #F6FACE;
+}
+ion-item {
+  --background: #F6FACE;
+}

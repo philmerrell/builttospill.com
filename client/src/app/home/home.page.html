@@ -1,17 +1,17 @@
 
-<ion-content style="--background: transparent">
+<ion-content color="light">
   <ion-buttons>
     <ion-menu-button autoHide="true"></ion-menu-button>
   </ion-buttons>
   <div style="text-align: center">
-    <img src="/assets/horseman.png">
+    <img src="/assets/cloud.png">
   </div>
   <div>
     <ion-grid>
       <ion-row>
         <ion-col size="12" size-sm="12" size-md="12" size-lg="8">
           <ion-card *ngIf="shows$ | async as shows">
-            <ion-card-header  color="light">
+            <ion-card-header color="medium">
               <ion-card-title class="handwriting">
                 SHOWS
               </ion-card-title>
@@ -19,7 +19,7 @@
             
               <app-shows [shows]="shows" limit="4"></app-shows>
             
-            <div class="ion-padding ion-text-center" style="background-color: var(--ion-color-light)">
+            <div class="ion-padding ion-text-center">
               <ion-button routerLink="/shows">
                 View All {{ shows.length }} Shows <ion-icon name="arrow-forward"></ion-icon>
               </ion-button>
@@ -28,7 +28,7 @@
         </ion-col>
         <ion-col size="12" size-sm="12" size-md="12" size-lg="4">
           <ion-card *ngIf="randomProduct1" [href]="'https://builttospill.bigcartel.com/'+ randomProduct1.url" target="_blank" button>
-            <ion-item color="light">
+            <ion-item >
               <ion-icon name="pricetag" color="success" slot="start"></ion-icon>
               <ion-label>
                 <h2 class="handwriting">Merch</h2>
@@ -50,7 +50,7 @@
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <ion-card>
-      <ion-card-header color="light">
+      <ion-card-header color="medium">
         <ion-card-title class="handwriting">
           VIDEOS
         </ion-card-title>
@@ -63,10 +63,10 @@
 
 
       <ion-card>
-        <ion-card-header  color="light">
+        <ion-card-header color="medium">
           <ion-card-title class="handwriting">Music</ion-card-title>
         </ion-card-header>
-          <div *ngIf="album as recentAlbum" style="background: var(--ion-color-light)">
+          <div *ngIf="album as recentAlbum">
             <!-- <pre> {{ recentAlbum | json }}</pre>   -->
             <ion-grid>
                 <ion-row class="ion-align-items-start">
@@ -75,9 +75,9 @@
                     <ion-img [src]="recentAlbum.image.url"></ion-img>
                     <ion-list>
                       <ion-list-header><h1>Buy</h1></ion-list-header>
-                      <ion-item *ngIf="album.links.vinyl" color="light" [href]="album.links.vinyl" detail>Vinyl</ion-item>
-                      <ion-item *ngIf="album.links.cd" color="light" [href]="album.links.cd" detail>CD</ion-item>
-                      <ion-item *ngIf="album.links.cassette" color="light" [href]="album.links.cassette" detail> Cassette</ion-item>
+                      <ion-item *ngIf="album.links.vinyl"  [href]="album.links.vinyl" detail>Vinyl</ion-item>
+                      <ion-item *ngIf="album.links.cd"  [href]="album.links.cd" detail>CD</ion-item>
+                      <ion-item *ngIf="album.links.cassette"  [href]="album.links.cassette" detail> Cassette</ion-item>
                       <ion-item *ngIf="album.links.googleMusic" color="primary" [routerLink]="album.links.googleMusic"><ion-icon slot="start" name="logo-googleplay"></ion-icon> Google</ion-item>
                     </ion-list>
                     
@@ -105,8 +105,8 @@
       <p>&nbsp;</p>
       <p>&nbsp;</p>
 
-      <ion-card>
-        <ion-card-header color="light">
+      <ion-card color="medium">
+        <ion-card-header color="medium">
           <ion-card-title class="handwriting">Merch</ion-card-title>
         </ion-card-header>
         <ion-grid>
