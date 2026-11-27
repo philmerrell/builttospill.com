@@ -1,0 +1,93 @@
+/* ==========================================================================
+   STORM
+   The page is the sky from the "When the Wind Forgets Your Name" painting.
+   Lettering goes flame yellow and hand-cut, like the title on the sleeve.
+   ========================================================================== */
+
+html[data-look='storm'] {
+  --paper: #191824 !important;
+  --paper-2: #26243a !important;
+  --ink: #f5edd3 !important;
+  --slate: #ffd84a !important;
+  --accent-text: #ff8fb4 !important;
+  --font-display: 'Londrina Solid', 'Arial Black', sans-serif;
+  --font-body: 'Hanken Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, serif;
+  --display-weight: 900;
+  --display-case: none;
+  --display-tracking: 0.005em;
+  --display-leading: 0.9;
+  color-scheme: dark;
+  background: #14131c;
+}
+html[data-look='storm'] body {
+  background:
+    linear-gradient(180deg, rgb(20 19 28 / 0.66) 0%, rgb(20 19 28 / 0.9) 70%),
+    url('../../assets/art/wind-painting.jpeg') center top / cover fixed;
+}
+html[data-look='storm'] body::before {
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+}
+html[data-look='storm'] .hero__cloud {
+  mix-blend-mode: normal;
+  opacity: 0.2;
+  filter: brightness(1.7);
+}
+html[data-look='storm'] .hero__mark {
+  font-size: clamp(4.4rem, min(21vw, 26svh), 22rem);
+  text-shadow: 0.035em 0.045em 0 #e2562c, 0.07em 0.09em 0 #7a1f3d;
+}
+html[data-look='storm'] .hero__mark em {
+  text-shadow: none;
+  color: var(--ink);
+}
+html[data-look='storm'] :is(.section__title, .page-head__title) {
+  text-shadow: 0.035em 0.045em 0 #e2562c;
+}
+/* Fraunces swaps in its "wonky" italic forms at display sizes, where l and h grow
+   tails and read as f ("Alf Our Songs"). Song titles have to be legible: keep the
+   soft shapes, switch the wonk off everywhere. */
+html[data-look='storm'] body {
+  font-variation-settings: 'SOFT' 100, 'WONK' 0;
+}
+html[data-look='storm'] .wm em,
+html[data-look='storm'] .serif,
+html[data-look='storm'] .kicker {
+  font-weight: 500;
+}
+html[data-look='storm'] .kicker {
+  color: var(--ink);
+}
+html[data-look='storm'] .section--tint {
+  background: rgb(38 36 58 / 0.82);
+}
+html[data-look='storm'] :is(.btn--ticket, .site-nav .site-nav__store:hover) {
+  color: #14131c;
+}
+html[data-look='storm'] .btn--ghost {
+  color: var(--ink);
+}
+/* handwriting: white ink on the dark page */
+html[data-look='storm'] .sheet:not(.sheet--dark) .sheet__page {
+  background: #191824;
+  isolation: isolate;
+  border: 3px solid var(--ink);
+  box-shadow: 10px 10px 0 #e2562c;
+}
+html[data-look='storm'] .sheet:not(.sheet--dark) img {
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+html[data-look='storm'] .sheet:not(.sheet--dark) .sheet__page::after {
+  background: #191824;
+}
+html[data-look='storm'] .latest {
+  background: transparent;
+}
+html[data-look='storm'] .latest__bg {
+  display: none;
+}
+html[data-look='storm'] .latest::after {
+  background: linear-gradient(180deg, transparent, rgb(20 19 28 / 0.55));
+}

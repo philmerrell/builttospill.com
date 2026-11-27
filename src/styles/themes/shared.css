@@ -1,0 +1,37 @@
+/* ==========================================================================
+   Themes
+
+   global.css is the base design ("Sleeve": yellow paper, Archivo + Bodoni).
+   Each file in this folder is another complete look, scoped to
+   html[data-look='…'], that restyles the same markup:
+
+     storm.css      the Wind painting, dark · Londrina Solid + Fraunces + Hanken Grotesk
+     photocopy.css  xeroxed white + line art · Special Elite + Courier Prime
+     cutpaper.css   Keep It Like a Secret blue · Barrio + Cabin + Bodoni   <- the live site
+     cutpaper-backgrounds.css  other things to put behind the Cut paper labels
+
+   The look the site ships with is set in src/data/site.ts (`theme`) and written
+   onto <html> at build time. Only that look's CSS and fonts are in a normal
+   production build; the rest load with the theme picker (dev server, or
+   PUBLIC_THEME_PICKER=true). This file holds what every non-base look shares.
+   ========================================================================== */
+
+/* ---------- shared: which elements speak in the display voice ---------- */
+
+html[data-look] :is(.show__mon, .show__day, .show__city, .video__title, .record__title, .album-nav__title, .player__title) {
+  font-family: var(--font-display);
+}
+html[data-look] :is(.display, .wm, .show__mon, .show__day, .show__city, .video__title, .record__title, .album-nav__title, .player__title) {
+  font-weight: var(--display-weight);
+  font-stretch: 100%;
+  text-transform: var(--display-case);
+  letter-spacing: var(--display-tracking);
+  font-synthesis: none;
+}
+html[data-look] :is(.display, .wm) {
+  line-height: var(--display-leading);
+}
+html[data-look] body,
+html[data-look] :is(.btn, .label, .more, .crumb, .site-nav a, .track__title, .track__num, .product__name) {
+  font-stretch: 100%;
+}

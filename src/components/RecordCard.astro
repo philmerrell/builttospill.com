@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import { albumHref, albumRuntime, albumYear, coverImage, type Album } from '../data';
+
+interface Props {
+  album: Album;
+  loading?: 'lazy' | 'eager';
+}
+const { album, loading = 'lazy' } = Astro.props;
+---
+
+<a class="record" href={albumHref(album)}>
+  <span class="record__sleeve" style={`view-transition-name: cover-${album.id}`}>
+    <Image
+      src={coverImage(album)}
+      alt={`${album.title} album cover`}
+      width={560}
+      height={560}
+      fit="cover"
+      widths={[280, 420, 560]}
+      sizes="(min-width: 86rem) 19rem, (min-width: 40rem) 30vw, 88vw"
+      quality={74}
+      loading={loading}
+    />
+  </span>
+  <span class="record__year">{albumYear(album)}</span>
+  <span class="record__title">{album.title}</span>
+  <span class="record__meta">{album.tracks.length} tracks · {albumRuntime(album)}</span>
+</a>

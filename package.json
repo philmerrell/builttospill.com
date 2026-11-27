@@ -1,0 +1,39 @@
+{
+  "name": "builttospill.com",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The official Built to Spill website.",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "node scripts/verify-build.mjs",
+    "test": "npm run check && npm run build && npm run verify",
+    "snapshot": "node scripts/snapshot.mjs",
+    "icons": "node scripts/make-icons.mjs",
+    "art": "node scripts/make-art.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.6",
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/bodoni-moda": "^5.3.0",
+    "@fontsource-variable/cabin": "^5.3.0",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource/barrio": "^5.3.0",
+    "@fontsource/courier-prime": "^5.3.0",
+    "@fontsource/londrina-solid": "^5.3.0",
+    "@fontsource/special-elite": "^5.3.0",
+    "astro": "^7.4.13",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  }
+}

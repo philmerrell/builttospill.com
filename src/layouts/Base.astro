@@ -1,0 +1,123 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource/barrio/latin-400.css';
+import '@fontsource-variable/cabin/wght.css';
+import displayFontUrl from '@fontsource/barrio/files/barrio-latin-400-normal.woff2?url';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Player from '../components/Player.astro';
+import { site, theme as siteTheme } from '../data/site';
+import { abs } from '../lib/schema';
+import '../styles/global.css';
+// The live look (see `theme` in data/site.ts). The other looks load with the picker.
+import '../styles/themes/shared.css';
+import '../styles/themes/cutpaper.css';
+
+interface Props {
+  /** Page title, without the band name. Omit on the home page. */
+  title?: string;
+  description?: string;
+  /** Absolute or root-relative image for link previews. */
+  image?: string;
+  imageAlt?: string;
+  ogType?: string;
+  /** Inline custom properties for <html>: lets a record recolour the whole page. */
+  theme?: string;
+  /** Hex colour for the browser chrome. */
+  themeColor?: string;
+  /** JSON-LD string from lib/schema `graph()`. */
+  jsonLd?: string;
+  /** Path of this page's Markdown twin, e.g. /shows.md */
+  markdown?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  image = '/og.jpg',
+  imageAlt = 'Built to Spill',
+  ogType = 'website',
+  theme,
+  themeColor = siteTheme.color,
+  jsonLd,
+  markdown,
+  noindex = false,
+} = Astro.props;
+
+// The theme picker (and with it every look other than the live one) is for the
+// people making the site, not for visitors: dev server, or a build made with
+// PUBLIC_THEME_PICKER=true. Both conditions are compile-time constants, so in a
+// normal build this import, its stylesheets and its fonts are dropped entirely.
+const showPicker = import.meta.env.DEV || import.meta.env.PUBLIC_THEME_PICKER === 'true';
+const ThemePicker = showPicker ? (await import('../components/ThemePicker.astro')).default : null;
+
+// Written onto <html> so the look is in the first byte of HTML: no script, no flash.
+const look = siteTheme.look === 'sleeve' ? undefined : siteTheme.look;
+const background = siteTheme.look === 'cutpaper' && siteTheme.background !== 'clouds' ? siteTheme.background : undefined;
+
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Official Site`;
+const canonical = abs(Astro.url.pathname);
+const ogImage = abs(image);
+---
+
+<!doctype html>
+<html lang="en" data-look={look} data-bg={background} style={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content={themeColor} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preload" href={displayFontUrl} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title ?? site.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@built_2_spill" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt: this site for AI agents" />
+    {markdown && <link rel="alternate" type="text/markdown" href={markdown} title="This page as Markdown" />}
+
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
+
+    <ClientRouter fallback="swap" />
+    {
+      ThemePicker && (
+        <script is:inline>
+          {`try{var q=new URLSearchParams(location.search),d=document.documentElement,l=q.get('look')||localStorage.getItem('bts:look'),b=q.get('bg')||localStorage.getItem('bts:bg');if(l){l==='sleeve'?d.removeAttribute('data-look'):d.setAttribute('data-look',l)}l=l||d.getAttribute('data-look');if(l!=='cutpaper')d.removeAttribute('data-bg');else if(b){b==='clouds'?d.removeAttribute('data-bg'):d.setAttribute('data-bg',b)}}catch(e){}`}
+        </script>
+      )
+    }
+  </head>
+  <body>
+    <a class="skip" href="#page">Skip to content</a>
+    <Header />
+    <main id="page" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <Player />
+    {ThemePicker && <ThemePicker />}
+    <script>
+      import '../scripts/router.ts';
+      import '../scripts/player.ts';
+      import '../scripts/shows.ts';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+---
+interface Props {
+  class?: string;
+  as?: 'span' | 'h1' | 'p' | 'div';
+}
+const { class: cls, as: Tag = 'span' } = Astro.props;
+---
+
+<Tag class:list={['wm', cls]}><span>Built</span> <em>to</em> <span>Spill</span></Tag>

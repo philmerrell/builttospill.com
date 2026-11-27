@@ -1,0 +1,42 @@
+[
+  {
+    "artist_id": "1287",
+    "bandsintown_plus": false,
+    "datetime": "2027-06-18T19:00:00",
+    "datetime_display_rule": "range",
+    "description": "",
+    "ends_at": "2027-06-20T23:59:59",
+    "festival_datetime_display_rule": "range",
+    "festival_end_date": "2027-06-20",
+    "festival_start_date": "2027-06-18",
+    "free": false,
+    "id": "109170632",
+    "lineup": [
+      "Built to Spill"
+    ],
+    "offers": [
+      {
+        "status": "available",
+        "type": "Tickets",
+        "url": "https://www.bandsintown.com/t/109170632?app_id=js_www.builttospill.com&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=ticket"
+      }
+    ],
+    "on_sale_datetime": "",
+    "presale": "",
+    "sold_out": false,
+    "starts_at": "2027-06-18T19:00:00",
+    "title": "Green River Festival 2027",
+    "url": "https://www.bandsintown.com/e/109170632?app_id=js_www.builttospill.com&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=event",
+    "venue": {
+      "city": "Greenfield",
+      "country": "United States",
+      "latitude": "42.5803794",
+      "location": "Greenfield, MA",
+      "longitude": "-72.6099166",
+      "name": "Green River Festival 2027",
+      "postal_code": "01301",
+      "region": "MA",
+      "street_address": "81 Wisdom Way"
+    }
+  }
+]

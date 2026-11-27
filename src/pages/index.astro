@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import cloud from '../assets/art/cloud.png';
+import horseman from '../assets/art/horseman.png';
+import painting from '../assets/art/wind-painting.jpeg';
+import Icon from '../components/Icon.astro';
+import ShowList from '../components/ShowList.astro';
+import TrackList from '../components/TrackList.astro';
+import VideoCard from '../components/VideoCard.astro';
+import { albumHref, albumRuntime, albumYear, coverImage, latestAlbum, LINK_LABELS, videos, type AlbumLinks } from '../data';
+import { site, stores } from '../data/site';
+import Base from '../layouts/Base.astro';
+import { coverLarge } from '../lib/images';
+import { formatPrice, getProducts, getShows, productImage } from '../lib/remote';
+import { albumNode, bandNode, graph, pageNode, showNode, websiteNode } from '../lib/schema';
+
+const [shows, products] = await Promise.all([getShows(), getProducts()]);
+const album = latestAlbum;
+const featured = videos.filter((v) => v.featured);
+const shelf = products.filter((p) => !p.soldOut && p.image).slice(0, 8);
+const buy = (Object.keys(LINK_LABELS) as (keyof AlbumLinks)[]).filter((k) => album.links[k]);
+const coverSrc = await coverLarge(album);
+
+const jsonLd = graph(
+  websiteNode(),
+  bandNode(),
+  pageNode({ path: '/', title: site.name, description: site.description }),
+  albumNode(album, coverSrc),
+  shows.slice(0, 4).map(showNode),
+);
+---
+
+<Base jsonLd={jsonLd} markdown="/index.md">
+  <section class="hero" aria-labelledby="hero-title">
+    {/* Clouds: shown by the looks that use them. Lazy, so a look that hides them never downloads them. */}
+    <Image class="hero__cloud hero__cloud--a" src={cloud} alt="" widths={[480, 800, 1000]} sizes="62vw" loading="lazy" />
+    <Image class="hero__cloud hero__cloud--b" src={cloud} alt="" widths={[320, 520]} sizes="34vw" loading="lazy" />
+    <div class="wrap">
+      <h1 class="wm hero__mark" id="hero-title">
+        <span>Built</span>
+        <em>to</em>
+        <span>Spill</span>
+      </h1>
+      <div class="hero__foot">
+        <button type="button" class="btn btn--accent btn--big" data-play-first="#tracks-latest">
+          <Icon name="play" /> Play the latest record
+        </button>
+        <p class="serif hero__where">Boise, Idaho · since 1992</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="latest" aria-labelledby="latest-title">
+    <Image class="latest__bg" src={painting} alt="" widths={[640, 1100, 1889]} sizes="100vw" quality={62} loading="eager" />
+    <div class="rider">
+      <Image
+        src={horseman}
+        alt="A rider in a yellow coat on a winged pink horse, from the When the Wind Forgets Your Name cover painting by Alex Graham"
+        widths={[320, 560, 800, 1000]}
+        sizes="(min-width: 90rem) 36rem, 40vw"
+        quality={78}
+        loading="eager"
+      />
+    </div>
+    <div class="wrap latest__grid">
+      <div class="latest__sleeve">
+      <a class="latest__cover" href={albumHref(album)} style={`view-transition-name: cover-${album.id}`}>
+        <Image
+          src={coverImage(album)}
+          alt={`${album.title} album cover`}
+          widths={[360, 560, 800, 960]}
+          sizes="(min-width: 62rem) 34rem, 90vw"
+          quality={76}
+          loading="eager"
+        />
+      </a>
+      </div>
+      <div>
+        <span class="kicker latest__kicker">the latest record</span>
+        <h2 class="display latest__title" id="latest-title">
+          <a href={albumHref(album)} style="text-decoration:none">{album.title}</a>
+        </h2>
+        <p class="serif latest__meta">{albumYear(album)} · {album.tracks.length} songs · {albumRuntime(album)}</p>
+        <div class="latest__actions">
+          <button type="button" class="btn btn--accent" data-play-first="#tracks-latest">
+            <Icon name="play" /> Play
+          </button>
+          {
+            buy.map((k) => (
+              <a class="btn" href={album.links[k]} target="_blank" rel="noopener">
+                {LINK_LABELS[k]}
+              </a>
+            ))
+          }
+        </div>
+        <TrackList album={album} id="tracks-latest" lyrics={false} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="shows-title">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <span class="kicker">on the road</span>
+          <h2 class="display section__title" id="shows-title">Shows</h2>
+        </div>
+        <a class="more" href="/shows/">
+          All tour dates <Icon name="arrow" />
+        </a>
+      </div>
+      <ShowList shows={shows} limit={4} />
+    </div>
+  </section>
+
+  <section class="section section--night" aria-labelledby="videos-title">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <span class="kicker">now showing</span>
+          <h2 class="display section__title" id="videos-title">Videos</h2>
+        </div>
+        <a class="more" href="/videos/">All {videos.length} videos <Icon name="arrow" /></a>
+      </div>
+      <div class="videos videos--three" data-playlist>
+        {featured.map((v) => <VideoCard video={v} />)}
+      </div>
+    </div>
+  </section>
+
+  {
+    shelf.length > 0 && (
+      <section class="section section--tint" aria-labelledby="merch-title">
+        <div class="wrap">
+          <div class="section__head">
+            <div>
+              <span class="kicker">from the merch table</span>
+              <h2 class="display section__title" id="merch-title">
+                Merch
+              </h2>
+            </div>
+            <a class="more" href={stores[0].href} target="_blank" rel="noopener">
+              Visit the store <Icon name="out" />
+            </a>
+          </div>
+          <ul class="merch">
+            {shelf.map((p) => (
+              <li>
+                <a class="product" href={p.url} target="_blank" rel="noopener">
+                  <span class="product__img">
+                    <img
+                      src={productImage(p.image!, 480)}
+                      srcset={`${productImage(p.image!, 320)} 320w, ${productImage(p.image!, 480)} 480w, ${productImage(p.image!, 800)} 800w`}
+                      sizes="(min-width: 86rem) 19rem, (min-width: 40rem) 23vw, 44vw"
+                      alt=""
+                      width="480"
+                      height="480"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                  <span class="product__name">{p.name}</span>
+                  <span class="product__price">{formatPrice(p.price)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="merch-stores">
+            {stores.map((s) => (
+              <a class="btn" href={s.href} target="_blank" rel="noopener">
+                {s.label} <Icon name="out" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Base>

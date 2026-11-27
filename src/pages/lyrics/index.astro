@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { albumHref, albumsWithLyrics, albumYear, coverImage, lyricEntries, lyricsHref } from '../../data';
+import { site } from '../../data/site';
+import Base from '../../layouts/Base.astro';
+import { bandNode, breadcrumbNode, graph, pageNode } from '../../lib/schema';
+
+const description = `${lyricEntries.length} Built to Spill songs in Doug Martsch’s own handwriting: lyric sheets from ${albumsWithLyrics.length} records.`;
+const jsonLd = graph(
+  bandNode(),
+  pageNode({ path: '/lyrics/', title: `${site.name} lyrics`, description, type: 'CollectionPage' }),
+  breadcrumbNode([
+    { name: 'Home', path: '/' },
+    { name: 'Lyrics', path: '/lyrics/' },
+  ]),
+);
+---
+
+<Base title="Lyrics" description={description} jsonLd={jsonLd} markdown="/lyrics.md">
+  <div class="wrap">
+    <header class="page-head">
+      <span class="kicker">in Doug’s handwriting</span>
+      <h1 class="display page-head__title">Lyrics</h1>
+      <p class="page-head__lede">{lyricEntries.length} songs, written out by hand. Pick one.</p>
+    </header>
+    <div class="page-body">
+      {
+        albumsWithLyrics.map((album) => (
+          <section class="lyric-album" aria-labelledby={`la-${album.id}`}>
+            <a class="lyric-album__sleeve" href={albumHref(album)} tabindex="-1" aria-hidden="true">
+              <Image
+                src={coverImage(album)}
+                alt=""
+                width={416}
+                height={416}
+                fit="cover"
+                widths={[208, 416]}
+                sizes="13rem"
+                quality={72}
+              />
+            </a>
+            <div>
+              <h2 class="display lyric-album__title" id={`la-${album.id}`}>
+                <a href={albumHref(album)}>{album.title}</a> <span class="serif">{albumYear(album)}</span>
+              </h2>
+              <ul class="lyric-list">
+                {album.tracks
+                  .filter((t) => t.lyricsSheet)
+                  .map((t) => (
+                    <li>
+                      <a href={lyricsHref(album, t)}>{t.title}</a>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Base>

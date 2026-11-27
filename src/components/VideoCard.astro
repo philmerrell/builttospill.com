@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import { albumHref, youtubeThumb, type Video } from '../data';
+import { albumByLooseTitle, videoStill } from '../lib/images';
+import Eq from './Eq.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  video: Video;
+  loading?: 'lazy' | 'eager';
+}
+const { video, loading = 'lazy' } = Astro.props;
+const still = await videoStill(video.youtubeId);
+const album = albumByLooseTitle(video.from);
+const sizes = '(min-width: 86rem) 26rem, (min-width: 40rem) 45vw, 92vw';
+---
+
+<button
+  type="button"
+  class="video"
+  data-play
+  data-view="pip"
+  data-yt={video.youtubeId}
+  data-title={video.title}
+  data-album={video.from}
+  data-href={album ? albumHref(album) : undefined}
+  data-cover={youtubeThumb(video.youtubeId)}
+>
+  <span class="video__frame">
+    {
+      still ? (
+        <Image src={still} alt="" width={640} height={360} fit="cover" widths={[320, 640, 960]} sizes={sizes} format="webp" quality={70} loading={loading} />
+      ) : (
+        <img src={youtubeThumb(video.youtubeId)} alt="" width="480" height="360" loading={loading} decoding="async" />
+      )
+    }
+    <span class="video__badge">
+      <Icon name="play" />
+      <Eq />
+    </span>
+  </span>
+  <span class="video__title">
+    <span class="visually-hidden">Play video: </span>
+    {video.title}
+  </span>
+  <span class="video__from">{video.from}</span>
+</button>

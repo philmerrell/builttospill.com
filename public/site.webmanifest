@@ -1,0 +1,20 @@
+{
+  "name": "Built to Spill",
+  "short_name": "Built to Spill",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#a6d6d8",
+  "theme_color": "#a6d6d8",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

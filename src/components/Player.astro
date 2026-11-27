@@ -1,0 +1,75 @@
+---
+/**
+ * The player sits outside <main>, so page navigation never touches it:
+ * whatever is playing keeps playing (and the picture-in-picture window stays
+ * put) while the content underneath changes.
+ *
+ * No YouTube code is loaded until someone presses play.
+ */
+import { albumHref, latestAlbum } from '../data';
+import { coverThumb } from '../lib/images';
+import Icon from './Icon.astro';
+
+const cover = await coverThumb(latestAlbum);
+const queue = latestAlbum.tracks.map((t) => ({
+  id: t.youtubeId,
+  title: t.title,
+  album: latestAlbum.title,
+  href: albumHref(latestAlbum),
+  cover,
+}));
+const first = queue[0];
+---
+
+<section class="player" id="player" aria-label="Music player" data-status="idle" data-view="mini">
+  <input class="player__seek" id="player-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek" disabled />
+  <div class="player__in">
+    <div class="player__now">
+      <div class="player__slot">
+        <img class="player__cover" id="player-cover" src={first.cover} alt="" width="192" height="192" decoding="async" />
+        <div class="player__screen" id="player-screen">
+          <div class="player__frame"><div id="player-frame"></div></div>
+          <button type="button" class="player__screen-hit" data-player="expand" aria-label="Open video picture-in-picture">
+            <Icon name="expand" />
+          </button>
+          <div class="player__screen-bar">
+            <button type="button" class="pbtn" data-player="theatre" aria-label="Toggle large video">
+              <Icon name="theatre" />
+            </button>
+            <button type="button" class="pbtn" data-player="mini" aria-label="Minimise video">
+              <Icon name="close" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="player__meta" aria-live="polite">
+        <span class="player__title" id="player-title">{first.title}</span>
+        <span class="player__album"><a id="player-album" href={first.href}>{first.album}</a></span>
+      </p>
+    </div>
+
+    <div class="player__controls">
+      <button type="button" class="pbtn player__prev" data-player="prev" aria-label="Previous track">
+        <Icon name="prev" />
+      </button>
+      <button type="button" class="pbtn pbtn--play" data-player="toggle" id="player-toggle" aria-label="Play">
+        <Icon name="play" class="i-play" />
+        <Icon name="pause" class="i-pause" />
+        <Icon name="spin" class="i-spin" />
+      </button>
+      <button type="button" class="pbtn" data-player="next" aria-label="Next track">
+        <Icon name="next" />
+      </button>
+    </div>
+
+    <div class="player__side">
+      <span class="player__hint" id="player-hint" role="status"></span>
+      <span class="player__time" id="player-time" aria-hidden="true"></span>
+      <button type="button" class="pbtn pbtn--view" data-player="view" aria-label="Show or hide video">
+        <Icon name="expand" class="i-expand" />
+        <Icon name="shrink" class="i-shrink" />
+      </button>
+    </div>
+  </div>
+  <script type="application/json" id="player-default" set:html={JSON.stringify(queue).replace(/</g, '\\u003c')} />
+</section>

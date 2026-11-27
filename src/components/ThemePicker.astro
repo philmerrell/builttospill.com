@@ -1,0 +1,146 @@
+---
+/**
+ * The theme picker: flips the whole site between the looks in styles/themes so
+ * they can be compared on real pages.
+ *
+ * Visitors do not get this. Base.astro loads it only on the dev server, or in a
+ * build made with PUBLIC_THEME_PICKER=true. A normal production build contains
+ * neither the picker nor the other looks' stylesheets and fonts; it ships the
+ * one look named in src/data/site.ts.
+ *
+ * Choose with the bar, keys 1-4 (and [ ] for Cut paper's backgrounds), or a link
+ * such as /music/?look=storm or /?look=cutpaper&bg=collage. The choice is kept
+ * in this browser only.
+ */
+import '@fontsource/londrina-solid/latin-900.css';
+import '@fontsource-variable/hanken-grotesk/wght.css';
+import '@fontsource-variable/fraunces/full-italic.css';
+import '@fontsource/special-elite/latin-400.css';
+import '@fontsource/courier-prime/latin-400.css';
+import '@fontsource/courier-prime/latin-700.css';
+import '@fontsource/courier-prime/latin-400-italic.css';
+import { theme } from '../data/site';
+import '../styles/themes/storm.css';
+import '../styles/themes/photocopy.css';
+import '../styles/themes/cutpaper-backgrounds.css';
+import '../styles/themes/picker.css';
+
+const looks = [
+  { id: 'sleeve', name: 'Sleeve', swatch: '#f6face' },
+  { id: 'storm', name: 'Storm', swatch: '#191824' },
+  { id: 'photocopy', name: 'Photocopy', swatch: '#f1f0ea' },
+  { id: 'cutpaper', name: 'Cut paper', swatch: '#a6d6d8' },
+];
+
+/** What sits behind the labels in the Cut paper look. */
+const backgrounds = [
+  { id: 'shelf', name: 'Record shelf', title: "Doug's painting of the record shelf, in one colour" },
+  { id: 'clouds', name: 'Clouds', title: 'The watercolour clouds' },
+  { id: 'collage', name: 'Collage', title: 'Flat cut shapes: a sun, an orange sheet, a black strip' },
+  { id: 'guitars', name: 'Guitars', title: "Doug's brush drawing of the guitars" },
+  { id: 'gear', name: 'Gear', title: "Doug's line drawing of the amps and mixer" },
+  { id: 'halftone', name: 'Halftone', title: 'A printed dot sky with a sun' },
+];
+---
+
+
+<div class="looks" id="looks" role="group" aria-label="Theme (preview only)" data-default-look={theme.look} data-default-bg={theme.background}>
+  <div class="looks__row">
+    <span class="looks__label">Look</span>
+    {
+      looks.map((l, i) => (
+        <button type="button" data-look-id={l.id} aria-pressed="false" title={`${l.name} (press ${i + 1})`}>
+          <i style={`--swatch:${l.swatch}`} />
+          <span class="looks__name">{l.name}</span>
+        </button>
+      ))
+    }
+  </div>
+  <div class="looks__row" id="looks-bg" hidden>
+    <span class="looks__label">Behind</span>
+    {
+      backgrounds.map((b) => (
+        <button type="button" data-bg-id={b.id} aria-pressed="false" title={b.title}>
+          <span>{b.name}</span>
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const LOOK = 'bts:look';
+  const BG = 'bts:bg';
+  const looks = ['sleeve', 'storm', 'photocopy', 'cutpaper'];
+  const backgrounds = ['shelf', 'clouds', 'collage', 'guitars', 'gear', 'halftone'];
+  const root = document.documentElement;
+  const bar = document.getElementById('looks')!;
+  // What the site is built with; the picker only overrides it in this browser.
+  const DEFAULT_LOOK = bar.dataset.defaultLook ?? 'sleeve';
+  const DEFAULT_BG = bar.dataset.defaultBg ?? 'clouds';
+
+  const read = (key: string, fallback: string) => {
+    try {
+      return localStorage.getItem(key) ?? fallback;
+    } catch {
+      return fallback;
+    }
+  };
+  const write = (key: string, value: string) => {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      /* ignore */
+    }
+  };
+  const press = (attr: string, id: string) =>
+    document.querySelectorAll<HTMLElement>(`#looks [${attr}]`).forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.getAttribute(attr) === id));
+    });
+
+  function apply(look = read(LOOK, DEFAULT_LOOK), bg = read(BG, DEFAULT_BG)) {
+    if (!looks.includes(look)) look = DEFAULT_LOOK;
+    if (!backgrounds.includes(bg)) bg = DEFAULT_BG;
+    // "sleeve" is the base stylesheet (no attribute); "clouds" is Cut paper with no background set.
+    if (look === 'sleeve') root.removeAttribute('data-look');
+    else root.setAttribute('data-look', look);
+    if (look === 'cutpaper' && bg !== 'clouds') root.setAttribute('data-bg', bg);
+    else root.removeAttribute('data-bg');
+    press('data-look-id', look);
+    press('data-bg-id', bg);
+    document.getElementById('looks-bg')!.hidden = look !== 'cutpaper';
+  }
+
+  bar.addEventListener('click', (ev) => {
+    const btn = (ev.target as Element).closest<HTMLElement>('[data-look-id], [data-bg-id]');
+    if (!btn) return;
+    if (btn.dataset.lookId) write(LOOK, btn.dataset.lookId);
+    if (btn.dataset.bgId) write(BG, btn.dataset.bgId);
+    apply();
+  });
+
+  document.addEventListener('keydown', (ev) => {
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    if ((ev.target as Element).closest?.('input, textarea, select, [contenteditable]')) return;
+    const n = Number(ev.key);
+    if (n >= 1 && n <= looks.length) {
+      write(LOOK, looks[n - 1]);
+      apply();
+    }
+    // [ and ] step through the backgrounds
+    if ((ev.key === '[' || ev.key === ']') && read(LOOK, DEFAULT_LOOK) === 'cutpaper') {
+      const i = backgrounds.indexOf(read(BG, DEFAULT_BG));
+      write(BG, backgrounds[(i + (ev.key === ']' ? 1 : -1) + backgrounds.length) % backgrounds.length]);
+      apply();
+    }
+  });
+
+  // ?look=cutpaper&bg=collage picks from a link.
+  const params = new URLSearchParams(location.search);
+  if (params.get('look')) write(LOOK, params.get('look')!);
+  if (params.get('bg')) write(BG, params.get('bg')!);
+  apply();
+
+  // Navigation replaces <html>'s attributes with the new page's; put the choice back.
+  document.addEventListener('astro:after-swap', () => apply());
+</script>

@@ -1,0 +1,51 @@
+---
+import { albumHref, lyricsHref, type Album } from '../data';
+import { coverThumb } from '../lib/images';
+import Eq from './Eq.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  album: Album;
+  /** Link each song that has a handwritten sheet to its lyrics page. */
+  lyrics?: boolean;
+  id?: string;
+}
+const { album, lyrics = true, id = `tracks-${album.id}` } = Astro.props;
+const cover = await coverThumb(album);
+---
+
+<ol class="tracks" id={id} data-playlist aria-label={`${album.title} tracklist`}>
+  {
+    album.tracks.map((t) => (
+      <li class="track" id={t.slug}>
+        <button
+          type="button"
+          class="track__play"
+          data-play
+          data-yt={t.youtubeId}
+          data-title={t.title}
+          data-album={album.title}
+          data-href={albumHref(album)}
+          data-cover={cover}
+        >
+          <span class="track__num">
+            <span class="track__icon">
+              <Icon name="play" />
+            </span>
+            <Eq />
+          </span>
+          <span class="track__title">
+            <span class="visually-hidden">Play </span>
+            {t.title}
+          </span>
+          <span class="track__time">{t.duration}</span>
+        </button>
+        {lyrics && t.lyricsSheet && (
+          <a class="track__lyrics" href={lyricsHref(album, t)} aria-label={`Handwritten lyrics for ${t.title}`}>
+            lyrics
+          </a>
+        )}
+      </li>
+    ))
+  }
+</ol>
