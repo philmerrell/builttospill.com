@@ -9,6 +9,10 @@ export interface DeployRoleStackProps extends cdk.StackProps {
   bucketName: string;
   /** Name of the site stack, so the workflow can read its outputs. */
   siteStackName: string;
+  /** Name of the certificate stack (us-east-1), for the same reason. */
+  certificateStackName: string;
+  /** The bare domain, whose two alias records the workflow keeps pointed at CloudFront. */
+  bareDomain: string;
   /**
    * ARN of the account's GitHub OIDC provider if one already exists. An account
    * can only have one per issuer, so pass `-c githubOidcProviderArn=...` rather
@@ -28,7 +32,7 @@ export interface DeployRoleStackProps extends cdk.StackProps {
 export class DeployRoleStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: DeployRoleStackProps) {
     super(scope, id, props);
-    const { repo, bucketName, siteStackName, existingProviderArn } = props;
+    const { repo, bucketName, siteStackName, certificateStackName, bareDomain, existingProviderArn } = props;
 
     const providerArn =
       existingProviderArn ??
@@ -72,7 +76,32 @@ export class DeployRoleStack extends cdk.Stack {
       new iam.PolicyStatement({
         sid: 'ReadSiteStackOutputs',
         actions: ['cloudformation:DescribeStacks'],
-        resources: [`arn:aws:cloudformation:${this.region}:${this.account}:stack/${siteStackName}/*`],
+        resources: [
+          `arn:aws:cloudformation:${this.region}:${this.account}:stack/${siteStackName}/*`,
+          `arn:aws:cloudformation:us-east-1:${this.account}:stack/${certificateStackName}/*`,
+        ],
+      }),
+    );
+    role.addToPolicy(
+      new iam.PolicyStatement({
+        sid: 'ReadDistributionAndZones',
+        actions: ['cloudfront:GetDistribution', 'route53:ListHostedZonesByName'],
+        resources: ['*'],
+      }),
+    );
+    // scripts/point-bare-domain.sh: may only touch the bare domain's A and AAAA records.
+    role.addToPolicy(
+      new iam.PolicyStatement({
+        sid: 'PointBareDomainAtCdn',
+        actions: ['route53:ChangeResourceRecordSets'],
+        resources: ['arn:aws:route53:::hostedzone/*'],
+        conditions: {
+          'ForAllValues:StringEquals': {
+            'route53:ChangeResourceRecordSetsNormalizedRecordNames': [bareDomain],
+            'route53:ChangeResourceRecordSetsRecordTypes': ['A', 'AAAA'],
+            'route53:ChangeResourceRecordSetsActions': ['UPSERT'],
+          },
+        },
       }),
     );
     role.addToPolicy(
