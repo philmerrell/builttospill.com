@@ -16,14 +16,13 @@ export interface InfrastructureStackProps extends cdk.StackProps {
   /** ACM certificate for `domain`, in us-east-1. */
   certificateArn: string;
   /**
-   * Turn on S3 Block Public Access for the content bucket.
+   * Turn on S3 Block Public Access for the content bucket. On in cdk.json.
    *
-   * Leave false for the deploy that migrates the old public bucket: CloudFormation
-   * updates the bucket before the distribution, so blocking public access in that
-   * same deploy would cut CloudFront off for the few minutes the distribution takes
-   * to switch to signed (OAC) requests. Once that deploy has finished the bucket
-   * policy no longer allows public reads at all, and this can be set to true as
-   * belt and braces.
+   * It was left off for the one deploy that migrated the old public bucket:
+   * CloudFormation updates the bucket before the distribution, so blocking public
+   * access in that same deploy would have cut CloudFront off for the few minutes
+   * the distribution took to switch to signed (OAC) requests. If this stack is
+   * ever used to migrate another public bucket, do it in the same two steps.
    */
   lockBucket?: boolean;
 }
