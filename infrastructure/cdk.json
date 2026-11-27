@@ -5,7 +5,7 @@
     "exclude": ["README.md", "cdk*.json", "tsconfig.json", "package*.json", "node_modules", "test"]
   },
   "context": {
-    "lockBucket": false,
+    "lockBucket": true,
     "githubRepo": "philmerrell/builttospill.com",
     "@aws-cdk/core:target-partitions": ["aws"]
   }

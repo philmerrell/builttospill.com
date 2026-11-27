@@ -138,14 +138,14 @@ and are designed to be safe on the live distribution:
 - Between the distribution update and the upload finishing (about a minute) deep
   links may briefly 404. The home page keeps working throughout.
 
-Afterwards, two optional tidy-ups:
+Afterwards:
 
-1. **Block public access on the bucket.** Set `"lockBucket": true` in
-   `infrastructure/cdk.json` and push. The bucket is already private by policy at
-   this point; this adds the account-level guard on top. (It is off for the first
-   deploy only because turning it on in the same change would briefly cut
-   CloudFront off.)
-2. **Stop storing AWS keys in GitHub.** With admin credentials, once:
+1. **Block public access on the bucket.** Done: `"lockBucket": true` in
+   `infrastructure/cdk.json`. The bucket was already private by policy once the
+   first deploy finished; this adds S3's own guard on top. It had to wait for a
+   second deploy because turning it on in the same change as the move to Origin
+   Access Control would briefly have cut CloudFront off.
+2. **Stop storing AWS keys in GitHub** (still to do). With admin credentials, once:
 
    ```bash
    cd infrastructure && npm ci
