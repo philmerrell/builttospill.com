@@ -1,0 +1,81 @@
+/* ==========================================================================
+   PHOTOCOPY
+   A flyer run off at the copy shop: typewriter, speckled white paper, Doug's
+   gear drawing ghosted behind everything, one red stamp colour.
+   ========================================================================== */
+
+html[data-look='photocopy'] {
+  --paper: #f1f0ea !important;
+  --paper-2: #e3e2da !important;
+  --ink: #131313 !important;
+  --slate: #131313 !important;
+  --accent: #d5281f;
+  --accent-ink: #fffaf0;
+  --accent-text: #b81d15;
+  --pink: #d5281f;
+  --flame: #f0c12c;
+  --font-display: 'Special Elite', 'Courier New', monospace;
+  --font-body: 'Courier Prime', 'Courier New', monospace;
+  --font-serif: 'Courier Prime', 'Courier New', monospace;
+  --display-weight: 400;
+  --display-case: uppercase;
+  --display-tracking: -0.035em;
+  --display-leading: 0.98;
+  background: #f1f0ea;
+}
+html[data-look='photocopy'] body {
+  background: transparent;
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+}
+html[data-look='photocopy'] body::before {
+  opacity: 0.2;
+}
+html[data-look='photocopy'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('../../assets/art/gear-lines.jpg') center / cover;
+  filter: invert(1) contrast(1.6);
+  opacity: 0.11;
+}
+html[data-look='photocopy'] .hero__mark {
+  font-size: clamp(3.4rem, min(18vw, 24svh), 19rem);
+  padding-top: 0.1em;
+}
+html[data-look='photocopy'] .hero__mark em {
+  font-style: italic;
+  font-size: 0.3em;
+  line-height: 1;
+  margin-block: 0.1em 0.3em;
+}
+html[data-look='photocopy'] :is(.section__title, .page-head__title, .album-hero__title, .sheet-head__title) {
+  padding-top: 0.12em; /* Special Elite sits high on its line */
+}
+html[data-look='photocopy'] :is(.serif, .kicker, .show__venue, .video__from, .record__year, .player__album, .lyric-list a, .album-nav__dir, .product__price) {
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+html[data-look='photocopy'] :is(.btn, .label, .more, .crumb, .site-nav a) {
+  letter-spacing: 0.06em;
+}
+html[data-look='photocopy'] .hero__cloud {
+  filter: grayscale(1) contrast(1.5);
+  opacity: 0.55;
+}
+/* everything has been through the copier; colour comes back when you reach for it */
+html[data-look='photocopy'] :is(.record__sleeve, .video__frame, .lyric-album__sleeve, .product__img) img {
+  filter: grayscale(1) contrast(1.25);
+  transition: filter 0.35s ease, scale 0.6s var(--ease);
+}
+html[data-look='photocopy'] :is(.record, .video, .lyric-album, .product):is(:hover, :focus-visible, .is-current) img {
+  filter: none;
+}
+html[data-look='photocopy'] .album-hero {
+  background: var(--ink);
+  color: var(--paper);
+}
+html[data-look='photocopy'] .section--tint {
+  background: rgb(227 226 218 / 0.86);
+}

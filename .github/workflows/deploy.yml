@@ -1,0 +1,138 @@
+# Build the site and publish it to S3 + CloudFront.
+#
+# Runs on every push to main, on a schedule (so tour dates and merch pulled in at
+# build time never go stale), and by hand from the Actions tab.
+#
+# AWS access, in order of preference:
+#   1. Repository variable AWS_DEPLOY_ROLE_ARN -> short-lived OIDC credentials
+#      (create the role once with `npx cdk deploy BuiltToSpillDeployRole`).
+#   2. Otherwise the AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY secrets.
+# The SSL_CERT_ARN and AWS_ACCOUNT_ID secrets are only used when infrastructure changes.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      infrastructure:
+        description: Also deploy the AWS infrastructure (CDK)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write # OIDC
+  actions: write # lets the scheduled run keep its own schedule enabled
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: us-west-2
+  SITE_BUCKET: www.builttospill.com
+  STACK_NAME: InfrastructureStack
+
+jobs:
+  deploy:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            infrastructure/package-lock.json
+
+      # Optimised images are expensive to make and never change; reuse them.
+      - uses: actions/cache@v6
+        with:
+          path: node_modules/.astro
+          key: astro-assets-${{ hashFiles('src/assets/**') }}
+          restore-keys: astro-assets-
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify the build
+        run: npm run verify
+
+      - name: Did the infrastructure change?
+        id: infra
+        env:
+          BEFORE: ${{ github.event.before }}
+          MANUAL: ${{ inputs.infrastructure }}
+        run: |
+          changed=false
+          case "$GITHUB_EVENT_NAME" in
+            workflow_dispatch) changed="$MANUAL" ;;
+            push)
+              # Unknown starting point (first push, force push): deploy to be safe.
+              if ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then changed=true
+              elif ! git diff --quiet "$BEFORE" "$GITHUB_SHA" -- infrastructure; then changed=true
+              fi ;;
+          esac
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          echo "Infrastructure deploy: $changed"
+
+      - name: AWS credentials (OIDC role)
+        if: vars.AWS_DEPLOY_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          role-session-name: builttospill-deploy-${{ github.run_id }}
+
+      - name: AWS credentials (access key)
+        if: vars.AWS_DEPLOY_ROLE_ARN == ''
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # The site is already built, so the gap between CloudFront starting to serve
+      # the new URL scheme and the new files landing is only as long as the upload.
+      - name: Deploy infrastructure
+        if: steps.infra.outputs.changed == 'true'
+        working-directory: infrastructure
+        env:
+          SSL_CERT_ARN: ${{ secrets.SSL_CERT_ARN }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          USING_ROLE: ${{ vars.AWS_DEPLOY_ROLE_ARN != '' }}
+        run: |
+          npm ci
+          npm test
+          # The scoped OIDC role cannot (and should not) bootstrap an account.
+          if [ "$USING_ROLE" != "true" ] && [ -n "$AWS_ACCOUNT_ID" ]; then
+            npx cdk bootstrap "aws://$AWS_ACCOUNT_ID/$AWS_REGION"
+          fi
+          npx cdk deploy "$STACK_NAME" --require-approval never
+
+      - name: Publish
+        run: |
+          DISTRIBUTION_ID=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" \
+            --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text)
+          export DISTRIBUTION_ID
+          scripts/deploy.sh
+
+      # GitHub switches off schedules in repositories with no commits for 60 days.
+      # Re-enabling the workflow resets that clock.
+      - name: Keep the schedule alive
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/enable"

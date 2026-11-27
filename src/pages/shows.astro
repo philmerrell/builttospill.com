@@ -1,0 +1,35 @@
+---
+import ShowList from '../components/ShowList.astro';
+import { site } from '../data/site';
+import Base from '../layouts/Base.astro';
+import { getShows } from '../lib/remote';
+import { bandNode, breadcrumbNode, graph, pageNode, showNode } from '../lib/schema';
+
+const shows = await getShows();
+const description = shows.length
+  ? `Built to Spill tour dates: ${shows.length} upcoming ${shows.length === 1 ? 'show' : 'shows'}, with venues and ticket links.`
+  : 'Built to Spill tour dates. No shows are currently scheduled; check back soon.';
+
+const jsonLd = graph(
+  bandNode(),
+  pageNode({ path: '/shows/', title: `${site.name} tour dates`, description, type: 'CollectionPage' }),
+  breadcrumbNode([
+    { name: 'Home', path: '/' },
+    { name: 'Shows', path: '/shows/' },
+  ]),
+  shows.map(showNode),
+);
+---
+
+<Base title="Shows" description={description} jsonLd={jsonLd} markdown="/shows.md">
+  <div class="wrap">
+    <header class="page-head">
+      <span class="kicker">on the road</span>
+      <h1 class="display page-head__title">Shows</h1>
+    </header>
+    <div class="page-body">
+      <ShowList shows={shows} />
+      <p class="shows-note">Dates and ticket links come straight from Bandsintown and update on their own.</p>
+    </div>
+  </div>
+</Base>

@@ -1,14 +1,22 @@
-# Welcome to your CDK TypeScript project!
+# Infrastructure
 
-This is a blank project for TypeScript development with CDK.
+AWS CDK app for www.builttospill.com. See the Deployment section of the
+[main README](../README.md) for how it is deployed and what the first deploy does.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+| Stack | What it is |
+| --- | --- |
+| `InfrastructureStack` | The site: private S3 bucket, CloudFront distribution (Origin Access Control, URL-rewrite function, security headers, HTTP/3), Route 53 records. Deployed by the workflow when this folder changes. |
+| `BuiltToSpillDeployRole` | Optional. An IAM role GitHub Actions assumes over OIDC, so the repository needs no stored AWS keys. Deployed by hand, once. |
 
-## Useful commands
+```bash
+npm ci
+npm test         # synthesises the stacks and tests the CloudFront function; no AWS access needed
+npm run diff     # compare with what is deployed (needs AWS credentials and SSL_CERT_ARN)
+```
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+`functions/viewer-request.js` is the CloudFront Function that turns `/music/` into
+`/music/index.html` and redirects `/music` to `/music/`.
+
+The logical ids pinned in `lib/infrastructure-stack.ts` belong to resources that
+are live. Do not rename them: CloudFormation would try to replace the
+distribution and the bucket.

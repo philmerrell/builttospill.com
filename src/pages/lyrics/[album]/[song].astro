@@ -1,0 +1,123 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Icon from '../../../components/Icon.astro';
+import { albumHref, albums, albumYear, lyricsHref, lyricsImage, type Album, type Track } from '../../../data';
+import { site } from '../../../data/site';
+import Base from '../../../layouts/Base.astro';
+import { coverThumb } from '../../../lib/images';
+import { albumNodeId, bandNode, breadcrumbNode, graph, pageNode, abs } from '../../../lib/schema';
+import { albumTheme, isDarkSheet, themeStyle } from '../../../lib/theme';
+
+export function getStaticPaths() {
+  return albums.flatMap((album) => {
+    const sheets = album.tracks.filter((t) => t.lyricsSheet);
+    return sheets.map((track, i) => ({
+      params: { album: album.id, song: track.slug },
+      props: { album, track, prev: sheets[i - 1], next: sheets[i + 1] },
+    }));
+  });
+}
+
+interface Props {
+  album: Album;
+  track: Track;
+  prev?: Track;
+  next?: Track;
+}
+const { album, track, prev, next } = Astro.props;
+
+const sheet = lyricsImage(track)!;
+const dark = await isDarkSheet(track.lyricsSheet!);
+const theme = await albumTheme(album);
+const cover = await coverThumb(album);
+const og = await getImage({ src: sheet, width: 1200, height: 630, fit: 'cover', position: 'top', format: 'jpg', quality: 80 });
+
+const path = lyricsHref(album, track);
+const description = `“${track.title}” by ${site.name}, from ${album.title} (${albumYear(album)}): the lyrics in Doug Martsch’s own handwriting.`;
+const alt = `Handwritten lyric sheet for “${track.title}” by ${site.name}`;
+
+const jsonLd = graph(
+  bandNode(),
+  pageNode({ path, title: `${track.title} lyrics`, description }),
+  breadcrumbNode([
+    { name: 'Home', path: '/' },
+    { name: 'Lyrics', path: '/lyrics/' },
+    { name: album.title, path: albumHref(album) },
+    { name: track.title, path },
+  ]),
+  {
+    '@type': 'MusicComposition',
+    '@id': `${abs(path)}#song`,
+    name: track.title,
+    composer: { '@id': `${site.url}/#band` },
+    recordedAs: { '@id': `${abs(albumHref(album))}#${track.slug}` },
+    includedInAlbum: { '@id': albumNodeId(album) },
+    image: abs(og.src),
+    url: abs(path),
+  },
+);
+---
+
+<Base
+  title={`${track.title} lyrics · ${album.title}`}
+  description={description}
+  image={og.src}
+  imageAlt={alt}
+  ogType="article"
+  theme={themeStyle(theme)}
+  themeColor={theme.paper}
+  jsonLd={jsonLd}
+>
+  <article class="wrap">
+    <header class="sheet-head" data-playlist>
+      <a class="crumb" href="/lyrics/"><Icon name="back" /> All lyrics</a>
+      <p class="serif sheet-head__album">
+        from <a href={albumHref(album)}>{album.title}</a>, {albumYear(album)}
+      </p>
+      <h1 class="display sheet-head__title">{track.title}</h1>
+      <div class="sheet-head__actions">
+        <button
+          type="button"
+          class="btn btn--accent"
+          data-play
+          data-yt={track.youtubeId}
+          data-title={track.title}
+          data-album={album.title}
+          data-href={albumHref(album)}
+          data-cover={cover}
+        >
+          <Icon name="play" /> Play this song
+        </button>
+        {
+          prev && (
+            <a class="btn" href={lyricsHref(album, prev)} rel="prev" aria-label={`Previous: ${prev.title}`}>
+              <Icon name="back" /> Prev
+            </a>
+          )
+        }
+        {
+          next && (
+            <a class="btn" href={lyricsHref(album, next)} rel="next" aria-label={`Next: ${next.title}`}>
+              Next <Icon name="arrow" />
+            </a>
+          )
+        }
+      </div>
+    </header>
+    <figure class:list={['sheet', dark && 'sheet--dark']}>
+      <div class="sheet__page">
+      <Image
+        src={sheet}
+        alt={alt}
+        widths={[560, 860, 1200, 1536]}
+        sizes="(min-width: 50rem) 46rem, 92vw"
+        format="webp"
+        quality={dark ? 62 : 80}
+        loading="eager"
+        fetchpriority="high"
+      />
+      </div>
+      <figcaption>Handwritten by Doug Martsch.</figcaption>
+    </figure>
+  </article>
+</Base>

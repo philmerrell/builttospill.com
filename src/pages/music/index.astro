@@ -1,0 +1,38 @@
+---
+import RecordCard from '../../components/RecordCard.astro';
+import { albums, albumYear } from '../../data';
+import { site } from '../../data/site';
+import Base from '../../layouts/Base.astro';
+import { coverLarge } from '../../lib/images';
+import { albumNode, bandNode, breadcrumbNode, graph, pageNode } from '../../lib/schema';
+
+const first = albumYear(albums[albums.length - 1]);
+const last = albumYear(albums[0]);
+const description = `Every Built to Spill record, ${first} to ${last}: ${albums.length} releases with full tracklists you can play right here.`;
+
+const covers = await Promise.all(albums.map(coverLarge));
+
+const jsonLd = graph(
+  bandNode(),
+  pageNode({ path: '/music/', title: `${site.name} discography`, description, type: 'CollectionPage' }),
+  breadcrumbNode([
+    { name: 'Home', path: '/' },
+    { name: 'Music', path: '/music/' },
+  ]),
+  albums.map((a, i) => albumNode(a, covers[i])),
+);
+---
+
+<Base title="Music" description={description} jsonLd={jsonLd} markdown="/music.md">
+  <div class="wrap">
+    <header class="page-head">
+      <span class="kicker">{first} – {last}</span>
+      <h1 class="display page-head__title">Music</h1>
+    </header>
+    <div class="page-body">
+      <div class="crate">
+        {albums.map((a, i) => <RecordCard album={a} loading={i < 4 ? 'eager' : 'lazy'} />)}
+      </div>
+    </div>
+  </div>
+</Base>

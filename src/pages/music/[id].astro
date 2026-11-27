@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../../components/Icon.astro';
+import TrackList from '../../components/TrackList.astro';
+import { albumHref, albumRuntime, albums, albumYear, coverImage, LINK_LABELS, type Album } from '../../data';
+import { site } from '../../data/site';
+import Base from '../../layouts/Base.astro';
+import { coverLarge } from '../../lib/images';
+import { albumNode, bandNode, breadcrumbNode, graph, pageNode } from '../../lib/schema';
+import { albumTheme, themeStyle } from '../../lib/theme';
+
+export function getStaticPaths() {
+  return albums.map((album, i) => ({
+    params: { id: album.id },
+    // Records are stored newest first, so "newer" is the one before.
+    props: { album, newer: albums[i - 1], older: albums[i + 1] },
+  }));
+}
+
+interface Props {
+  album: Album;
+  newer?: Album;
+  older?: Album;
+}
+const { album, newer, older } = Astro.props;
+
+const theme = await albumTheme(album);
+const cover = coverImage(album);
+const og = await coverLarge(album);
+
+const released = new Date(`${album.releaseDate}T12:00:00Z`).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+const lyricCount = album.tracks.filter((t) => t.lyricsSheet).length;
+const buy = (['vinyl', 'cd', 'cassette'] as const).filter((k) => album.links[k]);
+const listen = (['spotify', 'appleMusic'] as const).filter((k) => album.links[k]);
+
+const description = `${album.title} (${albumYear(album)}) by ${site.name}: all ${album.tracks.length} tracks, ${albumRuntime(album)}. Listen here${lyricCount ? ' and read the handwritten lyrics' : ''}.`;
+const path = albumHref(album);
+
+const jsonLd = graph(
+  bandNode(),
+  pageNode({ path, title: `${album.title} by ${site.name}`, description, about: { '@id': `${site.url}${path}#album` } }),
+  breadcrumbNode([
+    { name: 'Home', path: '/' },
+    { name: 'Music', path: '/music/' },
+    { name: album.title, path },
+  ]),
+  albumNode(album, og, { withTracks: true }),
+);
+---
+
+<Base
+  title={`${album.title} (${albumYear(album)})`}
+  description={description}
+  image={og}
+  imageAlt={`${album.title} album cover`}
+  ogType="music.album"
+  theme={themeStyle(theme)}
+  themeColor={theme.accent}
+  jsonLd={jsonLd}
+  markdown={`/music/${album.id}.md`}
+>
+  <article>
+    <header class="album-hero">
+      <div class="wrap">
+        <a class="crumb" href="/music/"><Icon name="back" class="crumb__icon" /> All records</a>
+        <div class="album-hero__grid">
+          <div class="album-hero__cover" style={`view-transition-name: cover-${album.id}`}>
+            <Image
+              src={cover}
+              alt={`${album.title} album cover`}
+              width={864}
+              height={864}
+              fit="cover"
+              widths={[432, 648, 864]}
+              sizes="(min-width: 80rem) 27rem, (min-width: 52rem) 22rem, 78vw"
+              quality={78}
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+          <div>
+            <p class="serif album-hero__year"><time datetime={album.releaseDate}>{released}</time></p>
+            <h1 class="display album-hero__title">{album.title}</h1>
+            <p class="album-hero__facts label">
+              <span>{album.tracks.length} tracks</span>
+              <span>{albumRuntime(album)}</span>
+              {lyricCount > 0 && <span>{lyricCount} lyric {lyricCount === 1 ? 'sheet' : 'sheets'}</span>}
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap album-body">
+      <aside class="album-side">
+        <div class="album-side__actions">
+          <button type="button" class="btn btn--accent btn--big" data-play-first={`#tracks-${album.id}`}>
+            <Icon name="play" /> Play the record
+          </button>
+        </div>
+        {
+          buy.length > 0 && (
+            <div class="album-side__group">
+              <h2 class="label">Buy</h2>
+              <div class="album-side__actions">
+                {buy.map((k) => (
+                  <a class="btn" href={album.links[k]} target="_blank" rel="noopener">
+                    {LINK_LABELS[k]}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
+        {
+          listen.length > 0 && (
+            <div class="album-side__group">
+              <h2 class="label">Also on</h2>
+              <div class="album-side__actions">
+                {listen.map((k) => (
+                  <a class="btn" href={album.links[k]} target="_blank" rel="noopener">
+                    {LINK_LABELS[k]}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </aside>
+      <section aria-label="Tracklist">
+        <TrackList album={album} />
+      </section>
+    </div>
+
+    <nav class="album-nav" aria-label="More records">
+      {
+        older ? (
+          <a href={albumHref(older)} rel="prev">
+            <span class="album-nav__dir">← earlier · {albumYear(older)}</span>
+            <span class="album-nav__title">{older.title}</span>
+          </a>
+        ) : (
+          <a href="/music/">
+            <span class="album-nav__dir">← back to</span>
+            <span class="album-nav__title">All records</span>
+          </a>
+        )
+      }
+      {
+        newer ? (
+          <a href={albumHref(newer)} rel="next">
+            <span class="album-nav__dir">later · {albumYear(newer)} →</span>
+            <span class="album-nav__title">{newer.title}</span>
+          </a>
+        ) : (
+          <a href="/music/">
+            <span class="album-nav__dir">back to →</span>
+            <span class="album-nav__title">All records</span>
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</Base>

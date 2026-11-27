@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import gearLines from '../assets/art/gear-lines.jpg';
+import { nav, socials, stores } from '../data/site';
+import Wordmark from './Wordmark.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <Image
+    class="site-footer__art"
+    src={gearLines}
+    alt=""
+    width={1600}
+    height={670}
+    widths={[700, 1100, 1600]}
+    sizes="100vw"
+    quality={38}
+    loading="lazy"
+  />
+  <div class="wrap">
+    <Wordmark as="p" class="site-footer__mark" />
+    <div class="site-footer__cols">
+      <nav aria-label="Site">
+        <h2 class="label">Site</h2>
+        <ul>
+          <li><a href="/">Home</a></li>
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+      <nav aria-label="Merch">
+        <h2 class="label">Merch</h2>
+        <ul>
+          {
+            stores.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener">
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <nav aria-label="Social">
+        <h2 class="label">Social</h2>
+        <ul>
+          {
+            socials.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener me">
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+    <p class="site-footer__fine">
+      <span>© {year} Built to Spill · Boise, Idaho</span>
+      <span>
+        For machines: <a href="/llms.txt">llms.txt</a> · <a href="/data/discography.json">data</a> · <a href="/sitemap-index.xml">sitemap</a>
+      </span>
+    </p>
+  </div>
+</footer>

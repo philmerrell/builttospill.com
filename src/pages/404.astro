@@ -1,0 +1,15 @@
+---
+import Icon from '../components/Icon.astro';
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found" description="That page isn’t here." noindex>
+  <div class="wrap lost">
+    <p class="display lost__code">404</p>
+    <p class="serif lost__msg">The wind forgot this page’s name. The music is still playing, though.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.9rem">
+      <a class="btn btn--accent" href="/music/">Go to the records <Icon name="arrow" /></a>
+      <a class="btn" href="/">Home</a>
+    </div>
+  </div>
+</Base>

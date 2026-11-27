@@ -1,0 +1,94 @@
+/* The theme picker bar. Loaded only alongside components/ThemePicker.astro. */
+
+.looks {
+  position: fixed;
+  left: 42%;
+  top: 0.7rem;
+  translate: -50% 0;
+  z-index: 60;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.3rem;
+  background: #0f1016;
+  color: #f6face;
+  border: 2px solid #0f1016;
+  box-shadow: 4px 4px 0 rgb(15 16 22 / 0.35);
+  font: 600 0.72rem/1 ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: 0.02em;
+  view-transition-name: looks;
+}
+.looks__row {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+.looks__row[hidden] {
+  display: none;
+}
+.looks__row + .looks__row {
+  padding-top: 0.2rem;
+  border-top: 1px solid #2d2f3c;
+}
+.looks__label {
+  min-width: 3.4rem;
+  padding-inline: 0.5rem 0.35rem;
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.62rem;
+}
+.looks button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.6rem;
+  font: inherit;
+  color: inherit;
+  border-radius: 2px;
+}
+.looks button:hover {
+  background: #2d2f3c;
+}
+.looks button[aria-pressed='true'] {
+  background: #f6face;
+  color: #0f1016;
+}
+.looks i {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  border: 1.5px solid rgb(127 127 127 / 0.7);
+  background: var(--swatch);
+}
+@media (max-width: 64rem) {
+  /* no room in the header: sit just above the player instead */
+  .looks {
+    top: auto;
+    left: 0.6rem;
+    bottom: calc(var(--player-h) + 0.6rem);
+    translate: none;
+  }
+}
+@media (max-width: 40rem) {
+  .looks__name {
+    display: none;
+  }
+  .looks button {
+    padding: 0.5rem;
+  }
+}
+::view-transition-group(looks) {
+  animation: none;
+  z-index: 11;
+}
+::view-transition-old(looks) {
+  display: none;
+}
+::view-transition-new(looks) {
+  animation: none;
+}
+@media print {
+  .looks {
+    display: none;
+  }
+}

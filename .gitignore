@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+
+# CDK
+infrastructure/cdk.out/
+infrastructure/node_modules/
+
+# Claude Code worktrees
+.claude/worktrees/

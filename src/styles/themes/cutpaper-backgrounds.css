@@ -1,0 +1,148 @@
+/* ==========================================================================
+   CUT PAPER · other backgrounds
+   Alternatives to the record shelf, kept for the theme picker. The shared
+   plumbing for artwork backgrounds is in cutpaper.css.
+
+     collage   flat cut shapes pasted behind the labels: a sun, an orange sheet
+     guitars   Doug's brush drawing of the guitars, as ink on the blue
+     gear      his fine line drawing of the amps and mixer
+     halftone  nothing but a printed sky: a dot gradient and a sun
+     (clouds   no data-bg at all: the watercolour clouds from the base design)
+   ========================================================================== */
+
+html[data-look='cutpaper'][data-bg='guitars'] body::after {
+  background-image: url('../../assets/art/guitars-lines.jpg');
+  background-position: center 30%;
+  /* the drawing is black on mauve: push the mauve to white so only the ink prints */
+  filter: grayscale(1) brightness(1.75) contrast(3);
+  opacity: 0.4;
+}
+html[data-look='cutpaper'][data-bg='gear'] body::after {
+  background-image: url('../../assets/art/gear-lines.jpg');
+  filter: invert(1) contrast(1.8);
+  opacity: 0.42;
+}
+
+/* --- collage: four pieces of paper, no artwork at all --- */
+
+html[data-look='cutpaper'][data-bg='collage'] .hero::before,
+html[data-look='cutpaper'][data-bg='collage'] .hero::after,
+html[data-look='cutpaper'][data-bg='collage'] .hero > .wrap::before,
+html[data-look='cutpaper'][data-bg='collage'] .hero > .wrap::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+/* the sun */
+html[data-look='cutpaper'][data-bg='collage'] .hero::before {
+  left: -6vw;
+  top: 4%;
+  width: clamp(13rem, 34vw, 33rem);
+  aspect-ratio: 1;
+  border-radius: 48% 52% 50% 50% / 51% 49% 52% 48%;
+  background: #ffd23c;
+  box-shadow: 0.5rem 0.6rem 0 rgb(27 25 23 / 0.16);
+  animation: fade 1s ease both;
+}
+/* a sheet of orange, cut by hand */
+html[data-look='cutpaper'][data-bg='collage'] .hero::after {
+  right: 3vw;
+  top: 7%;
+  width: clamp(15rem, 47vw, 46rem);
+  height: 72%;
+  background: #e2562c;
+  rotate: 3.5deg;
+  clip-path: polygon(1.5% 2.5%, 46% 0.5%, 99% 2%, 97.5% 52%, 100% 97%, 58% 99.5%, 2% 97%, 0 46%);
+  animation: fade 1s ease 0.1s both;
+}
+/* a black strip run through with tape */
+html[data-look='cutpaper'][data-bg='collage'] .hero > .wrap::before {
+  left: -3vw;
+  bottom: 23%;
+  width: clamp(12rem, 43vw, 42rem);
+  height: clamp(1.3rem, 3.1vw, 2.9rem);
+  background: #1b1917;
+  rotate: -7deg;
+  clip-path: polygon(0 8%, 100% 0, 99% 92%, 0.5% 100%);
+}
+/* a scrap of halftone */
+html[data-look='cutpaper'][data-bg='collage'] .hero > .wrap::after {
+  left: 21vw;
+  top: 9%;
+  width: clamp(8rem, 19vw, 18rem);
+  aspect-ratio: 1.5;
+  background:
+    radial-gradient(circle at center, #1b1917 0 30%, transparent 33%) 0 0 / 0.7rem 0.7rem,
+    #fbf8ef;
+  rotate: 9deg;
+  box-shadow: 0.35rem 0.4rem 0 rgb(27 25 23 / 0.18);
+}
+/* the "to" label reads better in black once it sits on the orange sheet */
+html[data-look='cutpaper'][data-bg='collage'] .hero__mark > :nth-child(2) {
+  background: #1b1917;
+}
+
+/* on inner pages the collage is just the sun and a scrap, tucked behind the title */
+html[data-look='cutpaper'][data-bg='collage'] .page-head {
+  position: relative;
+  isolation: isolate;
+}
+html[data-look='cutpaper'][data-bg='collage'] .page-head::before,
+html[data-look='cutpaper'][data-bg='collage'] .page-head::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+html[data-look='cutpaper'][data-bg='collage'] .page-head::before {
+  right: 2vw;
+  top: -1.5rem;
+  width: clamp(9rem, 21vw, 20rem);
+  aspect-ratio: 1;
+  border-radius: 48% 52% 50% 50% / 51% 49% 52% 48%;
+  background: #ffd23c;
+  box-shadow: 0.4rem 0.5rem 0 rgb(27 25 23 / 0.16);
+}
+html[data-look='cutpaper'][data-bg='collage'] .page-head::after {
+  right: clamp(7rem, 17vw, 17rem);
+  bottom: 12%;
+  width: clamp(8rem, 24vw, 23rem);
+  height: clamp(3rem, 9vw, 8.5rem);
+  background: #e2562c;
+  rotate: -5deg;
+  clip-path: polygon(1% 6%, 99% 0, 97% 95%, 3% 100%);
+}
+
+/* --- halftone: a printed sky --- */
+
+html[data-look='cutpaper'][data-bg='halftone'] body {
+  position: relative;
+  background: transparent;
+}
+html[data-look='cutpaper'][data-bg='halftone'] body::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: min(100svh, 64rem);
+  z-index: -1;
+  pointer-events: none;
+  /* dots that swell toward the horizon, the way a cheap press prints a gradient */
+  background:
+    radial-gradient(circle at center, #fbf8ef 0 34%, transparent 37%) 0 0 / 1.5rem 1.5rem,
+    radial-gradient(circle at center, #fbf8ef 0 22%, transparent 25%) 0.75rem 0.75rem / 1.5rem 1.5rem;
+  -webkit-mask-image: linear-gradient(transparent 4%, #000 96%);
+  mask-image: linear-gradient(transparent 4%, #000 96%);
+  opacity: 0.75;
+}
+html[data-look='cutpaper'][data-bg='halftone'] .hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: 9vw;
+  top: 6%;
+  width: clamp(9rem, 22vw, 21rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffd23c;
+}

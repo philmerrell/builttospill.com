@@ -1,0 +1,52 @@
+---
+import VideoCard from '../components/VideoCard.astro';
+import { videos, type Video } from '../data';
+import { site } from '../data/site';
+import Base from '../layouts/Base.astro';
+import { bandNode, breadcrumbNode, graph, pageNode, videoNode } from '../lib/schema';
+
+const GROUPS: { type: Video['type']; title: string }[] = [
+  { type: 'Music Video', title: 'Music videos' },
+  { type: 'Live', title: 'Live' },
+  { type: 'Covers', title: 'Covers' },
+  { type: 'Other', title: 'Odds & ends' },
+];
+const groups = GROUPS.map((g) => ({ ...g, items: videos.filter((v) => v.type === g.type) })).filter((g) => g.items.length);
+
+const description = `Watch ${videos.length} Built to Spill videos: official music videos, full live sets and covers. They keep playing while you browse.`;
+const jsonLd = graph(
+  bandNode(),
+  pageNode({ path: '/videos/', title: `${site.name} videos`, description, type: 'CollectionPage' }),
+  breadcrumbNode([
+    { name: 'Home', path: '/' },
+    { name: 'Videos', path: '/videos/' },
+  ]),
+  videos.map(videoNode),
+);
+---
+
+<Base title="Videos" description={description} jsonLd={jsonLd} markdown="/videos.md">
+  <div class="wrap">
+    <header class="page-head">
+      <span class="kicker">now showing</span>
+      <h1 class="display page-head__title">Videos</h1>
+    </header>
+    <!-- one playlist: a video ends, the next one starts -->
+    <div class="page-body" data-playlist>
+      {
+        groups.map((g, gi) => (
+          <section class="video-group" aria-labelledby={`vg-${gi}`}>
+            <h2 class="display video-group__title" id={`vg-${gi}`}>
+              {g.title} <span class="serif video-group__count">{g.items.length}</span>
+            </h2>
+            <div class="videos">
+              {g.items.map((v, i) => (
+                <VideoCard video={v} loading={gi === 0 && i < 3 ? 'eager' : 'lazy'} />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Base>

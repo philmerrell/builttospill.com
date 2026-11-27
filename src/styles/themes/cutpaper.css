@@ -1,0 +1,136 @@
+/* ==========================================================================
+   CUT PAPER
+   The "Keep It Like a Secret" sleeve: flat sky blue, black letters cut out by
+   hand and pasted on white strips, one hot orange.
+   ========================================================================== */
+
+html[data-look='cutpaper'] {
+  --paper: #a6d6d8;
+  --paper-2: #8ec7cb;
+  --ink: #1b1917;
+  --slate: #1b1917;
+  --accent: #e2562c;
+  --accent-ink: #fff8ea;
+  --accent-text: #a8340f;
+  --pink: #e2562c;
+  --font-display: 'Barrio', 'Arial Black', sans-serif;
+  --font-body: 'Cabin Variable', 'Helvetica Neue', Arial, sans-serif;
+  --display-weight: 400;
+  --display-case: uppercase;
+  --display-tracking: 0.01em;
+  --display-leading: 0.9;
+  background: var(--paper);
+}
+html[data-look='cutpaper'] body::before {
+  opacity: 0.13;
+}
+/* the wordmark, as three pasted labels */
+html[data-look='cutpaper'] .hero__mark {
+  font-size: clamp(3.6rem, min(19vw, 25svh), 19rem);
+  gap: 0.07em;
+}
+html[data-look='cutpaper'] .hero__mark > * {
+  width: fit-content;
+  padding: 0.06em 0.16em 0;
+  background: #fbf8ef;
+  color: #1b1917;
+  box-shadow: 0.05em 0.06em 0 rgb(27 25 23 / 0.28);
+}
+html[data-look='cutpaper'] .hero__mark > :nth-child(1) {
+  rotate: -2.2deg;
+}
+html[data-look='cutpaper'] .hero__mark > :nth-child(2) {
+  rotate: 3deg;
+  padding: 0.12em 0.5em 0.2em;
+  margin-block: -0.06em;
+  font-size: 0.3em;
+  line-height: 1;
+  z-index: 1;
+  background: var(--accent);
+  color: #fff8ea;
+}
+html[data-look='cutpaper'] .hero__mark > :nth-child(3) {
+  rotate: 1.4deg;
+}
+html[data-look='cutpaper'] :is(.section__title, .page-head__title) {
+  width: fit-content;
+  padding: 0.07em 0.16em 0;
+  background: #fbf8ef;
+  box-shadow: 0.05em 0.06em 0 rgb(27 25 23 / 0.28);
+  rotate: -1.2deg;
+}
+html[data-look='cutpaper'] .section--night .section__title {
+  color: #1b1917;
+}
+html[data-look='cutpaper'] :is(.show__city, .video__title, .record__title) {
+  letter-spacing: 0.02em;
+}
+html[data-look='cutpaper'] .site-header__brand {
+  font-size: clamp(1.3rem, 1.1rem + 1vw, 1.95rem);
+}
+
+/* ---------- behind the labels: the record shelf ----------
+   Doug's painting of his record shelf, printed in one colour across the top of
+   the page. It sits behind the header and title block and is gone before any
+   list begins. `data-bg` on <html> picks what goes here; "shelf" is the default,
+   no attribute means the clouds, the rest are in cutpaper-backgrounds.css. */
+
+html[data-look='cutpaper'][data-bg]:not([data-bg='clouds']) .hero__cloud {
+  display: none;
+}
+
+html[data-look='cutpaper']:is([data-bg='shelf'], [data-bg='guitars'], [data-bg='gear']) body {
+  position: relative;
+  background: transparent;
+}
+html[data-look='cutpaper']:is([data-bg='shelf'], [data-bg='guitars'], [data-bg='gear']) body::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: min(118svh, 78rem);
+  z-index: -1;
+  pointer-events: none;
+  background-position: center;
+  background-size: cover;
+  mix-blend-mode: multiply;
+  /* clear behind the header, full strength behind the wordmark, gone by the content */
+  -webkit-mask-image: linear-gradient(transparent 1%, #000 17%, #000 54%, transparent);
+  mask-image: linear-gradient(transparent 1%, #000 17%, #000 54%, transparent);
+}
+/* The print is prepared once by scripts/make-art.mjs (greyscale, contrast baked
+   in), so the browser only has to multiply it onto the paper. */
+html[data-look='cutpaper'][data-bg='shelf'] body::after {
+  background-image: url('../../assets/art/record-shelf-print-1600.webp');
+  opacity: 0.5;
+}
+@media (max-width: 48rem) {
+  html[data-look='cutpaper'][data-bg='shelf'] body::after {
+    background-image: url('../../assets/art/record-shelf-print-900.webp');
+  }
+}
+/* small type gets its own slip of paper so it never has to fight the artwork */
+html[data-look='cutpaper']:is([data-bg='shelf'], [data-bg='guitars'], [data-bg='gear']) :is(.hero__where, .page-head .kicker, .page-head__lede) {
+  width: fit-content;
+  padding: 0.2em 0.55em 0.25em;
+  background: #fbf8ef;
+  color: #1b1917;
+  box-shadow: 0.2rem 0.25rem 0 rgb(27 25 23 / 0.22);
+  rotate: -0.8deg;
+}
+html[data-look='cutpaper']:is([data-bg='shelf'], [data-bg='guitars'], [data-bg='gear']) .page-head .kicker {
+  margin-bottom: 0.5em;
+}
+/* Inner pages have a short title block, so the artwork stops before the lists
+   begin. Album and lyric-sheet pages carry their own artwork: none there. */
+html[data-look='cutpaper']:is([data-bg='shelf'], [data-bg='guitars'], [data-bg='gear'], [data-bg='halftone']) body:has(.page-head)::after {
+  height: min(60svh, 34rem);
+}
+@media (max-width: 48rem) {
+  /* titles are shorter on a phone, so the lists start sooner */
+  html[data-look='cutpaper']:is([data-bg='shelf'], [data-bg='guitars'], [data-bg='gear'], [data-bg='halftone']) body:has(.page-head)::after {
+    height: min(44svh, 22rem);
+  }
+}
+html[data-look='cutpaper'][data-bg] body:not(:has(.hero, .page-head))::after {
+  display: none;
+}

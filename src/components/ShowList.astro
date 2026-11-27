@@ -1,0 +1,13 @@
+---
+import { showsBlockHTML, showsSignature, type Show } from '../lib/shows-shared';
+
+interface Props {
+  shows: Show[];
+  /** Show only the first N. */
+  limit?: number;
+}
+const { shows, limit } = Astro.props;
+const visible = limit ? shows.slice(0, limit) : shows;
+---
+
+<div data-shows data-limit={limit} data-signature={showsSignature(visible)} set:html={showsBlockHTML(visible)} />
