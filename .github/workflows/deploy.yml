@@ -7,7 +7,7 @@
 #   1. Repository variable AWS_DEPLOY_ROLE_ARN -> short-lived OIDC credentials
 #      (create the role once with `npx cdk deploy BuiltToSpillDeployRole`).
 #   2. Otherwise the AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY secrets.
-# The SSL_CERT_ARN and AWS_ACCOUNT_ID secrets are only used when infrastructure changes.
+# The AWS_ACCOUNT_ID secret is only used when infrastructure changes (cdk bootstrap).
 name: Deploy
 
 on:
@@ -34,7 +34,9 @@ concurrency:
 env:
   AWS_REGION: us-west-2
   SITE_BUCKET: www.builttospill.com
+  BARE_DOMAIN: builttospill.com
   STACK_NAME: InfrastructureStack
+  CERT_STACK_NAME: BuiltToSpillCertificate
 
 jobs:
   deploy:
@@ -109,17 +111,31 @@ jobs:
         if: steps.infra.outputs.changed == 'true'
         working-directory: infrastructure
         env:
-          SSL_CERT_ARN: ${{ secrets.SSL_CERT_ARN }}
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           USING_ROLE: ${{ vars.AWS_DEPLOY_ROLE_ARN != '' }}
         run: |
           npm ci
           npm test
           # The scoped OIDC role cannot (and should not) bootstrap an account.
+          # us-east-1 is needed as well: CloudFront certificates must live there.
           if [ "$USING_ROLE" != "true" ] && [ -n "$AWS_ACCOUNT_ID" ]; then
-            npx cdk bootstrap "aws://$AWS_ACCOUNT_ID/$AWS_REGION"
+            npx cdk bootstrap "aws://$AWS_ACCOUNT_ID/$AWS_REGION" "aws://$AWS_ACCOUNT_ID/us-east-1"
           fi
+
+          # 1. The certificate (www + bare domain). Waits here until ACM has issued it.
+          npx cdk deploy "$CERT_STACK_NAME" --require-approval never
+          SSL_CERT_ARN=$(aws cloudformation describe-stacks --region us-east-1 --stack-name "$CERT_STACK_NAME" \
+            --query "Stacks[0].Outputs[?OutputKey=='CertificateArn'].OutputValue" --output text)
+          case "$SSL_CERT_ARN" in
+            arn:aws:acm:us-east-1:*) export SSL_CERT_ARN ;;
+            *) echo "No certificate ARN from $CERT_STACK_NAME (got: $SSL_CERT_ARN)" >&2; exit 1 ;;
+          esac
+
+          # 2. Bucket, distribution, www records.
           npx cdk deploy "$STACK_NAME" --require-approval never
+
+          # 3. Only once the distribution answers for the bare domain: point its DNS there.
+          ../scripts/point-bare-domain.sh
 
       - name: Publish
         run: |

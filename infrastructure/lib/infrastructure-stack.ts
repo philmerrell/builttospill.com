@@ -13,7 +13,13 @@ export interface InfrastructureStackProps extends cdk.StackProps {
   domain: string;
   /** Route 53 hosted zone that owns `domain`. */
   zoneName: string;
-  /** ACM certificate for `domain`, in us-east-1. */
+  /**
+   * Other host names the distribution answers to, purely to redirect them to
+   * `domain` (the bare domain). The certificate must cover these too, and
+   * functions/viewer-request.js must list them.
+   */
+  redirectDomains?: string[];
+  /** ACM certificate covering `domain` and `redirectDomains`, in us-east-1. */
   certificateArn: string;
   /**
    * Turn on S3 Block Public Access for the content bucket. On in cdk.json.
@@ -48,7 +54,7 @@ export class InfrastructureStack extends cdk.Stack {
 
   constructor(scope: Construct, id: string, props: InfrastructureStackProps) {
     super(scope, id, props);
-    const { domain, zoneName, certificateArn, lockBucket = false } = props;
+    const { domain, zoneName, certificateArn, redirectDomains = [], lockBucket = false } = props;
 
     /* ---------- content bucket: private, only CloudFront may read ---------- */
 
@@ -90,7 +96,7 @@ export class InfrastructureStack extends cdk.Stack {
 
     this.distribution = new cloudfront.Distribution(this, 'SiteDistribution', {
       comment: domain,
-      domainNames: [domain],
+      domainNames: [domain, ...redirectDomains],
       certificate: acm.Certificate.fromCertificateArn(this, 'Certificate', certificateArn),
       minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
       sslSupportMethod: cloudfront.SSLMethod.SNI,
@@ -125,6 +131,12 @@ export class InfrastructureStack extends cdk.Stack {
     const aliasRecord = new route53.ARecord(this, 'SiteAliasRecord', { recordName: domain, target, zone });
     new route53.AaaaRecord(this, 'SiteAliasRecordV6', { recordName: domain, target, zone });
 
+    // The bare domain's records are deliberately not created here. They already
+    // exist (they used to point at an S3 redirect bucket) and CloudFormation can
+    // only take over an existing record by deleting it first, which leaves a
+    // window with no record at all and nothing to roll back to. The deploy
+    // workflow replaces them atomically instead: scripts/point-bare-domain.sh.
+
     /* ---------- keep the existing resources' identities ---------- */
 
     const pin = (construct: Construct | undefined, logicalId: string) => {
@@ -141,5 +153,7 @@ export class InfrastructureStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'Site', { value: `https://${domain}` });
     new cdk.CfnOutput(this, 'Bucket', { value: this.bucket.bucketName });
     new cdk.CfnOutput(this, 'DistributionId', { value: this.distribution.distributionId });
+    // DNS for the bare domain is pointed here by scripts/point-bare-domain.sh.
+    new cdk.CfnOutput(this, 'DistributionDomainName', { value: this.distribution.distributionDomainName });
   }
 }

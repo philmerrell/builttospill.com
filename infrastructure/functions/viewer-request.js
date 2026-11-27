@@ -2,10 +2,16 @@
 //
 // The site is plain files in a private S3 bucket, so CloudFront has to do what a
 // web server would:
-//   /music/            -> serve /music/index.html
-//   /music             -> 301 to /music/   (one canonical URL per page)
-//   /home, /home/      -> 301 to /         (the old app's home route)
-// Anything with a file extension passes straight through.
+//   /music/                       -> serve /music/index.html
+//   /music                        -> 301 to /music/   (one canonical URL per page)
+//   /home, /home/                 -> 301 to /         (the old app's home route)
+//   builttospill.com/anything     -> 301 to https://www.builttospill.com/anything
+// Anything with a file extension passes straight through. A request that needs
+// more than one of these fixes still gets a single redirect.
+
+var CANONICAL_HOST = 'www.builttospill.com';
+// Other names the distribution answers to. They only ever redirect.
+var REDIRECT_HOSTS = ['builttospill.com'];
 
 function query(qs) {
   var parts = [];
@@ -33,20 +39,26 @@ function redirect(location, request) {
 function handler(event) {
   var request = event.request;
   var uri = request.uri;
+  var host = request.headers && request.headers.host ? request.headers.host.value.toLowerCase() : '';
 
+  // Where this page really lives.
+  var path = uri;
   if (uri === '/home' || uri === '/home/') {
-    return redirect('/', request);
+    path = '/';
+  } else if (!uri.endsWith('/')) {
+    var leaf = uri.substring(uri.lastIndexOf('/') + 1);
+    if (leaf.indexOf('.') === -1) path = uri + '/';
+  }
+
+  if (REDIRECT_HOSTS.indexOf(host) !== -1) {
+    return redirect('https://' + CANONICAL_HOST + path, request);
+  }
+  if (path !== uri) {
+    return redirect(path, request);
   }
 
   if (uri.endsWith('/')) {
     request.uri = uri + 'index.html';
-    return request;
   }
-
-  var leaf = uri.substring(uri.lastIndexOf('/') + 1);
-  if (leaf.indexOf('.') === -1) {
-    return redirect(uri + '/', request);
-  }
-
   return request;
 }

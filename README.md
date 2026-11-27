@@ -98,7 +98,8 @@ transcribed anywhere on the site.
 Pushing to `main` deploys. `.github/workflows/deploy.yml`:
 
 1. builds and verifies the site;
-2. if anything under `infrastructure/` changed, runs `cdk deploy InfrastructureStack`;
+2. if anything under `infrastructure/` changed: deploys the certificate stack,
+   then `InfrastructureStack`, then points the bare domain's DNS at CloudFront;
 3. syncs `dist/` to the `www.builttospill.com` bucket (`scripts/deploy.sh`):
    fingerprinted `/_astro/*` files cached for a year, pages for a minute in the
    browser and a day at the edge;
@@ -115,12 +116,29 @@ infrastructure tests.
 | Name | Kind | Needed for |
 | --- | --- | --- |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | secret | AWS access (until the OIDC role below is set up) |
-| `SSL_CERT_ARN` | secret | infrastructure deploys: ACM certificate for the domain (us-east-1) |
 | `AWS_ACCOUNT_ID` | secret | infrastructure deploys with access keys: `cdk bootstrap` |
 | `AWS_DEPLOY_ROLE_ARN` | variable | optional: deploy with OIDC instead of access keys |
 
-These are the same secrets the previous workflow used, so nothing needs adding
-for the first deploy.
+These are the same secrets the previous workflow used. `SSL_CERT_ARN` is no
+longer read: the certificate is now created by the `BuiltToSpillCertificate`
+stack and its ARN passed along by the workflow. The secret, and the old
+www-only certificate it names, can be deleted.
+
+### The bare domain
+
+`builttospill.com` (no `www`) is an alias on the same CloudFront distribution and
+only ever redirects to `https://www.builttospill.com/…`, in one hop, keeping the
+path and query string (`infrastructure/functions/viewer-request.js`). The
+certificate covers both names.
+
+Its two DNS records (A and AAAA) are set by `scripts/point-bare-domain.sh`, which
+the workflow runs after each infrastructure deploy, rather than by
+CloudFormation. They existed before the stack did, pointing at an S3 redirect
+bucket that could not serve HTTPS, and CloudFormation can only adopt an existing
+record by deleting it first. The script replaces them in one atomic change and
+refuses to run unless the distribution already lists the bare domain.
+
+The old S3 bucket named `builttospill.com` is no longer used and can be deleted.
 
 ### The first deploy of this version
 

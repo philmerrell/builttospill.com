@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import { test } from 'node:test';
 import * as cdk from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
+import { CertificateStack } from '../lib/certificate-stack';
 import { DeployRoleStack } from '../lib/deploy-role-stack';
 import { InfrastructureStack, LOGICAL_IDS } from '../lib/infrastructure-stack';
 
@@ -14,6 +15,7 @@ function synth(lockBucket = false) {
   const stack = new InfrastructureStack(app, 'InfrastructureStack', {
     env,
     domain: 'www.builttospill.com',
+    redirectDomains: ['builttospill.com'],
     zoneName: 'builttospill.com',
     certificateArn: 'arn:aws:acm:us-east-1:111111111111:certificate/test',
     lockBucket,
@@ -67,7 +69,7 @@ test('block public access is opt-in, so the migration deploy has no gap', () => 
 test('the distribution serves a static multi-page site', () => {
   synth().hasResourceProperties('AWS::CloudFront::Distribution', {
     DistributionConfig: Match.objectLike({
-      Aliases: ['www.builttospill.com'],
+      Aliases: ['www.builttospill.com', 'builttospill.com'],
       DefaultRootObject: 'index.html',
       HttpVersion: 'http2and3',
       PriceClass: 'PriceClass_100',
@@ -86,6 +88,32 @@ test('the distribution serves a static multi-page site', () => {
   });
 });
 
+test('the stack does not try to create the bare domain records', () => {
+  // They already exist outside the stack; scripts/point-bare-domain.sh upserts them.
+  const records = Object.values(synth().toJSON().Resources as Record<string, { Type: string; Properties: { Name: string } }>)
+    .filter((r) => r.Type === 'AWS::Route53::RecordSet')
+    .map((r) => r.Properties.Name);
+  assert.deepEqual([...new Set(records)], ['www.builttospill.com.']);
+  synth().hasOutput('DistributionDomainName', {});
+});
+
+test('the certificate covers www and the bare domain, validated through DNS', () => {
+  const app = new cdk.App();
+  const stack = new CertificateStack(app, 'Cert', {
+    env: { account: env.account, region: 'us-east-1' },
+    domain: 'www.builttospill.com',
+    alternativeNames: ['builttospill.com'],
+    zoneName: 'builttospill.com',
+  });
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties('AWS::CertificateManager::Certificate', {
+    DomainName: 'www.builttospill.com',
+    SubjectAlternativeNames: ['builttospill.com'],
+    ValidationMethod: 'DNS',
+  });
+  template.hasOutput('CertificateArn', {});
+});
+
 test('the deploy role trusts only main on this repository', () => {
   const app = new cdk.App();
   const stack = new DeployRoleStack(app, 'Role', {
@@ -93,6 +121,8 @@ test('the deploy role trusts only main on this repository', () => {
     repo: 'philmerrell/builttospill.com',
     bucketName: 'www.builttospill.com',
     siteStackName: 'InfrastructureStack',
+    certificateStackName: 'BuiltToSpillCertificate',
+    bareDomain: 'builttospill.com',
   });
   const template = Template.fromStack(stack);
   template.hasResourceProperties('AWS::IAM::Role', {
@@ -115,7 +145,9 @@ test('the deploy role trusts only main on this repository', () => {
 const source = readFileSync(path.join(__dirname, '..', 'functions', 'viewer-request.js'), 'utf8');
 // CloudFront Functions are a bare script with a global `handler`; load it the same way.
 const handler = new Function(`${source}; return handler;`)() as (event: unknown) => any;
-const request = (uri: string, querystring: Record<string, unknown> = {}) => ({ request: { uri, querystring, headers: {} } });
+const request = (uri: string, querystring: Record<string, unknown> = {}, host = 'www.builttospill.com') => ({
+  request: { uri, querystring, headers: { host: { value: host } } },
+});
 
 test('viewer-request: directories resolve to their index.html', () => {
   assert.equal(handler(request('/')).uri, '/index.html');
@@ -144,4 +176,24 @@ test('viewer-request: the old app’s /home goes to /', () => {
     assert.equal(res.statusCode, 301);
     assert.equal(res.headers.location.value, '/');
   }
+});
+
+test('viewer-request: the bare domain redirects to www in one hop', () => {
+  const bare = (uri: string, qs: Record<string, unknown> = {}) => handler(request(uri, qs, 'builttospill.com'));
+
+  assert.equal(bare('/').statusCode, 301);
+  assert.equal(bare('/').headers.location.value, 'https://www.builttospill.com/');
+  assert.equal(bare('/music/').headers.location.value, 'https://www.builttospill.com/music/');
+  // a path that also needs its trailing slash, or is the old /home, still takes one redirect
+  assert.equal(bare('/music/keep-it-like-a-secret').headers.location.value, 'https://www.builttospill.com/music/keep-it-like-a-secret/');
+  assert.equal(bare('/home').headers.location.value, 'https://www.builttospill.com/');
+  assert.equal(bare('/llms.txt').headers.location.value, 'https://www.builttospill.com/llms.txt');
+  assert.equal(bare('/shows', { utm_source: { value: 'ig' } }).headers.location.value, 'https://www.builttospill.com/shows/?utm_source=ig');
+  assert.equal(handler(request('/', {}, 'BuiltToSpill.com')).statusCode, 301);
+});
+
+test('viewer-request: www and unknown hosts are served, not redirected', () => {
+  assert.equal(handler(request('/music/')).uri, '/music/index.html');
+  assert.equal(handler(request('/', {}, 'd111111abcdef8.cloudfront.net')).uri, '/index.html');
+  assert.equal(handler({ request: { uri: '/', querystring: {}, headers: {} } }).uri, '/index.html');
 });
